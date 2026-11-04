@@ -102,16 +102,45 @@ html[lang='ar'] #work .ch .title { line-height: 1.3; }
   #work .frame:hover .sheen { opacity: 1; }
   #work .screen { transition: transform .5s var(--ease); }
   #work .frame:hover .screen { transform: translateZ(20px); }
-  #work .alt { clip-path: inset(0 0 0 100%); transition: clip-path .75s var(--ease); z-index: 1; }
-  [dir='rtl'] #work .alt { clip-path: inset(0 100% 0 0); }
-  #work .frame:hover .alt { clip-path: inset(0); }
 }
 
-/* Side by side wherever the pinned stage does not run but there is room (reduced motion, short windows) */
-@media (min-width: 1024px) {
+/* Side by side when reduced motion shows every screen as a plain list */
+@media (min-width: 1024px) and (prefers-reduced-motion: reduce) {
   #work .ch { grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: clamp(2rem, 4vw, 4rem); align-items: center; }
   #work .ch-visual { grid-column: 2; grid-row: 1; }
   #work .ch-text { grid-column: 1; grid-row: 1; }
+}
+
+/* Every screen of a system, one over the other, as the reader scrolls */
+#work .ch-run { display: contents; }
+#work .ch-space, #work .ch-pill, #work .ch-bar { display: none; }
+#work .ch-foot { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1.6rem; }
+#work .ch-skip { position: relative; z-index: 2; display: inline-flex; align-items: center; gap: .45em; min-height: 44px; font-size: .86rem; color: var(--dim); transition: color .2s; }
+#work .ch-skip:hover { color: var(--text); }
+#work .rail-n { cursor: pointer; }
+#work .fx:has(.open:focus-visible) { border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold), 0 24px 60px rgba(0, 0, 0, .4); }
+#work .fx .open:focus-visible { outline: none; }
+@media (max-width: 1023.98px) { #work .fx .open:focus-visible { outline: 2px solid var(--gold); } }
+@media (prefers-reduced-motion: no-preference) {
+  /* A flex column with a spacer: a grid item sticks only inside its row, and nothing sticks into padding. */
+  #work .ch { --step: 34svh; display: flex; flex-direction: column; }
+  #work .ch-space { display: block; order: 2; height: calc((var(--count) - 1) * var(--step) + 30svh); }
+  #work .ch-text { order: -1; }
+  #work .ch-visual { position: sticky; top: 5rem; width: 100%; max-width: calc((100svh - 6.5rem) * 1.5); z-index: 1; }
+  /* On phones and tablets the description stays under the tray while its screens change. */
+  @media (max-width: 1023.98px) {
+    #work .ch-text { order: 1; position: sticky; top: calc(5.8rem + min(100vw - 2 * var(--pad), (100svh - 6.5rem) * 1.5) / 1.6 + 1.6rem); }
+  }
+  #work .ch .shot:not(:first-child) { clip-path: inset(100% 0 0 0); }
+  #work .ch-pill { display: block; position: absolute; z-index: 3; inset-block-start: clamp(.9rem, 1.8vw, 1.7rem); inset-inline-end: clamp(.9rem, 1.8vw, 1.7rem); padding: .15rem .6rem; font: 500 .74rem/1.5 'Montserrat', sans-serif; font-variant-numeric: tabular-nums; color: #fff; background: rgba(10, 10, 11, .78); border: 1px solid var(--line); border-radius: 99px; pointer-events: none; }
+  #work .ch-pill b { font-weight: 600; color: var(--gold); }
+  #work .ch-bar { display: block; position: absolute; z-index: 3; inset-inline: clamp(.5rem, 1.2vw, 1.1rem); inset-block-end: clamp(.14rem, .3vw, .28rem); height: 2px; background: rgba(255, 255, 255, .12); border-radius: 2px; overflow: hidden; pointer-events: none; }
+  #work .ch-bar i { display: block; height: 100%; background: var(--gold); transform: scaleX(0); transform-origin: 0 50%; }
+  [dir='rtl'] #work .ch-bar i { transform-origin: 100% 50%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #work .ch .screen { aspect-ratio: auto; display: grid; gap: .6rem; background: none; }
+  #work .ch .shot { position: static; height: auto; aspect-ratio: 16 / 10; }
 }
 
 /* ---- Entrances ---- */
@@ -125,9 +154,9 @@ html[lang='ar'] #work .ch .title { line-height: 1.3; }
   #work .reveal.in .w > span { transform: none; }
 
   #work .ch-visual { clip-path: inset(-4rem -4rem 100% -4rem); transition: clip-path 1.1s var(--ease); }
-  #work .ch-visual .shot:not(.alt) .shot:not(.alt) { transform: scale(1.09); transition: transform 1.4s var(--ease); }
+  #work .ch-visual .shot .shot { transform: scale(1.09); transition: transform 1.4s var(--ease); }
   #work .ch-visual.in { clip-path: inset(-4rem); }
-  #work .ch-visual.in .shot:not(.alt) { transform: none; }
+  #work .ch-visual.in .shot { transform: none; }
 }
 
 /* ---- The pinned stage, on large screens with motion allowed ---- */
@@ -142,7 +171,11 @@ html[lang='ar'] #work .ch .title { line-height: 1.3; }
     row-gap: 0;
   }
   #work .ch { display: contents; }
-  #work .ch-text { grid-column: 1; grid-row: var(--r); min-height: 76svh; justify-content: center; padding-block: 3rem; }
+  #work .ch { --step: 40svh; }
+  #work .ch-visual { max-width: none; }
+  #work .ch-space { display: none; }
+  #work .ch-run { display: block; grid-column: 1; grid-row: var(--r); height: calc(76svh + (var(--count) - 1) * var(--step)); }
+  #work .ch-text { position: sticky; top: var(--stick); justify-content: center; padding-block: 0; }
   #work .ch-text.reveal { transition: opacity .55s var(--ease); }
   #work .ch-text:not(.is-active):not(:focus-within) { opacity: .5; }
 

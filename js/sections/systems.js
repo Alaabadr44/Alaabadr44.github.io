@@ -5,6 +5,7 @@ import { mockHTML } from './mock.js';
 
 /* Must match the @media blocks of the same purpose in css/sections/systems.css. */
 const STAGE_MQ = '(min-width: 1024px) and (min-height: 620px) and (prefers-reduced-motion: no-preference)';
+const FLOW_MQ = '(prefers-reduced-motion: no-preference)';
 const TILT_MQ = '(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)';
 
 /* Word-level only, so Arabic letters stay joined. A Latin name keeps its word order on the RTL page. */
@@ -14,21 +15,27 @@ const words = (field) => {
   return /[\u0600-\u06FF]/.test(text) ? html : `<span dir="ltr" class="ltr">${html}</span>`;
 };
 
-/* The picture is a pointer convenience and not focusable: the keyboard and screen-reader opener is the heading's button. */
-const frame = (p) => `<div class="frame" data-open="${p.id}" aria-hidden="true"${p.images?.[1] ? ` data-alt="${p.images[1]}"` : ''}>
+/* The picture is a pointer convenience and not focusable: the keyboard and screen-reader opener is the heading's button.
+   Every screen of the system is stacked here; later ones are only fetched as the reader nears them. */
+const frame = (p) => `<div class="frame" data-open="${p.id}" aria-hidden="true">
     <span class="mat"><span class="screen">${p.images
-      ? `<img class="shot" src="${p.images[0]}" alt="" loading="lazy" decoding="async" width="1200" height="750">`
+      ? p.images.map((src, k) => `<img class="shot" ${k === 0 ? `src="${src}"` : `data-src="${src}"`} alt="" loading="lazy" decoding="async" width="1200" height="750">`).join('')
       : mockHTML(p.mock)}<span class="sheen"></span></span></span>
   </div>`;
 
 const opener = (p) => `<h3 class="title"><button class="open" type="button" data-open="${p.id}" aria-haspopup="dialog">${words(p.name)}</button></h3>`;
 const stack = (p, n) => `<p class="stack" lang="en" dir="ltr">${p.stack.slice(0, n).map(esc).join(' · ')}</p>`;
+const DOWN = '<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M8 3v10M3.500 8.500 8 13l4.500-4.500" fill="none" stroke="currentColor" stroke-width="1.300"/></svg>';
 const go = `<span class="go" aria-hidden="true">${T(UI.more)} ${arrow}</span>`;
 
-const chapter = (p, i, first, total) => `
-  <div class="ch${i === 0 ? ' ch-first' : ''}" style="--r:${i + 1}">
-    <div class="ch-visual reveal"><span class="blade" aria-hidden="true"></span>${frame(p)}<span class="shade" aria-hidden="true"></span></div>
-    <div class="ch-text reveal">
+const chapter = (p, i, first, total, last) => {
+  const count = p.images?.length || 1;
+  return `
+  <div class="ch${i === 0 ? ' ch-first' : ''}" style="--r:${i + 1};--count:${count}">
+    <div class="ch-visual reveal"><span class="blade" aria-hidden="true"></span>${frame(p)}<span class="shade" aria-hidden="true"></span>
+      ${count > 1 ? `<span class="ch-pill" dir="ltr" aria-hidden="true"><b>1</b> / ${count}</span><span class="ch-bar" aria-hidden="true"><i></i></span>` : ''}
+    </div>
+    <div class="ch-run"><div class="ch-text reveal">
       <p class="ch-n" aria-hidden="true">${pad(i + first)}<small>/ ${pad(total)}</small></p>
       <p class="meta li" style="--s:0">${statusChip(p)}<small>${T(p.code)}</small></p>
       ${opener(p)}
@@ -36,9 +43,11 @@ const chapter = (p, i, first, total) => `
       <p class="desc li" style="--s:3">${T(p.simple)}</p>
       <div class="li" style="--s:4">${stack(p, 7)}</div>
       ${p.mock ? `<p class="mock-note li" style="--s:5">${T(UI.mockNote)}</p>` : ''}
-      <div class="li" style="--s:6">${go}</div>
-    </div>
+      <div class="li ch-foot" style="--s:6">${go}${last ? '' : `<button type="button" class="ch-skip" data-next="${i + 1}">${T(UI.workNext)} ${DOWN}</button>`}</div>
+    </div></div>
+    <span class="ch-space" aria-hidden="true"></span>
   </div>`;
+};
 
 /* The showcase: four panels side by side. The one you point at, tap or tab to opens wide. */
 const panel = (p, i) => `
@@ -66,9 +75,9 @@ export function render() {
     <div class="fx-list">${featured.map(panel).join('')}</div>
     <p class="fx-hint" aria-hidden="true"><kbd>←</kbd><kbd>→</kbd><span>${T(UI.workKeys)}</span></p>
     <div class="stage" style="--n:${rest.length}">
-      <div class="rail" aria-hidden="true"><span class="rail-fill"></span>${rest.map((_, i) => `<span class="rail-n">${pad(i + featured.length + 1)}</span>`).join('')}</div>
+      <div class="rail" aria-hidden="true"><span class="rail-fill"></span>${rest.map((_, i) => `<span class="rail-n" data-next="${i}">${pad(i + featured.length + 1)}</span>`).join('')}</div>
       <div class="stage-leaf" aria-hidden="true">${plant(11)}</div>
-      ${rest.map((p, i) => chapter(p, i, featured.length + 1, SYSTEMS.length)).join('')}
+      ${rest.map((p, i) => chapter(p, i, featured.length + 1, SYSTEMS.length, i === rest.length - 1)).join('')}
     </div>
   </section>`;
 }
@@ -80,7 +89,19 @@ export function init() {
   if (!root) return undefined;
   const stageMq = matchMedia(STAGE_MQ);
   const tiltMq = matchMedia(TILT_MQ);
+  const flowMq = matchMedia(FLOW_MQ);
   const chapters = [...root.querySelectorAll('.ch')].map((el) => ({
+    el,
+    run: el.querySelector('.ch-run'),
+    imgs: [...el.querySelectorAll('.shot')],
+    pill: el.querySelector('.ch-pill b'),
+    bar: el.querySelector('.ch-bar i'),
+    s: -1,
+    sTar: 0,
+    stepPx: 1,
+    idx: 0,
+    near: false,
+    rs: [],
     text: el.querySelector('.ch-text'),
     visual: el.querySelector('.ch-visual'),
     blade: el.querySelector('.blade'),
@@ -105,6 +126,10 @@ export function init() {
       c.text.classList.remove('is-active');
       c.visual.classList.remove('is-active');
       c.cur = -1;
+      c.s = -1;
+      c.sTar = 0;
+      c.rs = [];
+      c.imgs.forEach((im, k) => { if (k) im.style.clipPath = ''; });
     });
     notches.forEach((n) => n.classList.remove('on'));
     active = -1;
@@ -114,8 +139,66 @@ export function init() {
   function measure() {
     const vh = innerHeight;
     chapters.forEach((c, i) => {
-      c.tar = i === 0 ? 1 : clamp01((vh * 0.84 - c.text.getBoundingClientRect().top) / (vh * 0.4));
+      const r = c.run.getBoundingClientRect();
+      c.tar = i === 0 ? 1 : clamp01((vh * 0.84 - r.top) / (vh * 0.4));
+      c.stepPx = vh * 0.4;
+      c.sTar = Math.max(0, Math.min((c.imgs.length - 1) * c.stepPx, vh * 0.44 - r.top));
+      c.near = r.top < vh * 2 && r.bottom > -vh;
     });
+  }
+
+  /* Without the pinned stage the tray sticks inside its own chapter, and the distance left there is the timeline. */
+  function measureFlow() {
+    const vh = innerHeight;
+    chapters.forEach((c) => {
+      const box = c.el.getBoundingClientRect();
+      const tray = c.visual.getBoundingClientRect();
+      c.stepPx = vh * 0.34;
+      const run = (c.imgs.length - 1) * c.stepPx;
+      c.sTar = Math.max(0, Math.min(run, run - (box.bottom - tray.bottom - vh * 0.3))); // the last screen holds for a moment
+      c.near = box.top < vh * 2 && box.bottom > -vh;
+    });
+  }
+
+  /* Each next screen rises over the last. Only the screens around the current one are fetched. */
+  function paintShots() {
+    let moving = false;
+    chapters.forEach((c) => {
+      const last = c.imgs.length - 1;
+      if (last < 1) return;
+      const prev = c.s;
+      c.s = prev < 0 ? c.sTar : prev + (c.sTar - prev) * 0.2;
+      if (Math.abs(c.sTar - c.s) < 0.5) c.s = c.sTar; else moving = true;
+      if (c.s !== prev) {
+        let idx = 0;
+        for (let k = 1; k <= last; k += 1) {
+          const r = clamp01((c.s - (k - 1) * c.stepPx - c.stepPx * 0.2) / (c.stepPx * 0.6));
+          if (r >= 0.5) idx = k;
+          if (r !== c.rs[k]) {
+            c.rs[k] = r;
+            c.imgs[k].style.clipPath = r === 1 ? 'none' : `inset(${((1 - r) * 100).toFixed(2)}% 0 0 0)`;
+          }
+        }
+        if (idx !== c.idx) { c.idx = idx; c.pill.textContent = idx + 1; }
+        c.bar.style.transform = `scaleX(${(c.s / (last * c.stepPx)).toFixed(4)})`;
+      }
+      if (c.near) {
+        for (let k = Math.max(1, c.idx - 1); k <= Math.min(last, c.idx + 2); k += 1) {
+          const im = c.imgs[k];
+          if (im.dataset.src) { im.loading = 'eager'; im.src = im.dataset.src; delete im.dataset.src; }
+        }
+      }
+    });
+    return moving;
+  }
+
+  function jump(i) {
+    const c = chapters[i];
+    if (!c) return;
+    const top = stageMq.matches
+      ? c.run.getBoundingClientRect().top - innerHeight * 0.44 + 1
+      : c.el.getBoundingClientRect().top - 90;
+    scrollTo({ top: scrollY + top, behavior: flowMq.matches ? 'smooth' : 'auto' });
   }
 
   function paint() {
@@ -155,9 +238,8 @@ export function init() {
       });
       notches.forEach((n, i) => n.classList.toggle('on', i <= now));
     }
-    const span = Math.max(1, chapters.length - 1);
-    const total = chapters.reduce((s, c, i) => s + (i ? c.cur : 0), 0) / span;
-    stage.style.setProperty('--progress', total.toFixed(4));
+    const box = stage.getBoundingClientRect();
+    stage.style.setProperty('--progress', clamp01((innerHeight * 0.5 - box.top) / box.height).toFixed(4));
     return moving;
   }
 
@@ -184,6 +266,8 @@ export function init() {
     if (!onScreen) return;
     let more = false;
     if (stageMq.matches) { measure(); more = paint(); }
+    else if (flowMq.matches) measureFlow();
+    if (flowMq.matches && paintShots()) more = true;
     if (paintTilt()) more = true;
     if (more) schedule();
   }
@@ -205,6 +289,13 @@ export function init() {
     stage.querySelectorAll('.shot[loading="lazy"]').forEach((img) => { img.loading = 'eager'; });
   }, { rootMargin: '100% 0px' });
   near.observe(stage);
+
+  /* Reduced motion shows every screen as a plain stacked list. */
+  const loadAll = () => {
+    if (flowMq.matches) return;
+    root.querySelectorAll('.shot[data-src]').forEach((im) => { im.src = im.dataset.src; delete im.dataset.src; });
+  };
+  loadAll();
 
   const onStageChange = () => {
     clearStage();
@@ -232,21 +323,15 @@ export function init() {
     tilt.ty = 0;
     schedule();
   }
-  /* The second real screen is only fetched once someone points at the picture. */
-  function onPointerOver(e) {
-    const el = e.target.closest?.('.frame[data-alt]');
-    if (!el || el.dataset.loaded) return;
-    el.dataset.loaded = '1';
-    const img = new Image();
-    img.className = 'shot alt';
-    img.alt = '';
-    img.decoding = 'async';
-    img.src = el.dataset.alt;
-    el.querySelector('.sheen').before(img);
-  }
-
   /* A click on the picture acts on the heading's button, so closing the dialog returns focus there. */
   function onFrameClick(e) {
+    const next = e.target.closest('[data-next]');
+    if (next) {
+      const to = Number(next.dataset.next);
+      if (next.classList.contains('ch-skip')) chapters[to]?.text.querySelector('.open').focus({ preventScroll: true });
+      jump(to);
+      return;
+    }
     e.target.closest('.frame, .fx-media')?.closest('.ch, .fx')?.querySelector('.open').focus({ preventScroll: true });
   }
 
@@ -301,7 +386,6 @@ export function init() {
   if (useTilt) {
     root.addEventListener('pointermove', onPointerMove);
     root.addEventListener('pointerout', onPointerOut);
-    root.addEventListener('pointerover', onPointerOver);
   }
 
   return () => {
@@ -319,7 +403,6 @@ export function init() {
     if (useTilt) {
       root.removeEventListener('pointermove', onPointerMove);
       root.removeEventListener('pointerout', onPointerOut);
-      root.removeEventListener('pointerover', onPointerOver);
     }
   };
 }
