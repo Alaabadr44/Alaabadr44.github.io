@@ -49,16 +49,16 @@ const chapter = (p, i, first, total, last) => {
   </div>`;
 };
 
-/* The showcase: four panels side by side. The one you point at, tap or tab to opens wide. */
-const panel = (p, i) => `
+/* The showcase: panels side by side. The one you point at, tap or tab to opens wide. */
+const panel = (p, i, before) => `
   <article class="fx${i === 0 ? ' on' : ''} reveal" style="--i:${i}">
     <div class="fx-media" data-open="${p.id}" aria-hidden="true">${p.images
       ? `<img class="fx-shot" src="${p.images[0]}" alt="" loading="lazy" decoding="async" width="1200" height="750">`
       : mockHTML(p.mock)}</div>
     <span class="fx-shade" aria-hidden="true"></span>
-    <div class="fx-rest" aria-hidden="true"><span class="num">${pad(i + 1)}</span><span class="fx-name">${T(p.name)}</span></div>
+    <div class="fx-rest" aria-hidden="true"><span class="num">${pad(i + before + 1)}</span><span class="fx-name">${T(p.name)}</span></div>
     <div class="fx-text">
-      <p class="meta li" style="--s:0"><span class="num">${pad(i + 1)}</span>${statusChip(p)}<small>${T(p.code)}</small></p>
+      <p class="meta li" style="--s:0"><span class="num">${pad(i + before + 1)}</span>${statusChip(p)}<small>${T(p.code)}</small></p>
       ${opener(p)}
       <p class="tag li" style="--s:2">${T(p.tag)}</p>
       <p class="desc li" style="--s:3">${T(p.simple)}</p>
@@ -67,18 +67,22 @@ const panel = (p, i) => `
     </div>
   </article>`;
 
+/* Systems with real screens come first, the strongest ones leading. Illustrated ones close the section. */
+const SHOW_FIRST = ['call-qa', 'hr-attends', 'drive2', 'hub-community', 'it-support', 'eaten'];
+
 export function render() {
-  const featured = SYSTEMS.filter((s) => s.featured);
-  const rest = SYSTEMS.filter((s) => !s.featured);
+  const rank = (p) => { const r = SHOW_FIRST.indexOf(p.id); return r < 0 ? SHOW_FIRST.length : r; };
+  const withScreens = SYSTEMS.filter((p) => p.images?.length).sort((a, b) => rank(a) - rank(b));
+  const illustrated = SYSTEMS.filter((p) => !p.images?.length);
   return `<section class="band" id="work"><div class="o o-s1" aria-hidden="true">${plant()}</div>
     ${sectionHead(UI.workKicker, UI.workTitle, UI.workNote)}
-    <div class="fx-list">${featured.map(panel).join('')}</div>
-    <p class="fx-hint" aria-hidden="true"><kbd>←</kbd><kbd>→</kbd><span>${T(UI.workKeys)}</span></p>
-    <div class="stage" style="--n:${rest.length}">
-      <div class="rail" aria-hidden="true"><span class="rail-fill"></span>${rest.map((_, i) => `<span class="rail-n" data-next="${i}">${pad(i + featured.length + 1)}</span>`).join('')}</div>
+    <div class="stage" style="--n:${withScreens.length}">
+      <div class="rail" aria-hidden="true"><span class="rail-fill"></span>${withScreens.map((_, i) => `<span class="rail-n" data-next="${i}">${pad(i + 1)}</span>`).join('')}</div>
       <div class="stage-leaf" aria-hidden="true">${plant(11)}</div>
-      ${rest.map((p, i) => chapter(p, i, featured.length + 1, SYSTEMS.length, i === rest.length - 1)).join('')}
+      ${withScreens.map((p, i) => chapter(p, i, 1, SYSTEMS.length, i === withScreens.length - 1)).join('')}
     </div>
+    <div class="fx-list" style="--n:${illustrated.length}">${illustrated.map((p, i) => panel(p, i, withScreens.length)).join('')}</div>
+    <p class="fx-hint" aria-hidden="true"><kbd>←</kbd><kbd>→</kbd><span>${T(UI.workKeys)}</span></p>
   </section>`;
 }
 
