@@ -161,9 +161,8 @@ export const SYSTEMS = [
       t('دخول بحساب Microsoft وتصدير CSV', 'Microsoft sign-in and CSV export'),
     ],
     stack: ['React', 'Vite', 'Express', 'TypeORM', 'PostgreSQL', 'Socket.IO'],
-    mock: { kind: 'kanban', title: t('تذاكر الدعم', 'Support tickets'),
-      nav: [t('مفتوحة', 'Open'), t('قيد الحل', 'In progress'), t('مغلقة', 'Closed')],
-      tiles: [t('جهاز', 'Device'), t('شبكة', 'Network'), t('حساب', 'Account')] },
+    images: Array.from({ length: 8 }, (_, i) => `assets/shots/it-support-${i + 1}.webp`),
+    redacted: true,
   },
   {
     id: 'drive2',
