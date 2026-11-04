@@ -135,6 +135,8 @@ html[lang='ar'] #detail .d-list li::before { top: 1.3rem; }
 #detail .d-names b { display: block; font: 600 clamp(1.05rem, 2vw, 1.4rem)/1.35 'Montserrat', sans-serif; unicode-bidi: isolate; }
 html[dir='rtl'] #detail .d-names b { text-align: right; }
 #detail .d-names i { color: var(--gold); font-style: normal; font-size: 1.3rem; line-height: 1.35; }
+#detail .d-name { display: flex; flex-direction: column; justify-content: center; }
+#detail .d-story { margin: 0; font-size: clamp(1rem, 1.6vw, 1.2rem); line-height: 1.7; }
 #detail .d-name-note { margin: .8rem 0 0; color: var(--dim); font-size: .92rem; line-height: 1.7; }
 #detail .d-name-note a { color: var(--gold); text-decoration: underline; text-underline-offset: .2em; unicode-bidi: isolate; }
 @media (max-width: 640px) {

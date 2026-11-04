@@ -233,7 +233,14 @@ export const APPS = [
   { id: 'dadsters', name: t('Dadsters Family', 'Dadsters Family'), tag: t('سوق إلكتروني · الأردن', 'Marketplace · Jordan'),
     simple: t('سوق تعرض فيه الشركات منتجاتها وخدماتها مجانًا، بأقسام مثل المطاعم والسيارات والأزياء، مع محادثات وخصومات ومشاركة بـ QR.', 'A marketplace where businesses list products and services for free, across categories like restaurants, cars and fashion, with chat, discounts and QR sharing.'),
     icon: 'assets/apps/dadsters-icon.webp', images: shots('dadsters', 13),
-    links: [store.play('com.generation.sooqdadster'), store.ios('https://apps.apple.com/kw/app/dadsters-family/id6467607050?l=ar')] },
+    links: [store.play('com.generation.sooqdadster'), store.ios('https://apps.apple.com/kw/app/dadsters-family/id6467607050?l=ar')],
+    proof: {
+      over: t('أكثر من', 'Over'), value: t('10 آلاف', '10,000'), label: t('تحميل على Google Play', 'downloads on Google Play'),
+      story: {
+        title: t('دوري في المشروع', 'My part in it'),
+        text: t('عملت مع الشركة على هذا التطبيق كفريلانس في إحدى مراحل عملي معها.', 'I worked on this app with the company as a freelancer during one stage of my work with them.'),
+      },
+    } },
   { id: 'brain-health', name: t('Brain Health USA', 'Brain Health USA'), tag: t('صحة نفسية · أمريكا', 'Mental health · USA'),
     simple: t('العميل يتابع خطة علاجه ويحجز مواعيده ويتواصل مع المختصين من مكان واحد.', 'Clients follow their treatment plans, book appointments and talk to professionals in one place.'),
     icon: 'assets/apps/brain-health-icon.webp', images: shots('brain-health', 6),
