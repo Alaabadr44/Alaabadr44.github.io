@@ -264,7 +264,7 @@ export const WORK = {
   waterway: ['hr-attends', 'hub-community', 'call-qa', 'it-support', 'drive2', 'eaten'],
   fleetrun: ['fleet-run'],
   abg: ['foodcode', 'mixatak', 'brain-health'],
-  personal: ['social-brand-manager', 'delivery'],
+  personal: ['social-brand-manager', 'delivery', 'dyafa'],
   freelance: ['fawry-payday', 'amwal', 'dadsters', 'book-club', 'hayah-karima', 'kuwait-education', 'cashier-system'],
 };
 
