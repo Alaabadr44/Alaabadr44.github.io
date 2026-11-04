@@ -1,12 +1,52 @@
-/* Career */
-.career li { display: grid; grid-template-columns: 1.3fr 1fr 1.4fr; gap: .3rem 2rem; align-items: baseline; padding: 1.5rem 0; border-top: 1px solid var(--line); }
-.career li:last-child { border-bottom: 1px solid var(--line); }
-.career b { font: 600 1.25rem/1.3 'Montserrat', sans-serif; text-align: start; }
-html[lang='ar'] .career b { text-align: end; direction: ltr; }
-.career .when { color: var(--gold); font-size: .9rem; }
-.edu { color: var(--dim); margin-top: 1.5rem; font-size: .95rem; }
+/* Career: one pen stroke. */
+#career { padding-block-end: clamp(3rem, 6vw, 4.5rem); --stepw: clamp(.7rem, 13.5vw, 16rem); --node: 1rem; --indent: clamp(1.9rem, 4vw, 3.4rem); }
+#career .cr-track { position: relative; padding-block-end: 9rem; }
+#career .cr-svg { position: absolute; inset-block-start: 0; left: 0; overflow: visible; pointer-events: none; }
+#career .cr-svg path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+#career .cr-guide { stroke: rgba(255, 255, 255, .14); stroke-width: 1; }
+#career .cr-ink { stroke: var(--gold); stroke-width: 2; }
 
-@media (max-width: 860px) {
-  .career li { grid-template-columns: 1fr; }
-  html[lang='ar'] .career b { text-align: start; direction: rtl; unicode-bidi: plaintext; }
+#career .cr-step { position: relative; margin-inline-start: calc(var(--step) * var(--stepw)); padding-inline-start: var(--indent); padding-block-end: calc(var(--gap) * 1rem); }
+#career ol.career { position: relative; }
+#career .cr-now { padding-block-end: 0; }
+#career .cr-node { position: absolute; inset-inline-start: 0; inset-block-start: var(--ny, .55em); width: var(--node); height: var(--node); margin-block-start: calc(var(--node) / -2); margin-inline-start: calc(var(--node) / -2); border-radius: 50%; background: #1b1b1c; border: 2px solid rgba(255, 255, 255, .28); z-index: 1; transition: background .4s var(--ease), border-color .4s var(--ease), box-shadow .6s var(--ease); }
+#career .cr-step.on .cr-node { background: var(--gold); border-color: var(--gold); box-shadow: 0 0 0 5px var(--gold-soft); }
+
+#career .edu { color: var(--dim); font-size: 1rem; --ny: .85em; }
+#career .cr-edu { display: block; max-width: 34rem; }
+
+#career li { --ny: calc(clamp(1.8rem, 3.3vw, 3.1rem) * .6); }
+#career h3 { font: 600 clamp(1.8rem, 3.3vw, 3.1rem)/1.2 'Montserrat', sans-serif; letter-spacing: -.01em; color: #fff; overflow-wrap: anywhere; }
+#career .when { color: var(--gold); font-size: clamp(.98rem, 1.2vw, 1.1rem); font-weight: 500; margin-block-start: .55rem; }
+#career .role { color: var(--text); font-size: clamp(1rem, 1.25vw, 1.15rem); }
+
+#career .cr-pen { position: absolute; inset-block-start: 0; left: 0; width: 0; height: 0; pointer-events: none; z-index: 2; will-change: transform; --w: clamp(110px, 11vw, 175px); }
+#career .cr-pen svg { position: absolute; display: block; width: var(--w); height: auto; left: calc(var(--w) * -.9714); top: calc(var(--w) * -.0298); filter: drop-shadow(0 12px 12px rgba(0, 0, 0, .55)); }
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Each role arrives on the line: name wipes in along the reading direction, then date, then role. */
+  #career .cr-edu, #career .when, #career .role { opacity: 0; transform: translateY(10px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+  #career h3 { clip-path: inset(-.2em 100% -.3em -.2em); transition: clip-path 1s var(--ease); }
+  html[dir='rtl'] #career h3 { clip-path: inset(-.2em -.2em -.3em 100%); }
+  html #career .cr-step.on h3, html[dir='rtl'] #career .cr-step.on h3 { clip-path: inset(-.2em -.2em -.3em -.2em); }
+  #career .cr-step.on .cr-edu, #career .cr-step.on .when, #career .cr-step.on .role { opacity: 1; transform: none; }
+  #career .cr-step.on .when { transition-delay: .3s; }
+  #career .cr-step.on .role { transition-delay: .45s; }
+  /* When the line is complete the pen lifts off the page. */
+  #career .cr-pen svg { transition: transform .7s var(--ease); }
+  #career .cr-pen.rest svg { transform: translateX(-18px); }
+  #career .cr-now.on .cr-node::after { content: ''; position: absolute; inset: -2px; border-radius: 50%; border: 1px solid var(--gold); animation: cr-pulse 2.8s var(--ease) infinite; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #career .cr-pen { display: none; }
+  #career .cr-node { background: var(--gold); border-color: var(--gold); }
+}
+@keyframes cr-pulse { from { transform: scale(1); opacity: .9; } 80%, to { transform: scale(3); opacity: 0; } }
+
+@media (max-width: 700px) {
+  #career { --indent: 1.6rem; --node: .85rem; --stepw: 8vw; }
+  #career .cr-track { padding-block-end: 7rem; }
+  #career .cr-step { padding-block-end: calc(var(--gap) * .8rem); }
+  #career .cr-now { padding-block-end: 0; }
+  #career .cr-pen { --w: 92px; }
 }

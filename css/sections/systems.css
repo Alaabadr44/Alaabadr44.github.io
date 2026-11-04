@@ -1,69 +1,251 @@
-.o-s1 { width: clamp(7rem, 13vw, 12rem); top: -3rem; inset-inline-end: -3rem; }
-/* Featured rows */
-.feat { display: grid; gap: clamp(3rem, 7vw, 6.5rem); }
-.feat-row { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: clamp(1.8rem, 5vw, 5rem); align-items: center; width: 100%; }
-.feat-row:nth-child(even) .visual { order: 2; }
-.visual { display: block; aspect-ratio: 16 / 10; overflow: hidden; border-radius: var(--r); box-shadow: 0 18px 40px rgba(0, 0, 0, .4); background: var(--ink-3); border: 1px solid var(--line); position: relative; transition: border-color .4s; }
-.visual > img { width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform .9s var(--ease); }
-button:hover > .visual { border-color: rgba(143, 209, 173, .55); }
-button:hover > .visual > img { transform: scale(1.025); }
-.feat-text { display: flex; flex-direction: column; gap: .75rem; align-items: flex-start; }
-.title { display: block; font: 600 clamp(1.6rem, 2.6vw, 2.3rem)/1.25 var(--display); }
-.tag { display: block; color: var(--gold); font-size: .98rem; }
-.desc { display: block; color: var(--dim); }
-.go { display: inline-flex; align-items: center; gap: .5em; margin-top: .5rem; font-size: .88rem; padding-bottom: .15rem; border-bottom: 1px solid var(--line); transition: .25s; }
-button:hover .go { color: var(--gold); border-color: var(--gold); }
+/* ============ #work: the systems ============
+   Signature idea: a stitched leather tray that stays still while the story scrolls past it.
+   Each new project passes over the last along a thin green blade, scrubbed by the reader's scroll. */
 
-.cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(2rem, 3.5vw, 3rem) clamp(1.2rem, 2.5vw, 2.2rem); margin-top: clamp(4rem, 8vw, 7rem); padding-top: clamp(3rem, 5vw, 4.5rem); border-top: 1px solid var(--line); }
-.card { display: flex; flex-direction: column; gap: .55rem; align-items: flex-start; width: 100%; }
-.card .visual { width: 100%; margin-bottom: .6rem; }
-.card .title { font-size: 1.3rem; }
-.card .tag { font-size: .9rem; color: var(--dim); }
+#work .o-s1 { width: clamp(7rem, 13vw, 12rem); top: -3rem; inset-inline-end: -3rem; }
 
-/* Illustrations */
-.mock { position: absolute; inset: 0; color: var(--dim); font-size: clamp(.58rem, .86vw, .78rem); line-height: 1.4; background: linear-gradient(150deg, #1d1a1f, #121014); }
-.mock b { font: 600 1.35em/1.2 var(--display); color: var(--text); }
-.mock h5 { font: 500 1em/1.3 var(--body); color: var(--text); }
-.mock header { display: flex; justify-content: space-between; align-items: center; }
-.dot { width: .9em; height: .9em; border-radius: 50%; background: var(--wine); box-shadow: 0 0 0 .3em rgba(47, 122, 85, .3); }
-.ln { display: block; height: .36em; width: var(--w); background: rgba(255, 255, 255, .15); border-radius: 9px; margin-top: .55em; }
-.mock-dash { display: grid; grid-template-columns: 24% 1fr; }
-.mock-dash aside { display: flex; flex-direction: column; gap: .95em; padding: 7% 8%; border-inline-end: 1px solid var(--line); background: rgba(0, 0, 0, .18); }
-.mock-dash aside small { font-size: 1em; }
-.mock-dash aside .on { color: var(--gold); }
-.logo { width: 1.7em; height: 1.7em; border: 1px solid var(--gold); transform: rotate(45deg); margin: .3em .3em .8em; }
-.mock-dash .body { padding: 5%; display: flex; flex-direction: column; gap: 5%; min-width: 0; }
-.tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: .8em; }
-.tiles > div { padding: .85em; border: 1px solid var(--line); background: rgba(255, 255, 255, .02); min-width: 0; }
-.tiles small { font-size: 1em; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.chart { flex: 1; display: flex; align-items: flex-end; gap: 2.4%; min-height: 0; border-bottom: 1px solid var(--line); }
-.chart i { flex: 1; height: var(--h); background: linear-gradient(to top, rgba(143, 209, 173, .1), rgba(143, 209, 173, .65)); }
-.mock-kanban { padding: 4.5%; display: flex; flex-direction: column; gap: 4%; }
-.cols { flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: .9em; min-height: 0; }
-.col { background: rgba(0, 0, 0, .2); padding: .8em; display: flex; flex-direction: column; gap: .7em; overflow: hidden; }
-.tick { padding: .7em; background: var(--ink-3); border: 1px solid var(--line); }
-.tick.on { border-color: var(--gold); }
-.tick em { font-style: normal; color: var(--gold); }
-.mock-phones { display: flex; justify-content: center; align-items: center; gap: 4%; padding: 3%; }
-.ph { width: 24%; aspect-ratio: 9 / 18; border: 1px solid rgba(255, 255, 255, .3); border-radius: 1.6em; padding: .8em; background: var(--ink); display: flex; flex-direction: column; gap: .5em; overflow: hidden; }
-.ph.mid { transform: scale(1.1); border-color: var(--gold); }
-.ph u { align-self: center; width: 34%; height: .4em; background: rgba(255, 255, 255, .25); border-radius: 9px; }
-.ph em { font-style: normal; color: var(--gold); }
-.map { flex: 1; min-height: 0; background: var(--ink-3); color: var(--gold); }
-.map svg { width: 100%; height: 100%; display: block; }
-.mock-kiosk { display: flex; flex-direction: column; align-items: center; justify-content: center; padding-top: 3%; }
-.screen { width: 42%; aspect-ratio: 3 / 3.7; border: 1px solid rgba(255, 255, 255, .3); border-radius: .7em; background: var(--ink); padding: 4%; display: flex; flex-direction: column; gap: .7em; }
-.grid { flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: .5em; min-height: 0; }
-.tile { border: 1px solid var(--line); padding: .4em; display: flex; flex-direction: column; min-height: 0; overflow: hidden; }
-.tile.on { border-color: var(--gold); }
-.tile span:first-child { flex: 1; background: var(--ink-3); min-height: 0; }
-.call { text-align: center; background: var(--gold); color: #111; padding: .35em; font-weight: 500; }
-.card .tick:nth-child(n+4) { display: none; }
-.stand { width: 5%; height: 7%; background: linear-gradient(#2a262c, #151316); }
+/* Head */
+#work .head { max-width: 110rem; margin-inline: auto; display: grid; grid-template-columns: minmax(0, 1fr); justify-items: start; }
+#work .head h2 { max-width: 20em; }
+#work .head .note { font-size: 1rem; }
 
-@media (max-width: 1100px) { .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 860px) {
-  .feat-row { grid-template-columns: 1fr; }
-  .feat-row:nth-child(even) .visual { order: 0; }
+/* Text shared by both tiers */
+#work .meta { display: flex; align-items: center; gap: .7rem; flex-wrap: wrap; }
+#work .meta small { color: var(--dim); font-size: .82rem; }
+#work .title { font: 600 clamp(1.5rem, 2.2vw, 2rem)/1.2 var(--display); }
+html[lang='ar'] #work .title { font-weight: 700; line-height: 1.35; }
+#work .open { position: static; font: inherit; text-align: inherit; }
+#work .open { border-radius: 4px; }
+#work .open:focus-visible { outline: 2px solid var(--gold); outline-offset: 5px; }
+#work .open::after { content: ''; position: absolute; inset: -.5rem; z-index: 1; } /* the whole text block opens the project */
+#work .ltr { display: inline-block; }
+#work .w { display: inline-block; overflow: clip; overflow-clip-margin: .12em; vertical-align: top; padding-block-end: .08em; }
+#work .w > span { display: inline-block; }
+#work .tag { color: var(--gold); font-size: 1rem; }
+#work .desc { color: var(--dim); }
+#work .stack { display: inline-block; font: 400 .78rem/1.6 'Montserrat', sans-serif; color: var(--dim); }
+#work .mock-note { color: var(--dim); font-size: .8rem; line-height: 1.5; padding-inline-start: .7rem; border-inline-start: 1px solid var(--line); }
+#work .num { font: 600 .82rem/1 'Montserrat', sans-serif; color: var(--gold); }
+#work .go { display: inline-flex; align-items: center; gap: .5em; font-size: .88rem; padding-block-end: .2rem; background: linear-gradient(currentColor, currentColor) 0 100% / 100% 1px no-repeat; transition: color .25s var(--ease), gap .25s var(--ease); }
+#work .ch-text:hover .go, #work .arc-text:hover .go, #work .ch-text:has(.open:focus-visible) .go, #work .arc-text:has(.open:focus-visible) .go { color: var(--gold); gap: .85em; }
+
+/* The object: leather mat, stitching, screen */
+#work .frame { display: block; width: 100%; cursor: pointer; border-radius: 20px; transform: perspective(1500px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transform-style: preserve-3d; }
+#work .mat { position: relative; display: block; padding: clamp(.45rem, 1.05vw, 1rem); border-radius: clamp(14px, 1.5vw, 22px); background: #161617 var(--grain); background-blend-mode: multiply; border: 1px solid rgba(255, 255, 255, .13); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1), 0 1px 1px rgba(0, 0, 0, .5), 0 34px 60px -18px rgba(0, 0, 0, .75), 0 12px 24px -10px rgba(0, 0, 0, .55); transition: border-color .35s var(--ease); }
+#work .mat::before { content: ''; position: absolute; inset: clamp(.16rem, .36vw, .34rem); border-radius: inherit; border: 1px dashed rgba(255, 255, 255, .24); pointer-events: none; }
+#work .screen { position: relative; display: block; aspect-ratio: 16 / 10; overflow: hidden; border-radius: clamp(6px, .6vw, 9px); background: #0b0b0c; box-shadow: 0 0 0 1px rgba(0, 0, 0, .8), 0 0 0 2px rgba(255, 255, 255, .05); }
+#work .shot { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+#work .sheen { position: absolute; inset: 0; opacity: 0; pointer-events: none; background: radial-gradient(38rem circle at var(--mx, 50%) var(--my, 0%), rgba(255, 255, 255, .1), transparent 60%); transition: opacity .3s var(--ease); z-index: 2; }
+
+/* Tier one: the stage */
+#work .stage { position: relative; max-width: 110rem; margin-inline: auto; display: grid; gap: clamp(3.5rem, 11vw, 6rem); }
+#work .rail, #work .stage-leaf, #work .blade, #work .shade { display: none; }
+#work .ch { display: grid; gap: clamp(1.4rem, 4vw, 2rem); }
+#work .ch-text { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: .7rem; }
+#work .ch-n { font: 300 clamp(2.6rem, 6vw, 5.6rem)/1 'Montserrat', sans-serif; color: rgba(255, 255, 255, .24); display: flex; align-items: baseline; gap: .6rem; }
+#work .ch-n small { font-size: .8rem; font-weight: 500; color: var(--dim); }
+#work .ch .title { font-size: clamp(1.9rem, 3.3vw, 3.2rem); line-height: 1.12; }
+html[lang='ar'] #work .ch .title { line-height: 1.3; }
+#work .ch .tag { font-size: 1.06rem; }
+#work .ch .desc { font-size: 1.02rem; max-width: 34em; }
+#work .ch .go { margin-block-start: .3rem; }
+
+/* Tier two: a salon hang of real product screens */
+#work .archive { position: relative; max-width: 110rem; margin-inline: auto; margin-block-start: clamp(4.5rem, 10vw, 9rem); padding-block-start: clamp(3rem, 6vw, 5.5rem); display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: clamp(3rem, 5vw, 5rem) clamp(1.2rem, 3vw, 3.2rem); align-items: start; }
+#work .archive::before { content: ''; position: absolute; inset-inline: 0; top: 0; border-block-start: 1px dashed rgba(255, 255, 255, .17); }
+#work .arc { min-width: 0; display: grid; gap: 1.2rem; }
+#work .arc-text { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: .4rem; }
+#work .arc-1 { grid-column: span 7; }
+#work .arc-2 { grid-column: span 5; margin-block-start: clamp(3rem, 9vw, 9rem); }
+#work .arc-3 { grid-column: span 5; margin-block-start: clamp(0rem, 5vw, 5rem); }
+#work .arc-4 { grid-column: span 7; }
+#work .arc-5 { grid-column: span 8; }
+#work .arc-6 { grid-column: span 4; margin-block-start: clamp(2rem, 8vw, 8rem); }
+
+/* Hover and pointer depth */
+@media (hover: hover) and (pointer: fine) {
+  #work .frame:hover .mat, #work .ch-visual:has(+ .ch-text:hover) .mat, #work .arc:has(.arc-text:hover) .mat { border-color: rgba(143, 209, 173, .5); }
+  #work .frame:hover .sheen { opacity: 1; }
+  #work .screen { transition: transform .5s var(--ease); }
+  #work .frame:hover .screen { transform: translateZ(20px); }
+  #work .alt { clip-path: inset(0 0 0 100%); transition: clip-path .75s var(--ease); z-index: 1; }
+  [dir='rtl'] #work .alt { clip-path: inset(0 100% 0 0); }
+  #work .frame:hover .alt { clip-path: inset(0); }
 }
-@media (max-width: 560px) { .cards { grid-template-columns: 1fr; } }
+
+/* Side by side wherever the pinned stage does not run but there is room (reduced motion, short windows) */
+@media (min-width: 1024px) {
+  #work .ch { grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: clamp(2rem, 4vw, 4rem); align-items: center; }
+  #work .ch-visual { grid-column: 2; grid-row: 1; }
+  #work .ch-text { grid-column: 1; grid-row: 1; }
+}
+
+/* ---- Entrances ---- */
+@media (prefers-reduced-motion: no-preference) {
+  #work .ch-visual.reveal, #work .ch-text.reveal, #work .arc.reveal { opacity: 1; transform: none; transition: none; }
+  #work .li { opacity: 0; transform: translateY(14px); transition: opacity .8s var(--ease), transform .8s var(--ease); transition-delay: calc(var(--s) * 70ms + .15s); }
+  #work .ch-n { opacity: 0; transition: opacity 1.1s var(--ease); }
+  #work .w > span { transform: translateY(112%); transition: transform .95s var(--ease); transition-delay: calc(var(--w) * 60ms + .12s); }
+  #work .reveal.in .li { opacity: 1; transform: none; }
+  #work .reveal.in .ch-n { opacity: 1; }
+  #work .reveal.in .w > span { transform: none; }
+
+  #work .ch-visual, #work .arc-visual { clip-path: inset(-4rem -4rem 100% -4rem); transition: clip-path 1.1s var(--ease); }
+  #work .ch-visual .shot:not(.alt), #work .arc-visual .shot:not(.alt) { transform: scale(1.09); transition: transform 1.4s var(--ease); }
+  #work .ch-visual.in, #work .arc.in .arc-visual { clip-path: inset(-4rem); }
+  #work .ch-visual.in .shot:not(.alt), #work .arc.in .arc-visual .shot:not(.alt) { transform: none; }
+  #work .arc-2, #work .arc-4, #work .arc-6 { --stag: .14s; }
+  #work .arc-visual { transition-delay: var(--stag, 0s); }
+}
+
+/* ---- The pinned stage, on large screens with motion allowed ---- */
+@media (min-width: 1024px) and (min-height: 620px) and (prefers-reduced-motion: no-preference) {
+  #work .stage {
+    --w: min(calc((100vw - 2 * var(--pad)) * .62), calc((100svh - 9.5rem) * 1.5), 76rem);
+    --h: calc(var(--w) / 1.6 + 2rem);
+    --stick: calc(50svh - var(--h) / 2 + 1.9rem);
+    grid-template-columns: minmax(0, 1fr) 3.5rem var(--w);
+    grid-template-rows: repeat(var(--n), auto);
+    column-gap: clamp(.8rem, 1.6vw, 1.6rem);
+    row-gap: 0;
+  }
+  #work .ch { display: contents; }
+  #work .ch-text { grid-column: 1; grid-row: var(--r); min-height: 76svh; justify-content: center; padding-block: 3rem; }
+  #work .ch-text.reveal { transition: opacity .55s var(--ease); }
+  #work .ch-text:not(.is-active):not(:focus-within) { opacity: .5; }
+
+  #work .ch-visual { grid-column: 3; grid-row: 1 / -1; position: sticky; top: var(--stick); align-self: start; }
+  #work .ch-visual:not(.is-active) { pointer-events: none; }
+  #work .ch:not(.ch-first) .ch-visual, #work .ch:not(.ch-first) .ch-visual.in { clip-path: inset(-4rem -4rem -4rem 100%); transition: none; visibility: hidden; }
+  [dir='rtl'] #work .ch:not(.ch-first) .ch-visual, [dir='rtl'] #work .ch:not(.ch-first) .ch-visual.in { clip-path: inset(-4rem 100% -4rem -4rem); }
+  #work .ch-visual:not(.is-active) .mock * { animation-play-state: paused !important; }
+
+  #work .blade { display: block; position: absolute; inset: 0; opacity: 0; pointer-events: none; z-index: 3; }
+  #work .blade::before { content: ''; position: absolute; inset-block: -1.2rem; inset-inline-start: 0; width: 2px; background: linear-gradient(transparent, var(--gold) 8%, #d9f3e5 50%, var(--gold) 92%, transparent); box-shadow: 0 0 18px 1px rgba(143, 209, 173, .7), 0 0 60px 6px rgba(143, 209, 173, .2); }
+  [dir='rtl'] #work .blade::before { inset-inline-start: auto; right: 0; }
+  #work .shade { display: block; position: absolute; inset: 0; background: #0a0a0b; opacity: 0; border-radius: 22px; pointer-events: none; z-index: 2; }
+
+  /* The chapter ring */
+  #work .rail { display: flex; grid-column: 2; grid-row: 1 / -1; position: sticky; top: var(--stick); align-self: start; height: var(--h); flex-direction: column; justify-content: space-between; align-items: center; padding-block: .4rem; }
+  #work .rail::before, #work .rail-fill { content: ''; position: absolute; top: 0; bottom: 0; inset-inline-start: 50%; width: 1px; background: rgba(255, 255, 255, .15); }
+  #work .rail-fill { background: var(--gold); transform: scaleY(var(--progress, 0)); transform-origin: 50% 0; box-shadow: 0 0 10px rgba(143, 209, 173, .55); }
+  #work .rail-n { position: relative; font: 500 .72rem/1 'Montserrat', sans-serif; color: var(--dim); background: #232324; padding: .5rem .1rem; transition: color .4s var(--ease); }
+  #work .rail-n.on { color: var(--gold); }
+
+  /* A leaf behind the tray that turns with the story */
+  #work .stage-leaf { display: block; grid-column: 3; grid-row: 1 / -1; position: sticky; top: calc(var(--stick) - 4rem); align-self: start; justify-self: end; width: clamp(9rem, 15vw, 15rem); margin-inline-end: -5.2rem; z-index: -1; pointer-events: none; transform: rotate(calc(var(--progress, 0) * 26deg)); }
+  #work .stage-leaf svg { display: block; width: 100%; height: auto; overflow: visible; filter: drop-shadow(0 14px 18px rgba(0, 0, 0, .55)); }
+  [dir='rtl'] #work .stage-leaf { transform: rotate(calc(var(--progress, 0) * -26deg)); }
+}
+
+/* ---- Illustrations: global on purpose, the detail dialog shows them too ----
+   .mock is a size container, so a mock is a true scale model at any width. */
+.mock { position: absolute; inset: 0; container-type: inline-size; overflow: hidden; color: var(--dim); line-height: 1.4; background: radial-gradient(120% 90% at 18% 0%, #222224, #111112 70%); --x: 1; }
+[dir='rtl'] .mock { --x: -1; }
+.mock > * { font-size: clamp(.5rem, 1.62cqw, 1.1rem); }
+.mock b { font: 600 1.45em/1.2 var(--display); color: var(--text); }
+.mock .h { display: block; font: 500 1em/1.3 var(--body); color: var(--text); }
+.mock small { font-size: 1em; }
+.mock em { font-style: normal; color: var(--gold); }
+.mock header { display: flex; justify-content: space-between; align-items: center; }
+.mock .dot { width: .8em; height: .8em; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 .3em rgba(143, 209, 173, .2); }
+.mock .ln { display: block; height: .34em; width: var(--w); background: rgba(255, 255, 255, .14); border-radius: 9px; margin-block-start: .5em; }
+
+/* Publishing: sidebar, the approval flow, a week planner */
+.mock-dash { display: grid; grid-template-columns: 21% minmax(0, 1fr); }
+.mock-dash aside { display: flex; flex-direction: column; gap: 1.05em; padding: 1.6em 1.3em; border-inline-end: 1px solid var(--line); background: rgba(0, 0, 0, .22); min-width: 0; }
+.mock-dash aside small { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mock-dash aside .on { color: var(--gold); }
+.mock .logo { width: 1.6em; height: 1.6em; border: 1px solid var(--gold); transform: rotate(45deg); margin: .3em .3em .9em; flex: none; }
+.mock-dash .body { padding: 1.7em 2em 2em; display: flex; flex-direction: column; gap: 1.4em; min-width: 0; min-height: 0; }
+.mock .flow { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.8em; }
+.mock .flow::before { content: ''; position: absolute; inset-inline: 2em; top: 50%; border-block-start: 1px dashed rgba(143, 209, 173, .4); }
+.mock .stage-t { position: relative; z-index: 1; padding: .8em .9em; border: 1px solid var(--line); border-radius: .5em; background: #1b1b1c; min-width: 0; }
+.mock .stage-t small { display: block; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mock .pulse { position: absolute; z-index: 0; top: 50%; inset-inline-start: 0; width: .7em; height: .7em; margin-block-start: -.35em; border-radius: 50%; background: var(--gold); box-shadow: 0 0 .9em var(--gold); opacity: 0; }
+.mock .planner { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); grid-template-rows: repeat(3, minmax(0, 1fr)); gap: .55em; }
+.mock .planner i { display: block; min-height: 0; overflow: hidden; border-radius: .4em; border: 1px solid rgba(255, 255, 255, .06); background: rgba(255, 255, 255, .015); padding: .6em; }
+.mock .post.p1 { background: linear-gradient(160deg, rgba(143, 209, 173, .34), rgba(143, 209, 173, .12)); border-color: rgba(143, 209, 173, .42); }
+.mock .post.p2 { background: rgba(255, 255, 255, .06); border-color: rgba(255, 255, 255, .16); }
+.mock .post.p4 { border: 1px dashed rgba(143, 209, 173, .5); background: none; }
+.mock .planner .post { display: flex; flex-direction: column; }
+.mock .post .thumb { display: block; flex: 1; min-height: 0; border-radius: .25em; background: rgba(255, 255, 255, .08); margin-block-end: .1em; }
+.mock .post.p1 .thumb { background: rgba(143, 209, 173, .28); }
+.mock .post.p4 .thumb { background: none; border: 1px dashed rgba(143, 209, 173, .35); }
+
+/* Guest requests: a board with one ticket on its way across */
+.mock-kanban { padding: 2em 2.2em 0; display: flex; flex-direction: column; gap: 1.2em; }
+.mock .cols { flex: 1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .9em; min-height: 0; }
+.mock .col { position: relative; background: rgba(0, 0, 0, .24); border: 1px solid rgba(255, 255, 255, .05); border-block-end: 0; border-radius: .6em .6em 0 0; padding: .9em .8em; display: flex; flex-direction: column; gap: .7em; min-width: 0; }
+.mock .col:first-child { z-index: 1; }
+.mock .tick { padding: .75em .8em .85em; background: #242425; border: 1px solid var(--line); border-radius: .45em; min-width: 0; }
+.mock .tick.done { opacity: .62; }
+.mock .tick.fly { --step: 2.65em; border-color: var(--gold); background: #243029; box-shadow: 0 .8em 1.8em rgba(0, 0, 0, .5); position: relative; z-index: 2; }
+
+/* Order journey: three phones, one delivery */
+.mock-phones { display: flex; justify-content: center; align-items: center; gap: 5%; padding: 2%; }
+.mock .ph { height: 86%; aspect-ratio: 9 / 18; flex: none; border: 1px solid rgba(255, 255, 255, .26); border-radius: 1.9em; padding: .85em .85em 1.1em; background: #18181a; display: flex; flex-direction: column; gap: .55em; overflow: hidden; box-shadow: 0 1.4em 2.6em rgba(0, 0, 0, .55), inset 0 0 0 .22em #0d0d0e; }
+.mock .ph.mid { height: 96%; border-color: var(--gold); }
+.mock .ph u { align-self: center; flex: none; width: 34%; height: .4em; background: rgba(255, 255, 255, .22); border-radius: 9px; text-decoration: none; }
+.mock .map { flex: 1; min-height: 0; border-radius: .7em; overflow: hidden; background: #232324; }
+.mock .map svg { width: 100%; height: 100%; display: block; }
+.mock .map .st { fill: none; stroke: rgba(255, 255, 255, .09); stroke-width: 1.1; }
+.mock .map .rt { fill: none; stroke: var(--gold); stroke-width: .9; stroke-dasharray: 2.4 1.8; }
+.mock .map .pin { fill: #fff; }
+.mock .map .pin.end { fill: var(--gold); }
+.mock .map .mover { fill: var(--gold); stroke: #0d0d0e; stroke-width: .8; offset-distance: 45%; offset-rotate: 0deg; cx: 0; cy: 0; }
+.mock .orders { flex: 1; display: flex; flex-direction: column; gap: .55em; min-height: 0; overflow: hidden; }
+.mock .order { padding: .65em .7em .8em; border-radius: .6em; background: #232324; border: 1px solid transparent; min-width: 0; }
+.mock .order.on { border-color: var(--gold); background: #243029; }
+
+/* Small mocks keep their shape by dropping the fine print */
+@container (max-width: 560px) {
+  .mock-dash aside { display: none; }
+  .mock-dash .body { grid-column: 1 / -1; padding: 1.2em 1.4em 1.4em; gap: 1em; }
+  .mock .flow { gap: .7em; }
+  .mock-kanban { padding: 1.2em 1.3em 0; gap: .8em; }
+  .mock .col { padding: .6em; gap: .5em; }
+  .mock .tick { padding: .5em .6em .6em; }
+  .mock .tick.fly { --step: 2.25em; }
+  .mock .tick .ln:last-child { display: none; }
+  .mock .ph { border-radius: 1.3em; padding: .55em .55em .7em; }
+  .mock .ph > .ln { display: none; }
+}
+
+/* The illustrations are quietly alive */
+@media (prefers-reduced-motion: no-preference) {
+  .mock .pulse { animation: mock-pulse 5.6s var(--ease) infinite; }
+  .mock .post { animation: mock-post 1s var(--ease) both; animation-delay: calc(var(--i) * 40ms + .2s); }
+  .mock .tick.fly { animation: mock-fly 9s cubic-bezier(.6, 0, .2, 1) infinite; }
+  .mock .map .mover { animation: mock-route 7s linear infinite; }
+  .mock .order.on { animation: mock-order 7s var(--ease) infinite; }
+  #work.mocks-off .mock * { animation-play-state: paused; }
+}
+@keyframes mock-pulse {
+  0% { opacity: 0; transform: translateX(0); }
+  8% { opacity: 1; }
+  92% { opacity: 1; }
+  100% { opacity: 0; transform: translateX(calc(var(--x) * 62cqw)); }
+}
+@keyframes mock-post { from { opacity: 0; transform: scale(.86); } }
+@keyframes mock-fly {
+  0%, 18% { transform: none; }
+  40%, 58% { transform: translateX(calc(var(--x) * (100% + var(--step)))); }
+  80%, 94% { transform: translateX(calc(var(--x) * (200% + var(--step) * 2))); opacity: 1; }
+  100% { transform: translateX(calc(var(--x) * (200% + var(--step) * 2))); opacity: 0; }
+}
+@keyframes mock-route { from { offset-distance: 0%; } to { offset-distance: 100%; } }
+@keyframes mock-order { 0%, 100% { border-color: rgba(143, 209, 173, .25); } 50% { border-color: var(--gold); } }
+
+/* ---- Below the stage ---- */
+@media (max-width: 1023.98px) {
+  #work .archive { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  #work .arc-1, #work .arc-4 { grid-column: span 6; margin-block-start: 0; }
+  #work .arc-2, #work .arc-3, #work .arc-5, #work .arc-6 { grid-column: span 3; margin-block-start: 0; }
+}
+@media (max-width: 640px) {
+  #work .arc { grid-column: 1 / -1 !important; }
+}
+@media (hover: none), (pointer: coarse) {
+  #work .open::after { inset: -.25rem; }
+}

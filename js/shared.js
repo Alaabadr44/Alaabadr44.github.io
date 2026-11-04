@@ -15,6 +15,7 @@ export const statusChip = (p) => `<span class="chip chip-${p.status}">${T(UI.sta
 export const sectionHead = (kicker, title, note) => `<div class="head reveal"><p class="pill">${T(kicker)}</p><h2>${T(title)}</h2>${note ? `<p class="note">${T(note)}</p>` : ''}</div>`;
 export const contactRow = () => `<ul class="contact-row" dir="ltr">
   <li><a href="mailto:${PROFILE.email}">${icon('mail')}<span>${PROFILE.email}</span></a></li>
+  <li><a href="${PROFILE.whatsapp}" ${ext} aria-label="WhatsApp ${PROFILE.whatsappLabel}">${icon('whatsapp')}<span>${PROFILE.whatsappLabel}</span></a></li>
   <li><a href="${PROFILE.github}" ${ext}>${icon('github')}<span>github.com/Alaabadr44</span></a></li>
   <li><a href="${PROFILE.linkedin}" ${ext}>${icon('linkedin')}<span>LinkedIn</span></a></li>
 </ul>`;

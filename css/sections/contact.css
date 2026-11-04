@@ -1,8 +1,125 @@
-/* Contact */
-.contact { position: relative; overflow: hidden; padding: clamp(4.5rem, 9vw, 8rem) var(--pad) 2rem; text-align: center; display: flex; flex-direction: column; align-items: center; gap: .9rem; }
-.o-c1 { width: clamp(7rem, 13vw, 12rem); top: -4rem; left: -2rem; transform: rotate(140deg); }
-.o-c2 { width: clamp(7rem, 13vw, 12rem); bottom: -3rem; right: -3rem; }
-.contact h2 { margin: .4rem 0 0; position: relative; }
-.contact .body, .contact .city { color: var(--dim); position: relative; }
-.contact .contact-row { margin-top: .9rem; }
-.contact footer { position: relative; align-self: stretch; display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem 2rem; margin-top: clamp(3.5rem, 8vw, 6rem); padding-top: 1.3rem; border-top: 1px solid var(--line); font-size: .8rem; color: var(--dim); }
+/* Contact: a signed leather card and one obvious way to write. */
+#contact { position: relative; overflow-x: clip; isolation: isolate; padding: clamp(5rem, 11vw, 10rem) var(--pad) 1.5rem; background: linear-gradient(transparent, rgba(0, 0, 0, .42)); }
+#contact .ct-light { position: absolute; z-index: -1; inset: 0; pointer-events: none; background: radial-gradient(60rem 38rem at 72% 40%, rgba(255, 255, 255, .055), transparent 70%); }
+[dir='rtl'] #contact .ct-light { transform: scaleX(-1); }
+
+/* Leaves settle in from the corners, then stay still. */
+#contact .o-c1 { z-index: -1; width: clamp(7rem, 15vw, 15rem); top: -3.5rem; inset-inline-start: -2.5rem; }
+#contact .o-c2 { z-index: -1; width: clamp(8rem, 17vw, 17rem); bottom: 2rem; inset-inline-end: -4rem; }
+#contact .o.reveal { opacity: 1; transform: none; }
+#contact .ct-leaf { opacity: .9; transition: transform 1.5s var(--ease), opacity 1.1s var(--ease); }
+#contact .o-c1 .ct-leaf { transform: rotate(140deg); }
+#contact .o-c2 .ct-leaf { transform: rotate(0deg); }
+@media (prefers-reduced-motion: no-preference) {
+  #contact .o-c1:not(.in) .ct-leaf { opacity: 0; transform: translate(0, -2.5rem) rotate(124deg); }
+  #contact .o-c2:not(.in) .ct-leaf { opacity: 0; transform: translate(0, 2.5rem) rotate(-16deg); }
+}
+
+#contact .ct-grid { display: grid; grid-template-columns: minmax(0, 1.22fr) minmax(0, .9fr); gap: clamp(2.5rem, 6vw, 6.5rem); align-items: center; max-width: 92rem; margin-inline: auto; }
+
+/* The message */
+#contact .ct-say { min-width: 0; container-type: inline-size; }
+#contact h2 { margin-top: 1.3rem; font-size: clamp(2.35rem, 5.2vw, 5rem); line-height: 1.12; text-wrap: balance; }
+html[lang='ar'] #contact h2 { line-height: 1.3; }
+#contact h2.reveal { opacity: 1; transform: none; }
+#contact .ct-w { display: inline-block; }
+@media (prefers-reduced-motion: no-preference) {
+  #contact h2:not(.in) .ct-w { opacity: 0; }
+  #contact h2.in .ct-w { animation: ct-word .95s var(--ease) both; animation-delay: calc(var(--i) * 70ms); }
+}
+@keyframes ct-word { from { opacity: 0; transform: translateY(.42em); } }
+#contact .ct-body { max-width: 34rem; margin-top: 1.2rem; color: var(--dim); font-size: clamp(1.05rem, 1.35vw, 1.25rem); transition-delay: .24s; }
+
+/* The action: the owner's white pill, grown large enough to be the obvious next step. */
+#contact .ct-act { display: flex; flex-wrap: wrap; align-items: center; gap: 0 1.2rem; margin-top: clamp(1.4rem, 3vw, 2.4rem); transition-delay: .36s; }
+#contact .ct-act > * { margin-block: .425rem; }
+#contact .ct-mail { position: relative; isolation: isolate; overflow: hidden; display: inline-flex; align-items: center; justify-content: space-between; gap: clamp(.6rem, 2.4cqi, 1.3rem); max-width: 100%; min-height: 3.4rem; padding: clamp(.5rem, 1.3cqi, .75rem); padding-inline-start: clamp(1.05rem, 3.8cqi, 2rem); border-radius: 99px; background: #fff; color: #111; font: 600 clamp(.95rem, 5.05cqi, 1.75rem)/1.2 'Montserrat', sans-serif; box-shadow: 0 18px 50px rgba(0, 0, 0, .42); transition: box-shadow .3s var(--ease), translate .3s var(--ease); }
+#contact .ct-mail::before { content: ''; position: absolute; z-index: -1; inset: 0; background: var(--gold); clip-path: inset(0 100% 0 0); transition: clip-path .3s var(--ease); }
+[dir='rtl'] #contact .ct-mail::before { clip-path: inset(0 0 0 100%); }
+#contact .ct-mail > [dir='ltr'] { min-width: 0; overflow-wrap: anywhere; }
+#contact .ct-go { flex: none; display: grid; place-items: center; width: clamp(2.4rem, 7cqi, 3.2rem); aspect-ratio: 1; border-radius: 50%; background: #161617; color: #fff; font-size: 1rem; transition: rotate .3s var(--ease); }
+/* WhatsApp: second only to the email, on its own line directly under it. */
+#contact .ct-wa { position: relative; flex: 0 0 auto; order: 1; display: inline-flex; align-items: center; gap: .7rem; max-width: 100%; min-height: 3.1rem; padding: .35rem 1.5rem; padding-inline-start: .45rem; border-radius: 99px; background: var(--gold); color: #111; font: 600 clamp(.95rem, 2.9cqi, 1.15rem)/1.2 'Montserrat', sans-serif; transition: background .2s, translate .3s var(--ease); }
+#contact .ct-wa .ic { width: 2.25rem; height: 2.25rem; background: #161617; color: #fff; }
+#contact .ct-wa-name { font-weight: 500; }
+#contact .ct-wa-num { white-space: nowrap; font-variant-numeric: tabular-nums; }
+#contact .ct-act::after { content: ''; order: 0; flex: 0 0 100%; height: 0; margin: 0; }
+#contact .ct-copy { min-height: 2.75rem; padding: .2rem 1.1rem; border: 1px solid rgba(255, 255, 255, .28); border-radius: 99px; color: var(--text); font-size: .9rem; transition: border-color .2s, color .2s; }
+#contact .ct-copy.done { color: var(--gold); border-color: var(--gold); }
+#contact a:focus-visible, #contact button:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+@media (hover: hover) and (pointer: fine) {
+  #contact .ct-mail:hover { translate: 0 -2px; box-shadow: 0 24px 60px rgba(0, 0, 0, .5); }
+  #contact .ct-mail:hover::before { clip-path: inset(0); }
+  #contact .ct-mail:hover .ct-go { rotate: 45deg; }
+  [dir='rtl'] #contact .ct-mail:hover .ct-go { rotate: -45deg; }
+  #contact .ct-wa:hover { background: #fff; translate: 0 -2px; }
+  #contact .ct-copy:hover { border-color: var(--gold); color: var(--gold); }
+}
+
+/* The card */
+#contact .ct-card { --mx: 30%; --my: 20%; position: relative; isolation: isolate; container-type: inline-size; min-width: 0; padding: clamp(1.5rem, 3vw, 2.6rem); border-radius: 20px; background: #1a1a1b var(--grain); background-blend-mode: multiply; box-shadow: 0 1px 0 rgba(255, 255, 255, .1) inset, 0 40px 90px rgba(0, 0, 0, .55), 0 6px 18px rgba(0, 0, 0, .4); transition-delay: .18s; }
+#contact .ct-card::after { content: ''; position: absolute; inset: .6rem; border: 1px dashed rgba(255, 255, 255, .2); border-radius: 13px; pointer-events: none; }
+#contact .ct-card::before { content: ''; position: absolute; z-index: -1; inset: 0; border-radius: inherit; background: radial-gradient(20rem circle at var(--mx) var(--my), rgba(255, 255, 255, .1), transparent 70%); opacity: 0; transition: opacity .3s; }
+@media (hover: hover) and (pointer: fine) { #contact .ct-card:hover::before { opacity: 1; } }
+
+/* The signature writes itself, a closing echo of the hero: two strokes, a lift, then the tail.
+   The resting mask position is the finished state, so without the animation the name still shows. */
+#contact .ct-sign { position: relative; width: fit-content; max-width: 100%; margin-inline: auto; padding: .1em .1em 0; font-size: 5rem; font-size: min(24cqi, 7.6rem); }
+#contact .sig { font-size: 1em; line-height: 1.12; text-align: center; white-space: nowrap; }
+#contact .ct-ink { display: inline-block; padding: .1em .12em .16em; margin: -.1em -.12em -.16em; }
+#contact .ct-flourish { display: block; width: 92%; height: .3em; margin: -.1em auto 0; overflow: visible; }
+#contact .ct-flourish path { fill: none; stroke: var(--gold); stroke-width: 1.8; stroke-linecap: round; }
+@media (prefers-reduced-motion: no-preference) {
+  #contact .ct-card:not(.in) .ct-ink { -webkit-mask: linear-gradient(90deg, transparent, transparent) 0 0 / 100% 100% no-repeat; mask: linear-gradient(90deg, transparent, transparent) 0 0 / 100% 100% no-repeat; }
+  #contact .ct-card:not(.in) .ct-flourish path { stroke-dasharray: 1; stroke-dashoffset: 1; }
+  #contact .ct-card.in .ct-ink { -webkit-mask: linear-gradient(90deg, #000 0 46%, transparent 54%) 0 0 / 250% 100% no-repeat; mask: linear-gradient(90deg, #000 0 46%, transparent 54%) 0 0 / 250% 100% no-repeat; animation: ct-write 1.25s linear .35s both; }
+  #contact .ct-card.in .ct-flourish path { stroke-dasharray: 1; animation: ct-tail .37s cubic-bezier(.45, .05, .55, .95) 1.7s both; }
+}
+/* Edge of the ink at box fraction e is mask-position (1.25 - e) / 1.5. */
+@keyframes ct-write {
+  0% { -webkit-mask-position: 83% 0; mask-position: 83% 0; }
+  42% { -webkit-mask-position: 54% 0; mask-position: 54% 0; }
+  52% { -webkit-mask-position: 54% 0; mask-position: 54% 0; }
+  100% { -webkit-mask-position: 0 0; mask-position: 0 0; }
+}
+@keyframes ct-tail { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+
+#contact .ct-who { display: flex; flex-direction: column; align-items: center; gap: .1rem; margin-top: 1rem; text-align: center; }
+#contact .ct-who strong { font-weight: 600; font-size: 1.02rem; }
+#contact .ct-who span { color: var(--dim); font-size: .9rem; }
+
+#contact .ct-rows { margin-top: 1.3rem; }
+#contact .ct-rows li { display: flex; align-items: center; gap: .85rem; min-height: 3.25rem; border-top: 1px solid var(--line); font-size: .95rem; }
+#contact .ct-rows li > a { flex: 1; min-width: 0; align-self: stretch; display: flex; align-items: center; gap: .85rem; min-height: 3.25rem; transition: color .2s; }
+#contact .ct-rows [dir='ltr'] { min-width: 0; overflow-wrap: anywhere; font-family: 'Montserrat', sans-serif; font-size: .92rem; }
+#contact .ct-rows .arrow { margin-inline-start: auto; flex: none; transition: transform .2s var(--ease), color .2s; }
+#contact .ct-rows .ic { background: rgba(255, 255, 255, .92); }
+@media (hover: hover) and (pointer: fine) {
+  #contact .ct-rows a:hover { color: var(--gold); }
+}
+
+html[lang='ar'] #contact .pill { padding-block: .32rem .12rem; }
+
+/* Footer */
+#contact footer { position: relative; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .25rem 2rem; max-width: 92rem; margin: clamp(3.5rem, 8vw, 7rem) auto 0; padding-top: .7rem; border-top: 1px solid var(--line); font-size: .84rem; color: var(--dim); }
+#contact footer a { display: inline-flex; align-items: center; gap: .45rem; min-height: 2.75rem; color: var(--text); transition: color .2s; }
+#contact footer a svg { transition: translate .2s var(--ease); }
+@media (hover: hover) and (pointer: fine) {
+  #contact footer a:hover { color: var(--gold); }
+  #contact footer a:hover svg { translate: 0 -2px; }
+}
+
+@media (max-width: 920px) {
+  #contact .ct-grid { grid-template-columns: minmax(0, 1fr); }
+  #contact .ct-card { width: min(100%, 34rem); }
+  #contact .o-c2 { opacity: .5; }
+}
+@media (max-width: 560px) {
+  #contact .ct-mail { display: flex; width: 100%; }
+  #contact .ct-wa { order: 0; flex: 1 1 100%; justify-content: flex-start; }
+  #contact .ct-copy { order: 1; }
+  #contact .ct-act::after { display: none; }
+}
+@media (max-width: 380px) {
+  #contact .ct-wa { gap: .45rem; padding-inline-end: .8rem; font-size: .84rem; }
+}

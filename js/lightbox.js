@@ -1,11 +1,11 @@
-import { state } from './shared.js';
+import { esc, state } from './shared.js';
 
 /* Site-wide image viewer. Any click on `.gallery a` opens it, so every project gallery
    gets it without extra wiring. Arrow keys follow what is on screen: in Arabic the next
    image sits to the left, in English to the right. */
 const TEXT = {
-  ar: { close: 'إغلاق', next: 'الصورة التالية', prev: 'الصورة السابقة', go: 'انتقل إلى الصورة' },
-  en: { close: 'Close', next: 'Next image', prev: 'Previous image', go: 'Go to image' },
+  ar: { label: 'عارض الصور', close: 'إغلاق', next: 'الصورة التالية', prev: 'الصورة السابقة', go: 'انتقل إلى الصورة' },
+  en: { label: 'Image viewer', close: 'Close', next: 'Next image', prev: 'Previous image', go: 'Go to image' },
 };
 const CHEV = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>';
 const CHEV_BACK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg>';
@@ -31,7 +31,7 @@ function show(next, dir = 0) {
   box.querySelectorAll('.lb-thumb').forEach((t, i) => {
     const on = i === index;
     t.setAttribute('aria-current', on);
-    if (on) t.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
+    if (on) t.scrollIntoView({ block: 'nearest', inline: 'center', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
   });
   if (multi) { preload(index + 1); preload(index - 1); }
 }
@@ -46,7 +46,7 @@ function open(anchor) {
   box.innerHTML = `
     <div class="lb-top">
       <span class="lb-count" dir="ltr" aria-live="polite"></span>
-      <span class="lb-title">${title.replace(/[&<>]/g, '')}</span>
+      <span class="lb-title">${esc(title)}</span>
       <button type="button" class="lb-x" data-lb="close" aria-label="${t.close}">${X}</button>
     </div>
     <div class="lb-stage">
@@ -55,6 +55,7 @@ function open(anchor) {
       ${multi ? `<button type="button" class="lb-nav lb-next" data-lb="next" aria-label="${t.next}">${CHEV}</button>` : ''}
     </div>
     ${multi ? `<div class="lb-thumbs">${items.map((it, i) => `<button type="button" class="lb-thumb" data-i="${i}" aria-label="${t.go} ${i + 1}"><img src="${it.thumb}" alt="" loading="lazy"></button>`).join('')}</div>` : ''}`;
+  box.setAttribute('aria-label', t.label);
   box.tabIndex = -1;
   box.showModal();
   box.focus();

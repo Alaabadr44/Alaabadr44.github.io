@@ -13,6 +13,8 @@ export const PROFILE = {
   role: t('مطوّر Flutter و Full-Stack', 'Flutter & Full-Stack Developer'),
   city: t('القاهرة، مصر', 'Cairo, Egypt'),
   email: 'alaabadr4470@gmail.com',
+  whatsapp: 'https://wa.me/201032310223',
+  whatsappLabel: '+20 103 231 0223',
   linkedin: 'https://www.linkedin.com/in/alaa-badr-255a8a130/',
   github: 'https://github.com/Alaabadr44',
 };
