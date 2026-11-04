@@ -1,4 +1,5 @@
 import { PROFILE, SYSTEMS, APPS, OTHERS, CAREER, SKILLS, UI } from './data.js';
+import { keyboard, stylus, headphones, monstera, plant, icon } from './deco.js';
 
 const app = document.getElementById('app');
 const dialog = document.getElementById('detail');
@@ -51,7 +52,7 @@ const statusChip = (p) => `<span class="chip chip-${p.status}">${T(UI.status[p.s
 function header() {
   const n = UI.nav;
   return `<header class="top" id="top-bar">
-    <a class="mark" href="#home" aria-label="${T(PROFILE.name)}">${lang === 'ar' ? 'ع' : 'A'}<span>·</span>${lang === 'ar' ? 'ب' : 'B'}</a>
+    <a class="mark" href="#home" aria-label="${T(PROFILE.name)}" lang="en" dir="ltr">Alaa badr</a>
     <nav aria-label="Main">
       <a href="#work">${T(n.work)}</a><a href="#apps">${T(n.apps)}</a><a href="#skills">${T(n.skills)}</a><a href="#career">${T(n.career)}</a>
     </nav>
@@ -62,6 +63,12 @@ function header() {
   </header>`;
 }
 
+const contactRow = () => `<ul class="contact-row" dir="ltr">
+  <li><a href="mailto:${PROFILE.email}">${icon('mail')}<span>${PROFILE.email}</span></a></li>
+  <li><a href="${PROFILE.github}" ${ext}>${icon('github')}<span>github.com/Alaabadr44</span></a></li>
+  <li><a href="${PROFILE.linkedin}" ${ext}>${icon('linkedin')}<span>LinkedIn</span></a></li>
+</ul>`;
+
 function hero() {
   const live = SYSTEMS.filter((s) => s.status === 'live').length;
   const stats = [
@@ -70,28 +77,38 @@ function hero() {
     [live, UI.stats.live],
     [2021, UI.stats.since],
   ];
-  return `<section class="hero" id="home">
+  return `<section class="hero" id="home" dir="ltr">
+    <div class="flat" aria-hidden="true">
+      <div class="o o-keyboard">${keyboard()}</div>
+      <div class="o o-stylus">${stylus()}</div>
+      <div class="o o-phones">${headphones()}</div>
+      <div class="o o-leaf-top">${monstera()}</div>
+      <div class="o o-plant-top">${plant()}</div>
+      <div class="o o-plant-low">${plant(11)}</div>
+      <div class="o o-leaf-low">${monstera()}</div>
+    </div>
     <div class="hero-photo"><img src="assets/alaa.webp" alt="${T(PROFILE.fullName)}" width="640" height="641"></div>
-    <div class="hero-text">
-      <p class="kicker rise" style="--d:.1s">${T(UI.eyebrow)}</p>
-      <h1 class="rise" style="--d:.2s">${L(UI.headline)}</h1>
-      <p class="who rise" style="--d:.35s"><strong>${T(PROFILE.fullName)}</strong><span>${T(PROFILE.role)}</span></p>
+    <div class="hero-text" dir="${lang === 'ar' ? 'rtl' : 'ltr'}">
+      <p class="sig rise" style="--d:.1s" lang="en" dir="ltr">Alaa badr</p>
+      <p class="pill rise" style="--d:.25s">${T(PROFILE.role)}</p>
+      <h1 class="rise" style="--d:.35s">${L(UI.headline)}</h1>
       <p class="intro rise" style="--d:.45s">${T(UI.intro)}</p>
       <div class="cta rise" style="--d:.55s">
         <a class="btn" href="#work">${T(UI.cta)}</a>
         <a class="btn ghost" href="#contact">${T(UI.ctaContact)}</a>
       </div>
+      <div class="rise" style="--d:.65s">${contactRow()}</div>
+      <dl class="stats rise" style="--d:.75s">${stats.map(([v, l]) => `<div><dt>${T(l)}</dt><dd>${v}</dd></div>`).join('')}</dl>
     </div>
-    <dl class="stats rise" style="--d:.7s">${stats.map(([v, l]) => `<div><dt>${T(l)}</dt><dd>${v}</dd></div>`).join('')}</dl>
   </section>`;
 }
 
-const sectionHead = (kicker, title, note) => `<div class="head reveal"><p class="kicker">${T(kicker)}</p><h2>${T(title)}</h2>${note ? `<p class="note">${T(note)}</p>` : ''}</div>`;
+const sectionHead = (kicker, title, note) => `<div class="head reveal"><p class="pill">${T(kicker)}</p><h2>${T(title)}</h2>${note ? `<p class="note">${T(note)}</p>` : ''}</div>`;
 
 function systems() {
   const featured = SYSTEMS.filter((s) => s.featured);
   const rest = SYSTEMS.filter((s) => !s.featured);
-  return `<section class="band" id="work">
+  return `<section class="band" id="work"><div class="o o-s1" aria-hidden="true">${plant()}</div>
     ${sectionHead(UI.workKicker, UI.workTitle, UI.workNote)}
     <div class="feat">${featured.map((p, i) => `
       <button class="feat-row reveal" type="button" data-open="${p.id}">
@@ -117,7 +134,7 @@ function systems() {
 }
 
 function apps() {
-  return `<section class="band alt" id="apps">
+  return `<section class="band alt" id="apps"><div class="o o-s2" aria-hidden="true">${monstera()}</div>
     ${sectionHead(UI.appsKicker, UI.appsTitle)}
     <div class="apps">${APPS.map((a) => `
       <button class="app reveal" type="button" data-open="${a.id}">
@@ -140,7 +157,7 @@ function apps() {
 }
 
 function skills() {
-  return `<section class="band" id="skills">
+  return `<section class="band" id="skills"><div class="o o-s3" aria-hidden="true">${plant(11)}</div>
     ${sectionHead(UI.skillsKicker, UI.skillsTitle)}
     <div class="skills">${SKILLS.map((s, i) => `<article class="reveal">
       <span class="num">${pad(i + 1)}</span>
@@ -165,15 +182,14 @@ function career() {
 
 function contact() {
   return `<section class="contact" id="contact">
-    <p class="kicker reveal">${T(UI.contactKicker)}</p>
+    <div class="o o-c1" aria-hidden="true">${monstera()}</div>
+    <div class="o o-c2" aria-hidden="true">${plant()}</div>
+    <p class="sig small reveal" lang="en" dir="ltr">Alaa badr</p>
+    <p class="pill reveal">${T(UI.contactKicker)}</p>
     <h2 class="reveal">${T(UI.contactTitle)}</h2>
-    <p class="reveal">${T(UI.contactBody)}</p>
-    <a class="mail reveal" href="mailto:${PROFILE.email}" dir="ltr">${PROFILE.email}</a>
-    <div class="social reveal">
-      <a href="${PROFILE.linkedin}" ${ext}>LinkedIn ${arrow}</a>
-      <a href="${PROFILE.github}" ${ext}>GitHub ${arrow}</a>
-      <span>${T(PROFILE.city)}</span>
-    </div>
+    <p class="body reveal">${T(UI.contactBody)}</p>
+    <div class="reveal">${contactRow()}</div>
+    <p class="city reveal">${T(PROFILE.city)}</p>
     <footer><span>© ${new Date().getFullYear()} ${T(PROFILE.name)}. ${T(UI.rights)}</span><a href="#home">${T(UI.top)}</a></footer>
   </section>`;
 }
