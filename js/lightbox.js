@@ -55,7 +55,9 @@ function open(anchor) {
       ${multi ? `<button type="button" class="lb-nav lb-next" data-lb="next" aria-label="${t.next}">${CHEV}</button>` : ''}
     </div>
     ${multi ? `<div class="lb-thumbs">${items.map((it, i) => `<button type="button" class="lb-thumb" data-i="${i}" aria-label="${t.go} ${i + 1}"><img src="${it.thumb}" alt="" loading="lazy"></button>`).join('')}</div>` : ''}`;
+  box.tabIndex = -1;
   box.showModal();
+  box.focus();
   show(links.indexOf(anchor));
 }
 
