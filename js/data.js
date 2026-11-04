@@ -172,7 +172,7 @@ export const SYSTEMS = [
     id: 'it-support',
     name: t('الدعم الفني والأصول', 'IT Support & Assets'),
     tag: t('تذاكر الدعم وأجهزة الشركة', 'Support tickets and company assets'),
-    status: 'private', code: t('نظام داخلي', 'Internal system'),
+    status: 'live', code: t('نظام داخلي', 'Internal system'),
     simple: t(
       'الموظف يفتح تذكرة عند وجود مشكلة، وفريق IT يتابعها على لوحة واضحة حتى تُحل. والنظام يعرف كل جهاز في الشركة ومع من، ويقيس أداء الفريق.',
       'An employee opens a ticket, and IT follows it on a clear board until it is solved. The system also knows every company device, who holds it, and how the team is performing.'),
@@ -186,6 +186,7 @@ export const SYSTEMS = [
     ],
     stack: ['React', 'Vite', 'Express', 'TypeORM', 'PostgreSQL', 'Socket.IO'],
     images: Array.from({ length: 8 }, (_, i) => `assets/shots/it-support-${i + 1}.webp`),
+    links: [{ kind: 'login', url: 'https://helpdesk.waterway.group/login' }],
     redacted: true,
   },
   {
