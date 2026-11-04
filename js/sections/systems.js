@@ -25,11 +25,11 @@ const opener = (p) => `<h3 class="title"><button class="open" type="button" data
 const stack = (p, n) => `<p class="stack" lang="en" dir="ltr">${p.stack.slice(0, n).map(esc).join(' · ')}</p>`;
 const go = `<span class="go" aria-hidden="true">${T(UI.more)} ${arrow}</span>`;
 
-const chapter = (p, i, total) => `
+const chapter = (p, i, first, total) => `
   <div class="ch${i === 0 ? ' ch-first' : ''}" style="--r:${i + 1}">
     <div class="ch-visual reveal"><span class="blade" aria-hidden="true"></span>${frame(p)}<span class="shade" aria-hidden="true"></span></div>
     <div class="ch-text reveal">
-      <p class="ch-n" aria-hidden="true">${pad(i + 1)}<small>/ ${pad(total)}</small></p>
+      <p class="ch-n" aria-hidden="true">${pad(i + first)}<small>/ ${pad(total)}</small></p>
       <p class="meta li" style="--s:0">${statusChip(p)}<small>${T(p.code)}</small></p>
       ${opener(p)}
       <p class="tag li" style="--s:2">${T(p.tag)}</p>
@@ -40,29 +40,35 @@ const chapter = (p, i, total) => `
     </div>
   </div>`;
 
-const piece = (p, i) => `
-  <div class="arc arc-${i + 1} reveal">
-    <div class="arc-visual">${frame(p)}</div>
-    <div class="arc-text">
-      <p class="meta li" style="--s:0"><span class="num">${pad(i + 5)}</span>${statusChip(p)}<small>${T(p.code)}</small></p>
+/* The showcase: four panels side by side. The one you point at, tap or tab to opens wide. */
+const panel = (p, i) => `
+  <article class="fx${i === 0 ? ' on' : ''} reveal" style="--i:${i}">
+    <div class="fx-media" data-open="${p.id}" aria-hidden="true">${p.images
+      ? `<img class="fx-shot" src="${p.images[0]}" alt="" loading="lazy" decoding="async" width="1200" height="750">`
+      : mockHTML(p.mock)}</div>
+    <span class="fx-shade" aria-hidden="true"></span>
+    <div class="fx-rest" aria-hidden="true"><span class="num">${pad(i + 1)}</span><span class="fx-name">${T(p.name)}</span></div>
+    <div class="fx-text">
+      <p class="meta li" style="--s:0"><span class="num">${pad(i + 1)}</span>${statusChip(p)}<small>${T(p.code)}</small></p>
       ${opener(p)}
       <p class="tag li" style="--s:2">${T(p.tag)}</p>
-      <div class="li" style="--s:3">${stack(p, 4)}</div>
-      <div class="li" style="--s:4">${go}</div>
+      <p class="desc li" style="--s:3">${T(p.simple)}</p>
+      <div class="li fx-foot" style="--s:4">${stack(p, 5)}${go}</div>
+      ${p.mock ? `<p class="mock-note li" style="--s:5">${T(UI.mockNote)}</p>` : ''}
     </div>
-  </div>`;
+  </article>`;
 
 export function render() {
   const featured = SYSTEMS.filter((s) => s.featured);
   const rest = SYSTEMS.filter((s) => !s.featured);
   return `<section class="band" id="work"><div class="o o-s1" aria-hidden="true">${plant()}</div>
     ${sectionHead(UI.workKicker, UI.workTitle, UI.workNote)}
-    <div class="stage" style="--n:${featured.length}">
-      <div class="rail" aria-hidden="true"><span class="rail-fill"></span>${featured.map((_, i) => `<span class="rail-n">${pad(i + 1)}</span>`).join('')}</div>
+    <div class="fx-list">${featured.map(panel).join('')}</div>
+    <div class="stage" style="--n:${rest.length}">
+      <div class="rail" aria-hidden="true"><span class="rail-fill"></span>${rest.map((_, i) => `<span class="rail-n">${pad(i + featured.length + 1)}</span>`).join('')}</div>
       <div class="stage-leaf" aria-hidden="true">${plant(11)}</div>
-      ${featured.map((p, i) => chapter(p, i, featured.length)).join('')}
+      ${rest.map((p, i) => chapter(p, i, featured.length + 1, SYSTEMS.length)).join('')}
     </div>
-    <div class="archive">${rest.map(piece).join('')}</div>
   </section>`;
 }
 
@@ -191,13 +197,13 @@ export function init() {
   }, { rootMargin: '15% 0px' });
   seen.observe(root);
 
-  /* Screens behind a closed clip-path are not fetched early by native lazy loading: fetch them as the archive nears. */
+  /* Screens behind a closed clip-path are not fetched early by native lazy loading: fetch them as the stage nears. */
   const near = new IntersectionObserver(([e]) => {
     if (!e.isIntersecting) return;
     near.disconnect();
-    root.querySelectorAll('.archive .shot[loading="lazy"]').forEach((img) => { img.loading = 'eager'; });
+    stage.querySelectorAll('.shot[loading="lazy"]').forEach((img) => { img.loading = 'eager'; });
   }, { rootMargin: '100% 0px' });
-  near.observe(root.querySelector('.archive'));
+  near.observe(stage);
 
   const onStageChange = () => {
     clearStage();
@@ -240,8 +246,31 @@ export function init() {
 
   /* A click on the picture acts on the heading's button, so closing the dialog returns focus there. */
   function onFrameClick(e) {
-    e.target.closest('.frame')?.closest('.ch, .arc')?.querySelector('.open').focus({ preventScroll: true });
+    e.target.closest('.frame, .fx-media')?.closest('.ch, .fx')?.querySelector('.open').focus({ preventScroll: true });
   }
+
+  /* Showcase: hover or keyboard focus opens a panel at once. A tap on a closed panel opens it
+     first, and only a tap on the open one reaches the project dialog. */
+  const list = root.querySelector('.fx-list');
+  const panels = [...list.querySelectorAll('.fx')];
+  const wide = matchMedia('(min-width: 1024px)');
+  const select = (el) => panels.forEach((p) => p.classList.toggle('on', p === el));
+  const fxAc = new AbortController();
+  /* Real movement only: a resting cursor must not steal the panel when the layout shifts under it. */
+  let lastX = -1;
+  let lastY = -1;
+  list.addEventListener('pointermove', (e) => {
+    if (e.pointerType !== 'mouse' || (e.clientX === lastX && e.clientY === lastY)) return;
+    lastX = e.clientX;
+    lastY = e.clientY;
+    const el = e.target.closest('.fx');
+    if (el && !el.classList.contains('on')) select(el);
+  }, { signal: fxAc.signal });
+  list.addEventListener('focusin', (e) => { const el = e.target.closest('.fx'); if (el) select(el); }, { signal: fxAc.signal });
+  list.addEventListener('click', (e) => {
+    const el = e.target.closest('.fx');
+    if (el && wide.matches && !el.classList.contains('on')) { select(el); e.stopPropagation(); }
+  }, { signal: fxAc.signal });
 
   const useTilt = tiltMq.matches;
   root.addEventListener('click', onFrameClick);
@@ -258,6 +287,7 @@ export function init() {
     if (raf) cancelAnimationFrame(raf);
     raf = 0;
     onScreen = false;
+    fxAc.abort();
     seen.disconnect();
     near.disconnect();
     window.removeEventListener('scroll', schedule);
