@@ -1,6 +1,6 @@
 import { SYSTEMS, UI } from '../data.js';
 import { plant } from '../deco.js';
-import { T, esc, pad, arrow, statusChip, sectionHead } from '../shared.js';
+import { T, esc, pad, arrow, arrowOwner, statusChip, sectionHead } from '../shared.js';
 import { mockHTML } from './mock.js';
 
 /* Must match the @media blocks of the same purpose in css/sections/systems.css. */
@@ -370,8 +370,8 @@ export function init() {
   document.addEventListener('keydown', (e) => {
     if (!listSeen || !wide.matches || e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
     if (document.querySelector('dialog[open]') || document.documentElement.classList.contains('nav-open')) return;
-    const here = e.target.closest?.('input, textarea, select, [contenteditable], #apps, #lang');
-    if (here) return;
+    const here = e.target.closest?.('input, textarea, select, [contenteditable], #lang');
+    if (here || arrowOwner() !== list) return;
     const rtl = document.documentElement.dir === 'rtl';
     const cur = panels.findIndex((p) => p.classList.contains('on'));
     const to = { [rtl ? 'ArrowLeft' : 'ArrowRight']: cur + 1, [rtl ? 'ArrowRight' : 'ArrowLeft']: cur - 1, Home: 0, End: panels.length - 1 }[e.key];

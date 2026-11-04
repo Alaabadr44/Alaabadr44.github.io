@@ -19,3 +19,10 @@ export const contactRow = () => `<ul class="contact-row" dir="ltr">
   <li><a href="${PROFILE.github}" ${ext}>${icon('github')}<span>github.com/Alaabadr44</span></a></li>
   <li><a href="${PROFILE.linkedin}" ${ext}>${icon('linkedin')}<span>LinkedIn</span></a></li>
 </ul>`;
+
+/* Two sections answer the arrow keys with nothing focused. When both are on screen, the one nearer the middle does. */
+export const arrowOwner = () => {
+  const mid = innerHeight / 2;
+  const away = (el) => { const r = el.getBoundingClientRect(); return Math.abs((r.top + r.bottom) / 2 - mid); };
+  return [...document.querySelectorAll('#work .fx-list, #apps .vitrine')].sort((a, b) => away(a) - away(b))[0];
+};

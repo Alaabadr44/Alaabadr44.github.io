@@ -1,6 +1,6 @@
 import { APPS, OTHERS, UI } from '../data.js';
 import { monstera } from '../deco.js';
-import { T, arrow, ext, pad, sectionHead } from '../shared.js';
+import { T, arrow, arrowOwner, ext, pad, sectionHead } from '../shared.js';
 
 /* The vitrine: a lit case with one fixed spotlight. Apps slide along a ledge, and the one under
    the light steps forward and opens its screenshots from behind it. Every value is derived from
@@ -140,6 +140,7 @@ export function init() {
 
   /* Keyboard. Arrow keys follow the screen, so they mirror with the language. */
   const step = (e, count, current, move) => {
+    if (arrowOwner() !== vitrine) return;
     const forward = document.documentElement.dir === 'rtl' ? 'ArrowLeft' : 'ArrowRight';
     const back = document.documentElement.dir === 'rtl' ? 'ArrowRight' : 'ArrowLeft';
     let next = null;
@@ -160,6 +161,17 @@ export function init() {
   on(shelf, 'focusin', (e) => {
     const i = pieces.indexOf(e.target.closest?.('.piece'));
     if (i >= 0 && e.target.matches(':focus-visible')) goTo(i);
+  });
+
+  /* Arrow keys also work as soon as the case is on screen, with nothing focused first. Focus moves too, so Enter opens the app. */
+  let caseSeen = false;
+  const caseIo = new IntersectionObserver(([e]) => { caseSeen = e.isIntersecting; }, { threshold: 0.4 });
+  caseIo.observe(vitrine);
+  on(document, 'keydown', (e) => {
+    if (!caseSeen || !['ArrowLeft', 'ArrowRight'].includes(e.key) || e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
+    if (document.querySelector('dialog[open]') || document.documentElement.classList.contains('nav-open')) return;
+    if (e.target.closest?.('input, textarea, select, [contenteditable], .shelf, .dock, #lang')) return;
+    step(e, pieces.length, active, (n) => { pieces[n].focus({ preventScroll: true }); goTo(n); });
   });
 
   const dock = root.querySelector('.dock');
@@ -226,6 +238,7 @@ export function init() {
     off.abort();
     resize.disconnect();
     seen.disconnect();
+    caseIo.disconnect();
     clearTimeout(settle);
     cancelAnimationFrame(frame);
   };
