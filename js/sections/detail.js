@@ -35,15 +35,14 @@ function renameHTML(r) {
 function proofHTML(p) {
   if (!p.proof) return '';
   const { over, value, label, rename, story } = p.proof;
-  return `<section class="d-proof d-in" style="--i:2">
+  const side = rename ? renameHTML(rename) : story ? `<h3>${T(story.title)}</h3><p class="d-story">${T(story.text)}</p>` : '';
+  return `<section class="d-proof ${side ? '' : 'solo'} d-in" style="--i:2">
     <div class="d-stat">
       <small>${T(over)}</small>
       <b>${T(value)}</b>
       <span>${T(label)}</span>
     </div>
-    <div class="d-name">
-      ${rename ? renameHTML(rename) : `<h3>${T(story.title)}</h3><p class="d-story">${T(story.text)}</p>`}
-    </div>
+    ${side ? `<div class="d-name">${side}</div>` : ''}
   </section>`;
 }
 
