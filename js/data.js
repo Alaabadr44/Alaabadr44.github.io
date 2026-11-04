@@ -59,7 +59,7 @@ export const SYSTEMS = [
       t('تعديل محتوى الموقع من لوحة التحكم', 'Site content editable from the admin panel'),
     ],
     stack: ['React', 'TanStack', 'NestJS', 'Docker'],
-    images: ['assets/shots/eaten-1.webp', 'assets/shots/eaten-2.webp'],
+    images: Array.from({ length: 12 }, (_, i) => `assets/shots/eaten-${i + 1}.webp`),
     links: [{ kind: 'site', url: 'https://eateneg.com' }],
   },
   {
