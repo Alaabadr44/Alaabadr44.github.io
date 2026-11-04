@@ -179,7 +179,7 @@ function contact() {
 }
 
 function linksHTML(p) {
-  return (p.links || []).map((l) => `<a class="btn ${l.kind === 'site' ? '' : 'ghost'}" href="${l.url}" ${ext}>${T(UI.link[l.kind])} ${arrow}</a>`).join('');
+  return (p.links || []).map((l) => `<a class="btn ${['site', 'login'].includes(l.kind) ? '' : 'ghost'}" href="${l.url}" ${ext}>${T(UI.link[l.kind])} ${arrow}</a>`).join('');
 }
 
 function openDetail(id, push = true) {
