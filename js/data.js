@@ -14,6 +14,7 @@ export const PROFILE = {
   city: t('القاهرة، مصر', 'Cairo, Egypt'),
   email: 'alaabadr4470@gmail.com',
   whatsapp: 'https://wa.me/201032310223',
+  personalNote: 'https://www.linkedin.com/feed/update/urn:li:activity:7366887526327898112/',
   whatsappLabel: '+20 103 231 0223',
   linkedin: 'https://www.linkedin.com/in/alaa-badr-255a8a130/',
   github: 'https://github.com/Alaabadr44',
@@ -295,7 +296,7 @@ export const SKILLS = [
 ];
 
 export const UI = {
-  nav: { work: t('الأعمال', 'Work'), apps: t('التطبيقات', 'Apps'), skills: t('الإمكانيات', 'Capabilities'), career: t('المسيرة', 'Career'), contact: t('تواصل', 'Contact') },
+  nav: { work: t('الأعمال', 'Work'), apps: t('التطبيقات', 'Apps'), skills: t('الإمكانيات', 'Capabilities'), career: t('المسيرة', 'Career'), voices: t('آراء', 'Testimonials'), contact: t('تواصل', 'Contact') },
   eyebrow: t('القاهرة · منذ 2021', 'Cairo · Since 2021'),
   headline: t('أبني برامج<br><em>يعتمد عليها</em> الناس كل يوم.', 'I build software<br>people <em>rely on</em> every day.'),
   intro: t(
@@ -308,6 +309,10 @@ export const UI = {
   appsKicker: t('على المتاجر', 'On the stores'), appsTitle: t('تطبيقات يمكنك تحميلها الآن', 'Apps you can download today'),
   othersKicker: t('من المسيرة أيضًا', 'Also along the way'), othersTitle: t('مشاريع أخرى', 'More projects'),
   skillsKicker: t('الإمكانيات', 'Capabilities'), skillsTitle: t('ماذا أقدر أبني لك', 'What I can build for you'),
+  voicesKicker: t('آراء', 'Testimonials'), voicesTitle: t('قالوا عني', 'In their own words'),
+  voicesNote: t('تعليقات كما كتبها أصحابها على لينكد إن.', 'Comments as their authors wrote them on LinkedIn, in Arabic.'),
+  voicesPause: t('إيقاف الحركة', 'Pause motion'), voicesPlay: t('تشغيل الحركة', 'Play motion'),
+  personalNote: t('ملاحظة شخصية', 'A personal note'),
   careerKicker: t('المسيرة', 'Career'), careerTitle: t('الخبرة العملية', 'Experience'),
   edu: t('بكالوريوس الحاسبات والمعلومات، الأكاديمية المصرية للحاسبات وتكنولوجيا المعلومات، طنطا، 2019', 'BSc in Computers and Information, The Egyptian Academy of Computers and IT Management, Tanta, 2019'),
   contactKicker: t('لنتحدث', 'Let\'s talk'), contactTitle: t('عندك فكرة أو فرصة عمل؟', 'Have an idea or an opening?'),

@@ -1,0 +1,58 @@
+/* Testimonials: stage + rail. Comment text is always Arabic, so it keeps Tajawal in both languages. */
+#voices blockquote { font-family: 'Tajawal', system-ui, sans-serif; white-space: pre-line; text-align: start; }
+
+#voices .vo-stage { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1.5rem clamp(2rem, 5vw, 5rem); align-items: center; padding: clamp(1.6rem, 4vw, 3.4rem); border: 1px solid var(--line); border-radius: calc(var(--r) * 1.5); background: linear-gradient(135deg, rgba(255, 255, 255, .045), rgba(0, 0, 0, .22)); box-shadow: 0 30px 70px rgba(0, 0, 0, .35), inset 0 1px rgba(255, 255, 255, .06); outline: 1px dashed rgba(255, 255, 255, .13); outline-offset: -.6rem; }
+#voices .vo-mark { position: absolute; inset-block-start: -.4rem; inset-inline-start: 50%; font: 400 clamp(7rem, 15vw, 13rem)/1 Georgia, serif; color: var(--gold); opacity: .09; pointer-events: none; }
+
+#voices .vo-panels { display: grid; min-width: 0; }
+#voices .vo-panel { grid-area: 1 / 1; display: flex; flex-direction: column; justify-content: center; gap: 1.5rem; visibility: hidden; opacity: 0; transform: translateY(14px); transition: opacity .6s var(--ease), transform .7s var(--ease), visibility 0s .6s; }
+#voices .vo-panel.on { visibility: visible; opacity: 1; transform: none; transition: opacity .7s var(--ease) .12s, transform .8s var(--ease) .12s, visibility 0s; }
+#voices .vo-panel blockquote { font-size: clamp(1.15rem, 1.9vw, 1.7rem); line-height: 1.75; font-weight: 500; color: var(--text); }
+
+#voices .vo-by { display: flex; align-items: center; gap: .85rem; min-width: 0; }
+#voices .vo-by img { flex: none; width: 3.5rem; height: 3.5rem; border-radius: 50%; object-fit: cover; border: 1px solid rgba(255, 255, 255, .25); }
+#voices .vo-by > span { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; line-height: 1.35; }
+#voices .vo-name { font: 600 1rem/1.35 'Montserrat', sans-serif; }
+#voices .vo-by small { font: 400 .8rem/1.4 'Montserrat', sans-serif; color: var(--dim); text-align: start; unicode-bidi: plaintext; }
+#voices .vo-panel .vo-by img { width: 4.5rem; height: 4.5rem; }
+
+#voices .vo-picks { display: flex; flex-direction: column; gap: .7rem; }
+#voices .vo-pick { position: relative; width: 4rem; height: 4rem; border-radius: 50%; padding: .32rem; transition: transform .25s var(--ease); }
+#voices .vo-pick img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; opacity: .55; filter: grayscale(.35); transition: opacity .3s, filter .3s; }
+#voices .vo-pick.on img, #voices .vo-pick:hover img { opacity: 1; filter: none; }
+#voices .vo-pick svg { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); }
+#voices .vo-pick circle { fill: none; stroke: var(--gold); stroke-width: 2.5; stroke-dasharray: 1; stroke-dashoffset: 1; }
+#voices .vo-pick.on circle { stroke-dashoffset: 0; animation: vo-ring 8s linear both; }
+#voices:is(.vo-manual, .vo-paused, .vo-off) .vo-pick.on circle, #voices .vo-stage:is(:hover, :focus-within) .vo-pick.on circle { animation-play-state: paused; }
+#voices.vo-manual .vo-pick.on circle { animation: none; }
+@keyframes vo-ring { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+
+/* Rail: two identical sets, moved by exactly one set's width. */
+#voices .vo-rail { margin-block-start: clamp(1.6rem, 3vw, 2.6rem); margin-inline: calc(var(--pad) * -1); overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); }
+#voices .vo-track { display: flex; width: max-content; animation: vo-drift 90s linear infinite; }
+[dir='rtl'] #voices .vo-track { animation-name: vo-drift-rtl; }
+#voices .vo-set { display: flex; gap: 1rem; padding-inline-end: 1rem; }
+#voices .vo-card { width: min(23rem, 78vw); display: flex; flex-direction: column; justify-content: space-between; gap: 1.1rem; padding: 1.35rem 1.45rem; border: 1px solid var(--line); border-radius: var(--r); background: rgba(0, 0, 0, .24); }
+#voices .vo-card blockquote { font-size: 1rem; line-height: 1.75; color: var(--text); }
+#voices .vo-rail:hover .vo-track, #voices:is(.vo-paused, .vo-off) .vo-track { animation-play-state: paused; }
+@keyframes vo-drift { to { transform: translateX(-50%); } }
+@keyframes vo-drift-rtl { to { transform: translateX(50%); } }
+
+#voices .vo-tools { display: flex; justify-content: flex-end; margin-block-start: 1rem; }
+#voices .vo-toggle { min-height: 44px; padding-inline: 1rem; font-size: .84rem; color: var(--dim); border: 1px solid transparent; border-radius: 99px; transition: color .2s, border-color .2s; }
+#voices .vo-toggle:hover { color: var(--text); border-color: var(--line); }
+
+@media (hover: hover) and (pointer: fine) { #voices .vo-pick:hover { transform: scale(1.06); } }
+
+@media (max-width: 760px) {
+  #voices .vo-stage { grid-template-columns: minmax(0, 1fr); }
+  #voices .vo-picks { flex-direction: row; justify-content: flex-start; flex-wrap: wrap; gap: .35rem; }
+  #voices .vo-pick { width: 3.2rem; height: 3.2rem; }
+  #voices .vo-panel .vo-by img { width: 3.75rem; height: 3.75rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #voices .vo-rail { overflow-x: auto; -webkit-mask-image: none; mask-image: none; padding-inline: var(--pad); }
+  #voices .vo-copy, #voices .vo-tools { display: none; }
+  #voices .vo-pick.on circle { stroke-dashoffset: 0; }
+}

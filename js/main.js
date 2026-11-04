@@ -8,10 +8,11 @@ import * as systems from './sections/systems.js';
 import * as apps from './sections/apps.js';
 import * as skills from './sections/skills.js';
 import * as career from './sections/career.js';
+import * as voices from './sections/voices.js';
 import * as contact from './sections/contact.js';
 
 /* Page order. Each module exports render() -> HTML and may export init() -> optional cleanup. */
-const CONTENT = [hero, systems, apps, skills, career, contact];
+const CONTENT = [hero, systems, apps, skills, career, voices, contact];
 const SECTIONS = [header, ...CONTENT];
 const app = document.getElementById('app');
 const dialog = document.getElementById('detail');

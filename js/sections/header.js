@@ -6,7 +6,7 @@ const MENU_LABEL = { ar: 'القائمة', en: 'Menu' };
 
 export function render() {
   const n = UI.nav;
-  const links = [['work', n.work], ['apps', n.apps], ['skills', n.skills], ['career', n.career]];
+  const links = [['work', n.work], ['apps', n.apps], ['skills', n.skills], ['career', n.career], ['voices', n.voices]];
   const sheetLinks = [...links, ['contact', n.contact]];
   return `<header class="top" id="top-bar">
     <a class="mark" href="#home" aria-label="${T(PROFILE.name)}" lang="en" dir="ltr">Alaa badr</a>
@@ -68,7 +68,7 @@ export function init() {
     });
     place();
   };
-  const ids = ['home', 'work', 'apps', 'skills', 'career', 'contact'];
+  const ids = ['home', 'work', 'apps', 'skills', 'career', 'voices', 'contact'];
   const spyIo = new IntersectionObserver((entries) => {
     entries.forEach((e) => { if (e.isIntersecting) setCurrent(e.target.id === 'home' ? null : e.target.id); });
   }, { rootMargin: '-45% 0px -54% 0px' });
