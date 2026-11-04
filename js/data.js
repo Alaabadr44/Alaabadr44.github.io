@@ -261,7 +261,7 @@ export const CAREER = [
 
 /* Which work belongs to which employer, or to the owner's own and freelance projects. */
 export const WORK = {
-  waterway: ['hr-attends', 'hub-community', 'call-qa', 'it-support', 'drive2', 'eaten', 'dyafa'],
+  waterway: ['hr-attends', 'hub-community', 'call-qa', 'it-support', 'drive2', 'eaten'],
   fleetrun: ['fleet-run'],
   abg: ['foodcode', 'mixatak', 'brain-health'],
   personal: ['social-brand-manager', 'delivery'],
