@@ -208,25 +208,6 @@ export const SYSTEMS = [
     images: Array.from({ length: 15 }, (_, i) => `assets/shots/drive2-${i + 1}.webp`),
     redacted: true,
   },
-  {
-    id: 'veto',
-    name: t('Veto', 'Veto'),
-    tag: t('نظام إدارة معارض تأجير السيارات', 'Car rental management system'),
-    status: 'live', code: t('موقع وتطبيق', 'Website & app'),
-    simple: t(
-      'نظام واحد يدير به صاحب المعرض كل شغله: عمليات التأجير والعملاء والسيارات والفواتير والتقارير، من أي مكان.',
-      'One system for a rental business to run everything: rentals, customers, cars, invoices and reports, from anywhere.'),
-    who: t('شركات ومعارض تأجير السيارات.', 'Car rental companies and showrooms.'),
-    features: [
-      t('إدارة عمليات التأجير والعملاء', 'Rental and customer management'),
-      t('إدارة أسطول السيارات', 'Fleet management'),
-      t('فواتير وتقارير', 'Invoices and reports'),
-      t('موقع تعريفي وتطبيق موبايل', 'Marketing website and a mobile app'),
-    ],
-    stack: ['Next.js', 'TypeScript', 'Flutter'],
-    images: ['assets/shots/veto-1.webp', 'assets/shots/veto-2.webp'],
-    links: [{ kind: 'site', url: 'https://car-rental-website-opal-chi.vercel.app' }],
-  },
 ];
 
 export const APPS = [
@@ -261,24 +242,31 @@ export const APPS = [
 ];
 
 export const OTHERS = [
-  { name: t('Fleet Run', 'Fleet Run'), tag: t('لوجستيات', 'Logistics'),
+  { id: 'fleet-run', name: t('Fleet Run', 'Fleet Run'), tag: t('لوجستيات', 'Logistics'),
     simple: t('حل توصيل للمطاعم والمخابز بثلاثة تطبيقات: السائق بتتبع GPS مباشر، ونقطة البيع لإنشاء الطلبات، والإدارة لمتابعة الأداء، مع محادثات ومزامنة فورية عبر Firebase.', 'Delivery for restaurants and bakeries in three apps: driver with live GPS, POS for creating orders, and admin for performance, with chat and real-time Firebase sync.') },
-  { name: t('حياة كريمة', 'Hayah Karima'), tag: t('مبادرة حكومية · مصر', 'Government initiative · Egypt'),
+  { id: 'hayah-karima', name: t('حياة كريمة', 'Hayah Karima'), tag: t('مبادرة حكومية · مصر', 'Government initiative · Egypt'),
     simple: t('تطبيق لمبادرة «حياة كريمة» يعرض للمستخدم معلومات وخدمات معرفية حسب القرية التي يبحث عنها.', 'An app for Egypt\'s "Decent Life" initiative, showing information and services based on the village a user looks up.') },
-  { name: t('تعليم الكويت', 'Kuwait Education'), tag: t('وزارة التربية', 'Ministry of Education'),
+  { id: 'kuwait-education', name: t('تعليم الكويت', 'Kuwait Education'), tag: t('وزارة التربية', 'Ministry of Education'),
     simple: t('تطبيق لوزارة التربية بدولة الكويت يعرض نتائج الطلاب والغياب والحضور وخدمات أخرى.', 'An app for Kuwait\'s Ministry of Education showing student results, absence, attendance and more.') },
-  { name: t('Cashier System', 'Cashier System'), tag: t('نقاط بيع', 'Point of sale'),
+  { id: 'cashier-system', name: t('Cashier System', 'Cashier System'), tag: t('نقاط بيع', 'Point of sale'),
     simple: t('تطبيق ضمن مجموعة تطبيقات يقرأ رمز QR ويُتم عملية الشراء والدفع.', 'Part of a family of apps: it reads a QR code and completes the purchase and payment.') },
-  { name: t('Reverse-Engineer & Rebuild', 'Reverse-Engineer & Rebuild'), tag: t('مفتوح المصدر · AI', 'Open source · AI'),
-    simple: t('مهارة لـ Claude Code تحلل نظامًا قديمًا شغالًا وتخرج منه مواصفات موثقة وخطة لإعادة بنائه، بمنهج يبدأ بالاختبارات.', 'A Claude Code skill that turns a running legacy system into a verified spec and a rebuild plan, with a test-first pipeline.'),
-    url: 'https://github.com/Alaabadr44/reverse-engineer-rebuild-skill-' },
 ];
 
 export const CAREER = [
-  { co: 'FleetRun', from: t('أغسطس 2024', 'Aug 2024'), to: t('حتى الآن', 'Present'), role: t('مطوّر تطبيقات Flutter', 'Flutter Mobile Developer') },
-  { co: 'secret-technology', from: t('سبتمبر 2023', 'Sep 2023'), to: t('أغسطس 2024', 'Aug 2024'), role: t('مطوّر تطبيقات Flutter', 'Flutter Mobile Developer') },
-  { co: 'ABG', from: t('يناير 2021', 'Jan 2021'), to: t('سبتمبر 2023', 'Sep 2023'), role: t('مطوّر تطبيقات Flutter', 'Flutter Mobile Developer') },
+  { key: 'waterway', co: 'Waterway', from: t('ديسمبر 2025', 'Dec 2025'), to: t('حتى الآن', 'Present'), role: t('مطوّر Flutter و Full-Stack', 'Flutter & Full-Stack Developer') },
+  { key: 'fleetrun', co: 'FleetRun', from: t('أغسطس 2024', 'Aug 2024'), to: t('ديسمبر 2025', 'Dec 2025'), role: t('مطوّر تطبيقات Flutter', 'Flutter Mobile Developer') },
+  { key: 'secret-technology', co: 'secret-technology', from: t('سبتمبر 2023', 'Sep 2023'), to: t('أغسطس 2024', 'Aug 2024'), role: t('مطوّر تطبيقات Flutter', 'Flutter Mobile Developer') },
+  { key: 'abg', co: 'ABG', from: t('يناير 2021', 'Jan 2021'), to: t('سبتمبر 2023', 'Sep 2023'), role: t('مطوّر تطبيقات Flutter', 'Flutter Mobile Developer') },
 ];
+
+/* Which work belongs to which employer, or to the owner's own and freelance projects. */
+export const WORK = {
+  waterway: ['hr-attends', 'hub-community', 'call-qa', 'it-support', 'drive2', 'eaten', 'dyafa'],
+  fleetrun: ['fleet-run'],
+  abg: ['foodcode', 'mixatak', 'brain-health'],
+  personal: ['social-brand-manager', 'delivery'],
+  freelance: ['fawry-payday', 'amwal', 'dadsters', 'book-club', 'hayah-karima', 'kuwait-education', 'cashier-system'],
+};
 
 export const SKILLS = [
   { title: t('تطبيقات الموبايل', 'Mobile'),
@@ -315,6 +303,7 @@ export const UI = {
   voicesNote: t('تعليقات كما كتبها أصحابها على لينكد إن.', 'Comments as their authors wrote them on LinkedIn, in Arabic.'),
   voicesPause: t('إيقاف الحركة', 'Pause motion'), voicesPlay: t('تشغيل الحركة', 'Play motion'),
   personalNote: t('ملاحظة شخصية', 'A personal note'),
+  personalWork: t('مشاريع شخصية', 'Personal projects'), freelanceWork: t('فريلانس', 'Freelance'),
   careerKicker: t('المسيرة', 'Career'), careerTitle: t('الخبرة العملية', 'Experience'),
   edu: t('بكالوريوس الحاسبات والمعلومات، الأكاديمية المصرية للحاسبات وتكنولوجيا المعلومات، طنطا، 2019', 'BSc in Computers and Information, The Egyptian Academy of Computers and IT Management, Tanta, 2019'),
   contactKicker: t('لنتحدث', 'Let\'s talk'), contactTitle: t('عندك فكرة أو فرصة عمل؟', 'Have an idea or an opening?'),

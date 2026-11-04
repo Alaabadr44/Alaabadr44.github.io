@@ -1,9 +1,9 @@
-import { SYSTEMS, APPS, UI } from '../data.js';
+import { SYSTEMS, APPS, OTHERS, UI } from '../data.js';
 import { T, esc, arrow, ext, pad, statusChip } from '../shared.js';
 import { mockHTML } from './mock.js';
 
 const dialog = document.getElementById('detail');
-const ALL = [...SYSTEMS, ...APPS];
+const ALL = [...SYSTEMS, ...APPS, ...OTHERS];
 const TEXT = {
   prev: { ar: 'الصورة السابقة', en: 'Previous image' },
   next: { ar: 'الصورة التالية', en: 'Next image' },

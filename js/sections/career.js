@@ -1,4 +1,4 @@
-import { CAREER, UI } from '../data.js';
+import { CAREER, SYSTEMS, APPS, OTHERS, WORK, UI } from '../data.js';
 import { stylus } from '../deco.js';
 import { T, esc, sectionHead } from '../shared.js';
 
@@ -10,6 +10,21 @@ const when = (en) => (en === 'Present' ? Date.now() : Date.parse(`1 ${en}`));
 const gapRem = (c) => {
   const months = (when(c.to.en) - when(c.from.en)) / 2.63e9;
   return Number.isFinite(months) ? Math.min(9, Math.max(4, months * 0.28)).toFixed(2) : 5;
+};
+
+const ALL = [...SYSTEMS, ...APPS, ...OTHERS];
+
+/* The work done at each place: every project opens its details. */
+const workList = (key) => {
+  const items = (WORK[key] || []).map((id) => ALL.find((p) => p.id === id)).filter(Boolean);
+  if (!items.length) return '';
+  return `<ul class="cr-works">${items.map((p, i) => {
+    const thumb = p.icon || p.images?.[0];
+    return `<li style="--w:${i}"><button type="button" class="cr-work" data-open="${p.id}" aria-haspopup="dialog">
+      <span class="cr-thumb" aria-hidden="true">${thumb ? `<img src="${thumb}" alt="" loading="lazy" decoding="async" width="56" height="40">` : `<b>${esc(T(p.name).charAt(0))}</b>`}</span>
+      <span class="cr-wname">${T(p.name)}</span>
+    </button></li>`;
+  }).join('')}</ul>`;
 };
 
 export function render() {
@@ -25,9 +40,14 @@ export function render() {
           <h3><bdi lang="en" dir="ltr">${esc(c.co)}</bdi></h3>
           <p class="when"><bdi>${T(c.from)}</bdi> – <bdi>${T(c.to)}</bdi></p>
           <p class="role">${T(c.role)}</p>
+          ${workList(c.key)}
         </div>
       </li>`).join('')}</ol>
       <div class="cr-pen" aria-hidden="true">${stylus()}</div>
+    </div>
+    <div class="cr-own">
+      <div class="cr-group reveal"><h3>${T(UI.personalWork)}</h3>${workList('personal')}</div>
+      <div class="cr-group reveal"><h3>${T(UI.freelanceWork)}</h3>${workList('freelance')}</div>
     </div>
   </section>`;
 }

@@ -1,5 +1,5 @@
 /* Career: one pen stroke. */
-#career { padding-block-end: clamp(3rem, 6vw, 4.5rem); --stepw: clamp(.7rem, 13.5vw, 16rem); --node: 1rem; --indent: clamp(1.9rem, 4vw, 3.4rem); }
+#career { padding-block-end: clamp(3rem, 6vw, 4.5rem); --stepw: clamp(.7rem, 10vw, 12rem); --node: 1rem; --indent: clamp(1.9rem, 4vw, 3.4rem); }
 #career .cr-track { position: relative; padding-block-end: 9rem; }
 #career .cr-svg { position: absolute; inset-block-start: 0; left: 0; overflow: visible; pointer-events: none; }
 #career .cr-svg path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
@@ -20,18 +20,34 @@
 #career .when { color: var(--gold); font-size: clamp(.98rem, 1.2vw, 1.1rem); font-weight: 500; margin-block-start: .55rem; }
 #career .role { color: var(--text); font-size: clamp(1rem, 1.25vw, 1.15rem); }
 
+/* The work done at each place */
+#career .cr-works { display: flex; flex-wrap: wrap; gap: .55rem; margin-block-start: 1.1rem; max-width: 46rem; }
+#career .cr-work { display: inline-flex; align-items: center; gap: .6rem; min-height: 44px; padding: .28rem .85rem .28rem .3rem; border: 1px solid var(--line); border-radius: 12px; background: rgba(0, 0, 0, .28); font-size: .92rem; font-weight: 500; line-height: 1.25; color: var(--text); transition: border-color .25s, background-color .25s, transform .25s var(--ease); }
+[dir='rtl'] #career .cr-work { padding: .28rem .3rem .28rem .85rem; }
+#career .cr-thumb { flex: none; display: grid; place-items: center; width: 3.1rem; height: 2.2rem; overflow: hidden; border-radius: 8px; background: #0d0d0e; color: var(--gold); }
+#career .cr-thumb img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; }
+#career .cr-thumb b { font: 600 1rem/1 var(--display); }
+#career .cr-work:focus-visible { outline-offset: 2px; }
+@media (hover: hover) and (pointer: fine) {
+  #career .cr-work:hover { border-color: var(--gold); background: var(--gold-soft); transform: translateY(-2px); }
+}
+#career .cr-own { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: 2.4rem clamp(2rem, 5vw, 5rem); position: relative; padding-block-start: clamp(2rem, 4vw, 3rem); border-block-start: 1px dashed rgba(255, 255, 255, .17); }
+#career .cr-group h3 { font: 600 clamp(1.25rem, 2vw, 1.7rem)/1.3 var(--display); }
+
 #career .cr-pen { position: absolute; inset-block-start: 0; left: 0; width: 0; height: 0; pointer-events: none; z-index: 2; will-change: transform; --w: clamp(110px, 11vw, 175px); }
 #career .cr-pen svg { position: absolute; display: block; width: var(--w); height: auto; left: calc(var(--w) * -.9714); top: calc(var(--w) * -.0298); filter: drop-shadow(0 12px 12px rgba(0, 0, 0, .55)); }
 
 @media (prefers-reduced-motion: no-preference) {
   /* Each role arrives on the line: name wipes in along the reading direction, then date, then role. */
   #career .cr-edu, #career .when, #career .role { opacity: 0; transform: translateY(10px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
-  #career h3 { clip-path: inset(-.2em 100% -.3em -.2em); transition: clip-path 1s var(--ease); }
-  html[dir='rtl'] #career h3 { clip-path: inset(-.2em -.2em -.3em 100%); }
+  #career .cr-step h3 { clip-path: inset(-.2em 100% -.3em -.2em); transition: clip-path 1s var(--ease); }
+  html[dir='rtl'] #career .cr-step h3 { clip-path: inset(-.2em -.2em -.3em 100%); }
   html #career .cr-step.on h3, html[dir='rtl'] #career .cr-step.on h3 { clip-path: inset(-.2em -.2em -.3em -.2em); }
   #career .cr-step.on .cr-edu, #career .cr-step.on .when, #career .cr-step.on .role { opacity: 1; transform: none; }
   #career .cr-step.on .when { transition-delay: .3s; }
   #career .cr-step.on .role { transition-delay: .45s; }
+  #career .cr-step .cr-works li { opacity: 0; transform: translateY(10px); transition: opacity .55s var(--ease), transform .55s var(--ease); transition-delay: calc(var(--w) * 55ms + .55s); }
+  #career .cr-step.on .cr-works li, #career .cr-step:focus-within .cr-works li { opacity: 1; transform: none; }
   /* When the line is complete the pen lifts off the page. */
   #career .cr-pen svg { transition: transform .7s var(--ease); }
   #career .cr-pen.rest svg { transform: translateX(-18px); }
@@ -49,4 +65,7 @@
   #career .cr-step { padding-block-end: calc(var(--gap) * .8rem); }
   #career .cr-now { padding-block-end: 0; }
   #career .cr-pen { --w: 92px; }
+  #career .cr-own { grid-template-columns: minmax(0, 1fr); }
+  #career .cr-work { font-size: .86rem; }
+  #career .cr-thumb { width: 2.6rem; height: 2rem; }
 }
