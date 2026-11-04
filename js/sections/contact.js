@@ -1,8 +1,8 @@
 import { PROFILE, UI } from '../data.js';
-import { monstera, plant, icon } from '../deco.js';
+import { monstera, plant, icon, stylus } from '../deco.js';
 import { L, T, esc, ext, arrow } from '../shared.js';
 
-/* The closing moment: a leather card that signs itself when it scrolls in, beside one
+/* The closing moment: a leather card that the white stylus signs when it scrolls in, beside one
    large white pill holding the email address and a green WhatsApp pill right under it,
    so writing is the obvious next step. */
 const TEXT = {
@@ -36,6 +36,7 @@ export function render() {
         <div class="ct-sign" dir="ltr" lang="en">
           <p class="sig"><span class="ct-ink">Alaa badr</span></p>
           <svg class="ct-flourish" viewBox="0 0 400 44" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M396 6C330 30 190 42 96 34 54 30 22 22 6 12"/></svg>
+          <span class="ct-pen" aria-hidden="true"><span class="ct-pen-in">${stylus()}</span></span>
         </div>
         <p class="ct-who"><strong>${T(PROFILE.name)}</strong><span>${T(PROFILE.role)}</span></p>
         <ul class="ct-rows">

@@ -34,7 +34,7 @@ function splitWords(html) {
 const wheel = (value) => [...String(value)].map((d, k) => `<span class="wh" style="--k:${k};--n:${10 + Number(d)}"><span class="strip">${[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((x) => `<span>${x}</span>`).join('')}</span></span>`).join('');
 
 export function render() {
-  intro = !played && !reducedMotion() && scrollY < innerHeight * 0.5;
+  intro = !played && !reducedMotion();
   played = true;
   const live = SYSTEMS.filter((s) => s.status === 'live').length;
   const stats = [
@@ -231,7 +231,19 @@ export function init() {
 
   let driftCleanup = () => {};
   let penCleanup = () => {};
-  if (intro) penCleanup = startPen();
+  const opensDeep = location.hash && location.hash !== '#home';
+  if (intro && !opensDeep && scrollY < innerHeight * 0.5) penCleanup = startPen();
+  else if (intro) {
+    /* Opened further down the page (a #work link, a restored scroll): sign when the hero is first reached. */
+    let inner = () => {};
+    const waiting = new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting) return;
+      waiting.disconnect();
+      inner = startPen();
+    }, { threshold: 0.25 });
+    const settle = setTimeout(() => waiting.observe(root), 600); // let the jump to the anchor land first
+    penCleanup = () => { clearTimeout(settle); waiting.disconnect(); inner(); };
+  }
   else driftCleanup = startDrift();
   const introEnd = setTimeout(() => root.classList.remove('play'), 4200);
 

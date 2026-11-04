@@ -62,7 +62,7 @@ html[lang='ar'] #contact h2 { line-height: 1.3; }
 #contact .ct-card::before { content: ''; position: absolute; z-index: -1; inset: 0; border-radius: inherit; background: radial-gradient(20rem circle at var(--mx) var(--my), rgba(255, 255, 255, .1), transparent 70%); opacity: 0; transition: opacity .3s; }
 @media (hover: hover) and (pointer: fine) { #contact .ct-card:hover::before { opacity: 1; } }
 
-/* The signature writes itself, a closing echo of the hero: two strokes, a lift, then the tail.
+/* The stylus signs the card, a closing echo of the hero: two strokes, a lift, then the tail.
    The resting mask position is the finished state, so without the animation the name still shows. */
 #contact .ct-sign { position: relative; width: fit-content; max-width: 100%; margin-inline: auto; padding: .1em .1em 0; font-size: 5rem; font-size: min(24cqi, 7.6rem); }
 #contact .sig { font-size: 1em; line-height: 1.12; text-align: center; white-space: nowrap; }
@@ -83,6 +83,28 @@ html[lang='ar'] #contact h2 { line-height: 1.3; }
   100% { -webkit-mask-position: 0 0; mask-position: 0 0; }
 }
 @keyframes ct-tail { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+
+/* The stylus follows the ink: "Alaa", a lift, "badr", then back along the green tail, and away. */
+#contact .ct-pen { display: none; }
+@media (prefers-reduced-motion: no-preference) {
+  #contact .ct-pen { display: block; position: absolute; inset: 0; pointer-events: none; opacity: 0; z-index: 4; }
+  #contact .ct-pen-in { position: absolute; left: 0; top: 62%; width: 2.5em; margin-left: -2.42em; transform-origin: 97.14% 46.15%; transform: rotate(38deg); }
+  #contact .ct-pen svg { display: block; width: 100%; height: auto; overflow: visible; filter: drop-shadow(0 .06em .07em rgba(0, 0, 0, .65)); }
+  #contact .ct-card.in .ct-pen { animation: ct-pen 2.05s linear .35s both; }
+  #contact .ct-card.in .ct-pen-in { animation: ct-bob .15s ease-in-out .35s 8 alternate; }
+}
+@keyframes ct-pen {
+  0% { opacity: 0; transform: translate(0, -.12em); }
+  4% { opacity: 1; }
+  25.6% { opacity: 1; transform: translate(44%, 0); }
+  28.5% { transform: translate(46%, -.34em); }
+  31.7% { transform: translate(46%, 0); }
+  61% { opacity: 1; transform: translate(98%, 0); }
+  66% { transform: translate(95%, .46em); }
+  84% { opacity: 1; transform: translate(6%, .56em); }
+  100% { opacity: 0; transform: translate(-6%, .1em); }
+}
+@keyframes ct-bob { from { translate: 0 -.09em; } to { translate: 0 .13em; } }
 
 #contact .ct-who { display: flex; flex-direction: column; align-items: center; gap: .1rem; margin-top: 1rem; text-align: center; }
 #contact .ct-who strong { font-weight: 600; font-size: 1.02rem; }
