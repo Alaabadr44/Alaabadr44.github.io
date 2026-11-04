@@ -110,6 +110,7 @@ html[lang='ar'] #work .ch .title { line-height: 1.3; }
   #work .ch-text { grid-column: 1; grid-row: 1; }
 }
 
+#work .ch .ch-long .title, html[lang='ar'] #work .ch .ch-long .title { font-size: clamp(1.3rem, 2.1vw, 2rem); line-height: 1.35; }
 /* Every screen of a system, one over the other, as the reader scrolls */
 #work .ch-run { display: contents; }
 #work .ch-space, #work .ch-pill, #work .ch-bar { display: none; }

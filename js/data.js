@@ -148,7 +148,7 @@ export const SYSTEMS = [
   },
   {
     id: 'call-qa',
-    name: t('مشرف جودة الكول سنتر', 'Call Center QA Supervisor'),
+    name: t('مشرف جودة المكالمات الصوتية لخدمة العملاء عن طريق الذكاء الاصطناعي', 'AI Voice Call Quality Supervisor for Customer Service'),
     tag: t('تحليل المكالمات وتطوير الفريق', 'Call analysis and team coaching'),
     status: 'live', code: t('Flutter Web', 'Flutter Web'),
     simple: t(

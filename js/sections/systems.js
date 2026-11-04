@@ -35,7 +35,7 @@ const chapter = (p, i, first, total, last) => {
     <div class="ch-visual reveal"><span class="blade" aria-hidden="true"></span>${frame(p)}<span class="shade" aria-hidden="true"></span>
       ${count > 1 ? `<span class="ch-pill" dir="ltr" aria-hidden="true"><b>1</b> / ${count}</span><span class="ch-bar" aria-hidden="true"><i></i></span>` : ''}
     </div>
-    <div class="ch-run"><div class="ch-text reveal">
+    <div class="ch-run"><div class="ch-text reveal${T(p.name).length > 34 ? ' ch-long' : ''}">
       <p class="ch-n" aria-hidden="true">${pad(i + first)}<small>/ ${pad(total)}</small></p>
       <p class="meta li" style="--s:0">${statusChip(p)}<small>${T(p.code)}</small></p>
       ${opener(p)}
