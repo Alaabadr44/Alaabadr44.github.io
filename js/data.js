@@ -202,8 +202,8 @@ export const SYSTEMS = [
       t('تقارير تحليلية بالبريد', 'Analytics reports by email'),
     ],
     stack: ['React', 'TypeScript', 'Node.js', 'Socket.IO', 'Docker'],
-    mock: { kind: 'kiosk', title: t('اختر مطعمك', 'Choose a restaurant'),
-      nav: [t('اتصل الآن', 'Call now')], tiles: [t('مطعم', 'Restaurant')] },
+    images: Array.from({ length: 13 }, (_, i) => `assets/shots/drive2-${i + 1}.webp`),
+    redacted: true,
   },
   {
     id: 'veto',
