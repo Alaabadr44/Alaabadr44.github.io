@@ -240,8 +240,9 @@ dialog::backdrop { background: rgba(8, 8, 8, .82); backdrop-filter: blur(6px); }
 .d-wrap h2 { margin-top: .25rem; font-size: clamp(1.6rem, 3vw, 2.4rem); }
 .d-tag { color: var(--gold); }
 .gallery { display: flex; gap: .8rem; overflow-x: auto; padding-bottom: .7rem; margin-bottom: 1.9rem; scroll-snap-type: x proximity; scrollbar-color: var(--line) transparent; }
-.gallery a { flex: 0 0 min(88%, 40rem); scroll-snap-align: start; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
-.gallery.phones a { flex: 0 0 auto; }
+.gallery a { flex: 0 0 min(88%, 40rem); aspect-ratio: 16 / 10; background: #0d0d0e; scroll-snap-align: start; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.gallery a img { width: 100%; height: 100%; object-fit: contain; }
+.gallery.phones a { flex: 0 0 auto; aspect-ratio: auto; background: none; }
 .gallery.phones img { height: 26rem; width: auto; }
 .gallery:has(+ .gallery-note) { margin-bottom: .55rem; }
 .gallery-note { margin-bottom: 1.9rem; font-size: .8rem; color: var(--dim); }

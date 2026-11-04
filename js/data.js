@@ -202,7 +202,7 @@ export const SYSTEMS = [
       t('تقارير تحليلية بالبريد', 'Analytics reports by email'),
     ],
     stack: ['React', 'TypeScript', 'Node.js', 'Socket.IO', 'Docker'],
-    images: Array.from({ length: 13 }, (_, i) => `assets/shots/drive2-${i + 1}.webp`),
+    images: Array.from({ length: 15 }, (_, i) => `assets/shots/drive2-${i + 1}.webp`),
     redacted: true,
   },
   {
