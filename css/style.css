@@ -217,6 +217,8 @@ dialog::backdrop { background: rgba(4, 3, 5, .82); backdrop-filter: blur(6px); }
 .gallery a { flex: 0 0 min(88%, 40rem); scroll-snap-align: start; border: 1px solid var(--line); }
 .gallery.phones a { flex: 0 0 auto; }
 .gallery.phones img { height: 26rem; width: auto; }
+.gallery:has(+ .gallery-note) { margin-bottom: .55rem; }
+.gallery-note { margin-bottom: 1.9rem; font-size: .8rem; color: var(--dim); }
 .gallery-mock { margin-bottom: 1.9rem; }
 .gallery-mock .mock { position: relative; inset: auto; aspect-ratio: 16 / 8.5; border: 1px solid var(--line); font-size: clamp(.55rem, 1.1vw, .82rem); }
 .gallery-mock figcaption { margin-top: .55rem; font-size: .8rem; color: var(--dim); }

@@ -188,6 +188,7 @@ function openDetail(id, push = true) {
   const isPhone = APPS.includes(p);
   const gallery = p.images && p.images.length
     ? `<div class="gallery ${isPhone ? 'phones' : ''}" tabindex="0">${p.images.map((src, i) => `<a href="${src}" ${ext}><img src="${src}" alt="${T(p.name)} ${i + 1}" loading="lazy"></a>`).join('')}</div>`
+      + (p.redacted ? `<p class="gallery-note">${T(UI.redactNote)}</p>` : '')
     : p.mock ? `<figure class="gallery-mock">${mockHTML(p.mock)}<figcaption>${T(UI.mockNote)}</figcaption></figure>` : '';
   dialog.innerHTML = `<div class="d-wrap">
     <button class="d-close" type="button" id="d-close">${T(UI.close)} ✕</button>
