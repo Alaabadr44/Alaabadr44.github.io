@@ -309,6 +309,7 @@ export const UI = {
   appsKicker: t('على المتاجر', 'On the stores'), appsTitle: t('تطبيقات يمكنك تحميلها الآن', 'Apps you can download today'),
   othersKicker: t('من المسيرة أيضًا', 'Also along the way'), othersTitle: t('مشاريع أخرى', 'More projects'),
   skillsKicker: t('الإمكانيات', 'Capabilities'), skillsTitle: t('ماذا أقدر أبني لك', 'What I can build for you'),
+  workKeys: t('تنقل بين المشاريع بالأسهم، وافتحها بزر Enter', 'Move between projects with the arrow keys, open with Enter'),
   voicesKicker: t('آراء', 'Testimonials'), voicesTitle: t('قالوا عني', 'In their own words'),
   voicesNote: t('تعليقات كما كتبها أصحابها على لينكد إن.', 'Comments as their authors wrote them on LinkedIn, in Arabic.'),
   voicesPause: t('إيقاف الحركة', 'Pause motion'), voicesPlay: t('تشغيل الحركة', 'Play motion'),

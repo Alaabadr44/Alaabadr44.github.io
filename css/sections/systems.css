@@ -71,6 +71,13 @@ html[lang='ar'] #work .title { font-weight: 700; line-height: 1.35; }
   #work .fx .desc { color: #dededa; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; }
   #work .fx .mock-note { font-size: .74rem; }
 }
+#work .fx-hint { display: none; }
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+  #work .fx-list { margin-block-end: 0; }
+  #work .fx-hint { display: flex; align-items: center; gap: .35rem; max-width: 110rem; margin: .9rem auto clamp(4.5rem, 10vw, 9rem); color: var(--dim); font-size: .84rem; }
+  #work .fx-hint kbd { display: inline-grid; place-items: center; min-width: 1.6rem; height: 1.6rem; font: 500 .82rem/1 'Montserrat', sans-serif; color: var(--text); border: 1px solid var(--line); border-radius: 6px; background: rgba(255, 255, 255, .05); }
+  #work .fx-hint span { margin-inline-start: .4rem; }
+}
 @media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
   #work .fx.on .fx-shot { animation: fx-drift 16s ease-in-out infinite alternate; }
 }

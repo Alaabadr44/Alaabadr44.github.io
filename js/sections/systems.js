@@ -64,6 +64,7 @@ export function render() {
   return `<section class="band" id="work"><div class="o o-s1" aria-hidden="true">${plant()}</div>
     ${sectionHead(UI.workKicker, UI.workTitle, UI.workNote)}
     <div class="fx-list">${featured.map(panel).join('')}</div>
+    <p class="fx-hint" aria-hidden="true"><kbd>←</kbd><kbd>→</kbd><span>${T(UI.workKeys)}</span></p>
     <div class="stage" style="--n:${rest.length}">
       <div class="rail" aria-hidden="true"><span class="rail-fill"></span>${rest.map((_, i) => `<span class="rail-n">${pad(i + featured.length + 1)}</span>`).join('')}</div>
       <div class="stage-leaf" aria-hidden="true">${plant(11)}</div>
@@ -272,6 +273,26 @@ export function init() {
     if (el && wide.matches && !el.classList.contains('on')) { select(el); e.stopPropagation(); }
   }, { signal: fxAc.signal });
 
+  /* Arrow keys work as soon as the showcase is on screen, with nothing focused first. They follow
+     what is on screen: in Arabic the next panel sits to the left. Focus moves too, so Enter opens it. */
+  let listSeen = false;
+  const listIo = new IntersectionObserver(([e]) => { listSeen = e.isIntersecting; }, { threshold: 0.4 });
+  listIo.observe(list);
+  document.addEventListener('keydown', (e) => {
+    if (!listSeen || !wide.matches || e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
+    if (document.querySelector('dialog[open]') || document.documentElement.classList.contains('nav-open')) return;
+    const here = e.target.closest?.('input, textarea, select, [contenteditable], #apps, #lang');
+    if (here) return;
+    const rtl = document.documentElement.dir === 'rtl';
+    const cur = panels.findIndex((p) => p.classList.contains('on'));
+    const to = { [rtl ? 'ArrowLeft' : 'ArrowRight']: cur + 1, [rtl ? 'ArrowRight' : 'ArrowLeft']: cur - 1, Home: 0, End: panels.length - 1 }[e.key];
+    if (to === undefined) return;
+    e.preventDefault();
+    const el = panels[(to + panels.length) % panels.length];
+    select(el);
+    el.querySelector('.open').focus({ preventScroll: true });
+  }, { signal: fxAc.signal });
+
   const useTilt = tiltMq.matches;
   root.addEventListener('click', onFrameClick);
   window.addEventListener('scroll', schedule, { passive: true });
@@ -288,6 +309,7 @@ export function init() {
     raf = 0;
     onScreen = false;
     fxAc.abort();
+    listIo.disconnect();
     seen.disconnect();
     near.disconnect();
     window.removeEventListener('scroll', schedule);
