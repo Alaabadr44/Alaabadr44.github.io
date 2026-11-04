@@ -51,20 +51,78 @@ html[lang='ar'] #skills .sk-row h3 { font-weight: 700; line-height: 1.35; }
   #skills .sk-row.reveal.in li { opacity: 1; transform: none; }
 }
 
+#skills .sk-bezel { display: none; }
+
+/* On a phone the bezel would take a quarter of the screen and cut the text under it. Its language stays:
+   each capability is a piece of the same dial face, with the date window as its number and the gold index on the active one. */
 @media (max-width: 720px) {
-  #skills { --D: 620px; }
-  #skills .sk-stage { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto var(--strip) auto; grid-template-areas: 'head' 'dial' 'rows'; }
-  /* On small screens the bezel becomes a slim sticky strip under the top bar. */
-  #skills .sk-dial { grid-area: 2 / 1 / 4 / 2; margin-inline: calc(var(--pad) * -1); z-index: 2; }
-  #skills .sk-sticky { top: 3.9rem; height: var(--strip); overflow: hidden; overflow: clip; background: #19191a; border-block: 1px solid var(--line); }
-  #skills .sk-disc { inset-inline-end: .25rem; }
-  #skills .sk-face { box-shadow: none; }
-  /* Hide the far, upside-down half of the bezel when the strip is wide enough to show it. */
-  #skills .sk-sticky::after { content: ''; position: absolute; inset-block: 0; inset-inline-start: 0; width: max(0px, calc(100% - 25rem)); background: linear-gradient(to right, #19191a 75%, transparent); }
-  html[dir='rtl'] #skills .sk-sticky::after { background: linear-gradient(to left, #19191a 75%, transparent); }
-  #skills .skills { grid-area: 3 / 1 / 4 / 2; }
-  #skills .sk-row { min-height: 0; padding-block: 2.6rem 1.4rem; }
-  #skills .sk-row:last-child { padding-block-end: 4rem; }
-  #skills .sk-row h3 { font-size: clamp(1.7rem, 7vw, 2.4rem); }
-  #skills .sk-leaf { display: none; }
+  #skills .sk-stage { grid-template-columns: minmax(0, 1fr); grid-template-areas: 'head' 'rows'; }
+  #skills .sk-dial, #skills .sk-leaf { display: none; }
+  #skills .skills { display: grid; gap: .85rem; }
+  #skills .sk-row {
+    position: relative; overflow: hidden; min-height: 0;
+    padding: 1.3rem 1.2rem 1.4rem;
+    border: 1px solid var(--line); border-radius: 1.25rem;
+    background: repeating-conic-gradient(at 100% 0, rgba(255, 255, 255, .012) 0 .6deg, transparent .6deg 1.2deg), #19191a;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05);
+  }
+  #skills .sk-row::before {
+    content: ''; position: absolute; inset-block: 0; inset-inline-start: 0; width: 2px;
+    background: var(--gold); transform: scaleY(0); transform-origin: 50% 0;
+    transition: transform .7s var(--ease);
+  }
+  #skills .sk-row.on::before { transform: scaleY(1); }
+  #skills .sk-row .num {
+    align-self: flex-start; padding: .22rem .72rem; border-radius: 99px;
+    background: #fff; color: #161617;
+    font: 600 .8rem/1.2 'Montserrat', sans-serif; font-feature-settings: 'tnum';
+  }
+  #skills .sk-row h3, html[lang='ar'] #skills .sk-row h3 { margin-block: .85rem .45rem; font-size: clamp(1.4rem, 6.2vw, 1.85rem); color: var(--text); }
+  #skills .sk-row p { color: var(--text); font-size: 1rem; line-height: 1.7; }
+  #skills .sk-row ul { gap: .4rem; margin-block-start: 1rem; }
+  #skills .sk-row li { padding: .2rem .68rem; font-size: .78rem; border: 1px solid var(--line); border-radius: 99px; background: rgba(255, 255, 255, .03); }
+  #skills .sk-row li::before { display: none; }
+  #skills .sk-row.on li { border-color: rgba(255, 255, 255, .24); }
+}
+
+/* Phones: a small bezel in each card's corner, and an entrance that opens from the date window. */
+@media (max-width: 720px) {
+  #skills .sk-row > * { position: relative; z-index: 1; }
+  #skills .sk-row > .sk-bezel {
+    display: block; position: absolute; z-index: 0;
+    inset-block-start: -3.6rem; inset-inline-end: -3.6rem; width: 9.5rem; height: 9.5rem; border-radius: 50%;
+    background:
+      conic-gradient(var(--gold) 0 2.4deg, transparent 2.4deg),
+      repeating-conic-gradient(rgba(255, 255, 255, .26) 0 .7deg, transparent .7deg 6deg);
+    -webkit-mask-image: radial-gradient(closest-side, transparent 84%, #000 85%);
+    mask-image: radial-gradient(closest-side, transparent 84%, #000 85%);
+    transform: rotate(var(--turn, 0deg));
+  }
+  #skills .sk-row::after {
+    content: ''; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+    background: #000; opacity: var(--dark, 0);
+  }
+  #skills .sk-row::before { z-index: 3; }
+}
+@media (max-width: 720px) and (prefers-reduced-motion: no-preference) {
+  #skills .sk-stage:not(.flat) .sk-row { position: sticky; }
+  #skills .sk-row:nth-child(1) { top: 4.5rem; }
+  #skills .sk-row:nth-child(2) { top: 5rem; }
+  #skills .sk-row:nth-child(3) { top: 5.5rem; }
+  #skills .sk-row:nth-child(4) { top: 6rem; }
+  #skills .sk-row.reveal {
+    --from: 2.3rem 2.2rem;
+    opacity: 1; transform-origin: 50% 0; transform: scale(var(--sc, 1));
+    clip-path: circle(0 at var(--from));
+    transition: clip-path 1s var(--ease);
+  }
+  html[dir='rtl'] #skills .sk-row.reveal { --from: calc(100% - 2.3rem) 2.2rem; }
+  #skills .sk-row.reveal.in { clip-path: circle(150% at var(--from)); }
+  #skills .sk-row.reveal .num { transform: scale(.3); transition: transform .6s cubic-bezier(.3, 1.6, .5, 1) .1s; }
+  #skills .sk-row.reveal.in .num { transform: none; }
+  #skills .sk-row.reveal h3, #skills .sk-row.reveal p { opacity: 0; transform: translateY(.7rem); transition: opacity .6s var(--ease), transform .6s var(--ease), color .45s var(--ease); }
+  #skills .sk-row.reveal h3 { transition-delay: .22s; }
+  #skills .sk-row.reveal p { transition-delay: .32s; }
+  #skills .sk-row.reveal.in h3, #skills .sk-row.reveal.in p { opacity: 1; transform: none; }
+  #skills .sk-row.reveal li { transform: translateY(.5rem) scale(.9); transition-delay: calc(var(--n) * 45ms + .42s); }
 }

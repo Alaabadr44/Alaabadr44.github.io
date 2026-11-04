@@ -66,6 +66,7 @@ export function render() {
       ${sectionHead(UI.skillsKicker, UI.skillsTitle)}
       <div class="sk-dial" aria-hidden="true"><div class="sk-sticky reveal"><div class="sk-disc"><div class="sk-face"></div>${dial(geo, side)}</div></div></div>
       <div class="skills">${SKILLS.map((s, i) => `<article class="sk-row reveal${i === 0 ? ' on' : ''}" data-rot="${round(-side * geo[i].center)}">
+        <span class="sk-bezel" aria-hidden="true"></span>
         <span class="num" aria-hidden="true">${pad(i + 1)}</span>
         <h3>${T(s.title)}</h3>
         <p>${T(s.body)}</p>
@@ -89,15 +90,57 @@ export function init() {
   };
   setActive(0);
 
+  const phone = matchMedia('(max-width: 720px)');
+  const calm = matchMedia('(prefers-reduced-motion: reduce)');
+
   /* The row crossing the middle of the viewport lines up with the dial's index. */
   const io = new IntersectionObserver((entries) => {
+    if (phone.matches) return;
     entries.forEach((e) => { if (e.isIntersecting) setActive(rows.indexOf(e.target)); });
   }, { rootMargin: '-50% 0px -50% 0px' });
   rows.forEach((r) => io.observe(r));
 
   const ac = new AbortController();
+
+  /* Phones: the cards stack as they stick, each one pushing the last back, while a bezel in the corner turns with the scroll.
+     Runs only while the section is on screen. Stacking turns off if a card would not fit the screen, so nothing gets hidden. */
+  let raf = 0;
+  let near = false;
+  const clear = () => rows.forEach((r) => { r.style.removeProperty('--sc'); r.style.removeProperty('--dark'); r.style.removeProperty('--turn'); });
+  const fit = () => stage.classList.toggle('flat', rows.some((r) => r.offsetHeight > innerHeight - 96));
+  const paint = () => {
+    raf = 0;
+    if (!phone.matches) return;
+    const line = innerHeight * 0.55;
+    let current = 0;
+    const flat = stage.classList.contains('flat');
+    rows.forEach((r, i) => {
+      if (r.getBoundingClientRect().top <= line) current = i;
+      if (calm.matches) return;
+      r.style.setProperty('--turn', `${(scrollY * 0.14 * (i % 2 ? -1 : 1)).toFixed(1)}deg`);
+      const next = rows[i + 1];
+      if (flat || !next) { r.style.removeProperty('--sc'); r.style.removeProperty('--dark'); return; }
+      const hold = parseFloat(getComputedStyle(next).top) || 0;
+      const p = Math.min(1, Math.max(0, 1 - (next.getBoundingClientRect().top - hold) / r.offsetHeight));
+      r.style.setProperty('--sc', (1 - 0.05 * p).toFixed(4));
+      r.style.setProperty('--dark', (0.55 * p).toFixed(3));
+    });
+    if (!rows[current].classList.contains('on')) setActive(current);
+  };
+  const queue = () => { if (near && !raf) raf = requestAnimationFrame(paint); };
+  const nearby = new IntersectionObserver(([e]) => { near = e.isIntersecting; queue(); }, { rootMargin: '30% 0px' });
+  nearby.observe(stage);
+  const onSize = () => {
+    if (phone.matches) fit(); else { stage.classList.remove('flat'); clear(); }
+    queue();
+  };
+  onSize();
+  addEventListener('scroll', queue, { passive: true, signal: ac.signal });
+  addEventListener('resize', onSize, { signal: ac.signal });
+  document.fonts?.ready.then(() => { if (!ac.signal.aborted) onSize(); });
+
   if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
     rows.forEach((r, i) => r.addEventListener('pointerenter', () => setActive(i), { signal: ac.signal }));
   }
-  return () => { io.disconnect(); ac.abort(); };
+  return () => { io.disconnect(); nearby.disconnect(); ac.abort(); cancelAnimationFrame(raf); };
 }
