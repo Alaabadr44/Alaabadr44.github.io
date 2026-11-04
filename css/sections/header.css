@@ -1,0 +1,16 @@
+/* Header */
+.top { position: fixed; inset: 0 0 auto; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 1.1rem var(--pad); transition: background .3s, border-color .3s; border-bottom: 1px solid transparent; background: rgba(22, 22, 23, .66); backdrop-filter: blur(12px); }
+.top.solid { background: rgba(22, 22, 23, .88); backdrop-filter: blur(14px); border-color: var(--line); }
+.mark { font: 400 1.9rem/1 var(--script); color: #fff; }
+.top nav { display: flex; gap: clamp(1rem, 2.4vw, 2.2rem); font-size: .9rem; color: var(--dim); }
+.top nav a { transition: color .2s; }
+.top nav a:hover { color: var(--text); }
+.top-end { display: flex; align-items: center; gap: 1.1rem; font-size: .88rem; }
+.lang { color: var(--dim); transition: color .2s; }
+.lang:hover { color: var(--gold); }
+.lang[lang='ar'] { font-family: 'Tajawal', sans-serif; }
+.lang[lang='en'] { font-family: 'Montserrat', sans-serif; }
+.btn-mini { border: 1px solid var(--line); padding: .35rem 1rem; border-radius: 99px; transition: .2s; }
+.btn-mini:hover { border-color: var(--gold); color: var(--gold); }
+@media (max-width: 860px) { .top nav { display: none; } }
+@media (max-width: 560px) { .btn-mini { display: none; } }

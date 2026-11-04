@@ -1,0 +1,8 @@
+/* Contact */
+.contact { position: relative; overflow: hidden; padding: clamp(4.5rem, 9vw, 8rem) var(--pad) 2rem; text-align: center; display: flex; flex-direction: column; align-items: center; gap: .9rem; }
+.o-c1 { width: clamp(7rem, 13vw, 12rem); top: -4rem; left: -2rem; transform: rotate(140deg); }
+.o-c2 { width: clamp(7rem, 13vw, 12rem); bottom: -3rem; right: -3rem; }
+.contact h2 { margin: .4rem 0 0; position: relative; }
+.contact .body, .contact .city { color: var(--dim); position: relative; }
+.contact .contact-row { margin-top: .9rem; }
+.contact footer { position: relative; align-self: stretch; display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem 2rem; margin-top: clamp(3.5rem, 8vw, 6rem); padding-top: 1.3rem; border-top: 1px solid var(--line); font-size: .8rem; color: var(--dim); }

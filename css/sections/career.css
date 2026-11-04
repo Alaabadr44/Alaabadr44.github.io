@@ -1,0 +1,12 @@
+/* Career */
+.career li { display: grid; grid-template-columns: 1.3fr 1fr 1.4fr; gap: .3rem 2rem; align-items: baseline; padding: 1.5rem 0; border-top: 1px solid var(--line); }
+.career li:last-child { border-bottom: 1px solid var(--line); }
+.career b { font: 600 1.25rem/1.3 'Montserrat', sans-serif; text-align: start; }
+html[lang='ar'] .career b { text-align: end; direction: ltr; }
+.career .when { color: var(--gold); font-size: .9rem; }
+.edu { color: var(--dim); margin-top: 1.5rem; font-size: .95rem; }
+
+@media (max-width: 860px) {
+  .career li { grid-template-columns: 1fr; }
+  html[lang='ar'] .career b { text-align: start; direction: rtl; unicode-bidi: plaintext; }
+}
