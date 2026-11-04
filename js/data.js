@@ -141,7 +141,6 @@ export const SYSTEMS = [
     ],
     stack: ['React', 'TanStack', 'TypeScript', 'Tailwind CSS'],
     images: Array.from({ length: 8 }, (_, i) => `assets/shots/hub-community-${i + 1}.webp`),
-    redacted: true,
     links: [{ kind: 'login', url: 'https://hub.waterway.group/' }],
   },
   {
