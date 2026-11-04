@@ -115,3 +115,32 @@ html[lang='ar'] #detail .d-list li::before { top: 1.3rem; }
 }
 @keyframes d-sheet { from { opacity: .4; transform: translateY(44px); } }
 @keyframes d-sheet-out { to { opacity: 0; transform: translateY(36px); } }
+
+/* ---- Proof: one big verified number and the story of the name ---- */
+#detail .d-proof {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 1px;
+  margin: 0 var(--dp) clamp(1.2rem, 2.4vw, 1.8rem);
+  border: 1px solid var(--line); border-radius: 1.1rem; overflow: hidden;
+  background: var(--line);
+}
+#detail .d-stat, #detail .d-name { background: #111112; padding: clamp(1rem, 2.2vw, 1.5rem); min-width: 0; }
+#detail .d-stat { display: flex; flex-direction: column; justify-content: center; gap: .1rem; }
+#detail .d-stat small { color: var(--dim); font-size: .85rem; line-height: 1.4; }
+#detail .d-stat b { color: var(--gold); font: 600 clamp(2.3rem, 5vw, 3.6rem)/1.15 var(--display); }
+#detail .d-stat span { font-size: .95rem; line-height: 1.5; }
+#detail .d-name h3 { margin: 0 0 .7rem; }
+#detail .d-names { display: flex; align-items: flex-end; flex-wrap: wrap; gap: .5rem 1rem; }
+#detail .d-names p { margin: 0; min-width: 0; }
+#detail .d-names small { display: block; color: var(--dim); font-size: .8rem; line-height: 1.5; }
+#detail .d-names b { display: block; font: 600 clamp(1.05rem, 2vw, 1.4rem)/1.35 'Montserrat', sans-serif; unicode-bidi: isolate; }
+html[dir='rtl'] #detail .d-names b { text-align: right; }
+#detail .d-names i { color: var(--gold); font-style: normal; font-size: 1.3rem; line-height: 1.35; }
+#detail .d-name-note { margin: .8rem 0 0; color: var(--dim); font-size: .92rem; line-height: 1.7; }
+#detail .d-name-note a { color: var(--gold); text-decoration: underline; text-underline-offset: .2em; unicode-bidi: isolate; }
+@media (max-width: 640px) {
+  #detail .d-proof { grid-template-columns: minmax(0, 1fr); }
+  #detail .d-names { flex-direction: column; align-items: flex-start; }
+  #detail .d-names i { display: block; transform: rotate(90deg); }
+  html[dir='rtl'] #detail .d-names i { transform: rotate(-90deg); }
+}
+

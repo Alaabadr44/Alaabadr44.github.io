@@ -215,7 +215,17 @@ export const APPS = [
   { id: 'fawry-payday', name: t('Fawry PayDay', 'Fawry PayDay'), tag: t('موارد بشرية', 'HR'),
     simple: t('الموظف يقدم من موبايله كل طلباته: إجازة أو سلفة أو نقل أو استقالة، ويسجل حضوره. والشركة تدير موظفيها إلكترونيًا.', 'Employees handle every request from their phones (leave, loans, transfers, resignations) and log attendance, while the company manages its people electronically.'),
     icon: 'assets/apps/fawry-payday-icon.webp', images: shots('fawry-payday', 16),
-    links: [store.play('com.fawry.payday'), store.ios('https://apps.apple.com/eg/app/fawry-payday/id6446939479')] },
+    links: [store.play('com.fawry.payday'), store.ios('https://apps.apple.com/eg/app/fawry-payday/id6446939479')],
+    proof: {
+      over: t('أكثر من', 'Over'), value: t('50 ألف', '50,000'), label: t('تحميل على Google Play', 'downloads on Google Play'),
+      rename: {
+        title: t('رحلة الاسم', 'The name\'s story'),
+        firstLabel: t('الاسم الأول', 'First name'), first: 'Fawry PayDay',
+        nowLabel: t('الاسم الحالي', 'Name today'), now: 'Fawry Business HR',
+        note: t('رابط Google Play ما زال يحمل الاسم القديم:', 'The Google Play link still carries the original name:'),
+        url: 'https://play.google.com/store/apps/details?id=com.fawry.payday', urlText: 'com.fawry.payday',
+      },
+    } },
   { id: 'amwal', name: t('Amwal Pay', 'Amwal Pay'), tag: t('مدفوعات · عُمان', 'Payments · Oman'),
     simple: t('تطبيق للتجار في سلطنة عُمان يستقبلون به المدفوعات بالبطاقة والمحفظة وQR وروابط الدفع، ويتابعون تقارير معاملاتهم.', 'A merchant app in Oman for accepting payments by card, wallet, QR and payment links, with transaction reports.'),
     icon: 'assets/apps/amwal-icon.webp', images: shots('amwal', 9),

@@ -20,6 +20,29 @@ function linksHTML(p) {
   return (p.links || []).map((l) => `<a class="btn ${['site', 'login'].includes(l.kind) ? '' : 'ghost'}" href="${l.url}" ${ext}>${T(UI.link[l.kind])} ${arrow}</a>`).join('');
 }
 
+/* A verified fact worth more than a feature list: a big number, and how the app's name changed. */
+function proofHTML(p) {
+  if (!p.proof) return '';
+  const { over, value, label, rename: r } = p.proof;
+  const dirArrow = document.documentElement.dir === 'rtl' ? '←' : '→';
+  return `<section class="d-proof d-in" style="--i:2">
+    <div class="d-stat">
+      <small>${T(over)}</small>
+      <b>${T(value)}</b>
+      <span>${T(label)}</span>
+    </div>
+    <div class="d-name">
+      <h3>${T(r.title)}</h3>
+      <div class="d-names">
+        <p><small>${T(r.firstLabel)}</small><b lang="en" dir="ltr">${esc(r.first)}</b></p>
+        <i aria-hidden="true">${dirArrow}</i>
+        <p><small>${T(r.nowLabel)}</small><b lang="en" dir="ltr">${esc(r.now)}</b></p>
+      </div>
+      <p class="d-name-note">${T(r.note)} <a href="${r.url}" ${ext} lang="en" dir="ltr">${esc(r.urlText)}</a></p>
+    </div>
+  </section>`;
+}
+
 function galleryHTML(p, isPhone) {
   if (p.images && p.images.length) {
     const many = p.images.length > 1;
@@ -117,6 +140,7 @@ export function openDetail(id, push = true) {
       ${p.links ? `<div class="d-links d-in" style="--i:1">${linksHTML(p)}</div>` : ''}
     </header>
     <div class="d-rule" aria-hidden="true"></div>
+    ${proofHTML(p)}
     ${galleryHTML(p, isPhone)}
     <div class="d-cols ${body ? '' : 'solo'}">
       <div class="d-main d-in" style="--i:4">
