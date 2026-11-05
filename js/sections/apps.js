@@ -27,6 +27,7 @@ const slot = (a, i) => `<li class="slot" style="--rank:${Math.abs(i - START)}">
 const plaque = (a, i) => `<article class="plaque${i === START ? ' on' : ''}">
   <h3>${T(a.name)}</h3>
   <p class="plaque-tag">${T(a.tag)}</p>
+  ${a.proof ? `<p class="plaque-stat"><small>${T(a.proof.over)}</small> <b>${T(a.proof.value)}</b> <span>${T(a.proof.label)}</span></p>` : ''}
   <p class="plaque-text">${T(a.simple)}</p>
   <p class="plaque-acts">
     <button class="btn" type="button" data-open="${a.id}">${T(UI.more)}</button>
