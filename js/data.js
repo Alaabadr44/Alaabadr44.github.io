@@ -381,7 +381,7 @@ export const UI = {
   edu: t('بكالوريوس الحاسبات والمعلومات، الأكاديمية المصرية للحاسبات وتكنولوجيا المعلومات، طنطا، 2019', 'BSc in Computers and Information, The Egyptian Academy of Computers and IT Management, Tanta, 2019'),
   contactKicker: t('لنتحدث', 'Let\'s talk'), contactTitle: t('هل لديك استفسار؟', 'Have a question?'),
   contactBody: t('اكتب استفسارك هنا، وسأرد عليك في أقرب وقت.', 'Write your question here, and I\'ll get back to you soon.'),
-  status: { live: t('يعمل الآن', 'Live'), dev: t('قيد التطوير', 'In development'), private: t('مشروع خاص', 'Private project') },
+  status: { live: t('يعمل الآن', 'Live'), dev: t('قيد التطوير', 'In development'), private: t('مشروع شخصي', 'Personal project') },
   redactNote: t('صور حقيقية من النظام، مع إخفاء البيانات الحساسة.', 'Real screens from the system, with sensitive data hidden.'),
   mockNote: t('رسم توضيحي للفكرة. الكود والبيانات الحقيقية خاصة.', 'Illustration of the concept. Real code and data are private.'),
   simple: t('الفكرة ببساطة', 'The idea, simply'), who: t('لمن؟', 'Who it\'s for'), features: t('ماذا يفعل', 'What it does'), stack: t('التقنيات', 'Built with'),
