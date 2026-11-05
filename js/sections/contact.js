@@ -171,7 +171,7 @@ function initForm(section, signal) {
 
     const payload = {
       access_key: ACCESS_KEY,
-      subject: `🟢 استفسار من الموقع: ${name}`,
+      subject: `استفسار من الموقع: ${name}`,
       from_name: 'موقع علاء بدر',
       'الاسم': name,
       ...(isEmail(reach)
