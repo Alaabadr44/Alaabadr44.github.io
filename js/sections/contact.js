@@ -171,12 +171,14 @@ function initForm(section, signal) {
 
     const payload = {
       access_key: ACCESS_KEY,
-      subject: `Portfolio inquiry from ${name}`,
-      from_name: 'Portfolio website',
-      Name: name,
-      ...(isEmail(reach) ? { Email: reach, replyto: reach } : { WhatsApp: reach, ...(waLink(reach) && { 'WhatsApp link': waLink(reach) }) }),
-      Question: need,
-      Language: state.lang,
+      subject: `🟢 استفسار من الموقع: ${name}`,
+      from_name: 'موقع علاء بدر',
+      'الاسم': name,
+      ...(isEmail(reach)
+        ? { 'الإيميل': reach, replyto: reach }
+        : { 'واتساب': reach, ...(waLink(reach) && { 'لينك واتساب': waLink(reach) }) }),
+      'الاستفسار': need,
+      'لغة الزائر': state.lang === 'ar' ? 'العربية' : 'English',
     };
 
     btn.disabled = true;
