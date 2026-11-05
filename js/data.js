@@ -20,7 +20,7 @@ export const PROFILE = {
   whatsappLabel: '+20 103 231 0223',
   linkedin: 'https://www.linkedin.com/in/alaa-badr-255a8a130/',
   github: 'https://github.com/Alaabadr44',
-  cv: 'https://docs.google.com/document/d/1zR7s9memvyskmpwFsByzbTlmo2rMM76x/export?format=pdf',
+  cv: 'https://drive.google.com/file/d/1zR7s9memvyskmpwFsByzbTlmo2rMM76x/view',
 };
 
 export const SYSTEMS = [
@@ -361,7 +361,7 @@ export const UI = {
   intro: t(
     'أنا مطوّر Flutter و Full-Stack. أحوّل فكرة العمل إلى منتج كامل: تطبيق موبايل، ولوحة تحكم، وخادم يربط بينهما. من تطبيقات مثل وزارة التربية في الكويت وFawry على المتاجر، إلى أنظمة تدير فنادق وشركات.',
     'I\'m a Flutter and full-stack developer. I turn a business idea into a complete product: mobile app, dashboard, and the server between them. From store apps like Kuwait\'s Ministry of Education and Fawry, to systems that run hotels and companies.'),
-  cta: t('شاهد الأعمال', 'See the work'), cv: t('السيرة الذاتية (PDF)', 'Download CV'), ctaContact: t('تواصل معي', 'Get in touch'),
+  cta: t('شاهد الأعمال', 'See the work'), cv: t('السيرة الذاتية', 'View CV'), ctaContact: t('تواصل معي', 'Get in touch'),
   stats: { downloads: t('تحميل على المتاجر', 'Store downloads'), apps: t('تطبيقات على المتاجر', 'Apps on the stores'), systems: t('أنظمة منفذة', 'Systems delivered'), since: t('بداية العمل الاحترافي', 'Professional since') },
   workKicker: t('أعمال مختارة', 'Selected work'), workTitle: t('أنظمة كاملة، من الفكرة إلى التشغيل', 'Complete systems, from idea to operation'),
   workNote: t('اضغط على أي مشروع لقراءة التفاصيل.', 'Open any project for details.'),
