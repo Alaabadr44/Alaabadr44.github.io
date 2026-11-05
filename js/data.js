@@ -126,6 +126,27 @@ export const SYSTEMS = [
     links: [{ kind: 'login', url: 'https://hr.waterway.group/' }],
   },
   {
+    id: 'fleet-run',
+    name: t('FleetRun', 'FleetRun'),
+    tag: t('منصة توصيل للمطاعم والمخابز', 'A delivery platform for restaurants and bakeries'),
+    status: 'private', code: t('تطبيقان وبوابتا ويب · غير منشور على المتاجر', 'Two apps & two web portals · Not on the stores'),
+    simple: t(
+      'يُنشأ الطلب من تطبيق POS أو بوابة POS في الفرع، ويستلمه السائق على تطبيقه ويتابعه على الخريطة حتى التسليم، بينما يتابع فريق التشغيل كل الطلبات والسائقين والعملاء من بوابة الإدارة.',
+      'An order starts in the branch, from the POS app or POS portal. A driver takes it on the driver app and follows it on the map through to delivery, while the operations team follows every order, driver and client from the admin portal.'),
+    who: t('الفروع والسائقون وفريق التشغيل.', 'Branches, drivers and the operations team.'),
+    features: [
+      t('تطبيق POS لإنشاء الطلب في ثلاث خطوات', 'A POS app that creates an order in three steps'),
+      t('تطبيق للسائق يستلم الطلبات ويتابعها على الخريطة', 'A driver app to take orders and follow them on the map'),
+      t('بوابة POS للطلبات المباشرة وإدارة قائمة الفرع', 'A POS portal for direct orders and the branch menu'),
+      t('بوابة إدارة للطلبات والسائقين والعملاء والمناطق', 'An admin portal for orders, drivers, clients and areas'),
+      t('صور إثبات وتذكرة بباركود وQR', 'Proof photos and a ticket with barcode and QR'),
+      t('تتبع GPS ومحادثات ومزامنة فورية عبر Firebase', 'GPS tracking, chat and real-time Firebase sync'),
+    ],
+    stack: ['Flutter', 'Firebase'],
+    images: Array.from({ length: 11 }, (_, i) => `assets/shots/fleet-run-${i + 1}.webp`),
+    redacted: true,
+  },
+  {
     id: 'hub-community',
     name: t('Hub Community', 'Hub Community'),
     tag: t('بوابة داخلية لموظفي الشركة', 'An internal portal for company staff'),
@@ -271,8 +292,6 @@ export const APPS = [
 ];
 
 export const OTHERS = [
-  { id: 'fleet-run', name: t('Fleet Run', 'Fleet Run'), tag: t('لوجستيات', 'Logistics'),
-    simple: t('حل توصيل للمطاعم والمخابز بثلاثة تطبيقات: السائق بتتبع GPS مباشر، ونقطة البيع لإنشاء الطلبات، والإدارة لمتابعة الأداء، مع محادثات ومزامنة فورية عبر Firebase.', 'Delivery for restaurants and bakeries in three apps: driver with live GPS, POS for creating orders, and admin for performance, with chat and real-time Firebase sync.') },
   { id: 'hayah-karima', name: t('حياة كريمة', 'Hayah Karima'), tag: t('مبادرة حكومية · مصر', 'Government initiative · Egypt'),
     simple: t('تطبيق لمبادرة «حياة كريمة» يعرض للمستخدم معلومات وخدمات معرفية حسب القرية التي يبحث عنها.', 'An app for Egypt\'s "Decent Life" initiative, showing information and services based on the village a user looks up.') },
   { id: 'cashier-system', name: t('Cashier System', 'Cashier System'), tag: t('نقاط بيع', 'Point of sale'),

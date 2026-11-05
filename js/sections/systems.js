@@ -72,7 +72,7 @@ const panel = (p, i, before) => `
   </article>`;
 
 /* Systems with real screens come first, the strongest ones leading. Illustrated ones close the section. */
-const SHOW_FIRST = ['call-qa', 'hr-attends', 'drive2', 'hub-community', 'it-support', 'eaten'];
+const SHOW_FIRST = ['call-qa', 'hr-attends', 'fleet-run', 'drive2', 'hub-community', 'it-support', 'eaten'];
 
 export function render() {
   const rank = (p) => { const r = SHOW_FIRST.indexOf(p.id); return r < 0 ? SHOW_FIRST.length : r; };
