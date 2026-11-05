@@ -215,7 +215,8 @@ export const SYSTEMS = [
     id: 'drive2',
     name: t('Drive 2', 'Drive 2'),
     tag: t('شاشات طلب تفاعلية للمطاعم', 'Touch-screen ordering kiosks'),
-    status: 'private', code: t('Kiosk ولوحات تحكم', 'Kiosk & dashboards'),
+    status: 'live', code: t('Kiosk ولوحات تحكم', 'Kiosk & dashboards'),
+    links: [{ kind: 'map', url: 'https://maps.app.goo.gl/pyWMcLrCfu2MJ2t2A' }],
     simple: t(
       'شاشات لمس يقف أمامها الزائر ليتصفح المطاعم وقوائمها، ويتصل بالمطعم مباشرة من الشاشة. وكل مطعم له لوحة يستقبل منها المكالمات ويدير قائمته.',
       'Touch screens where visitors browse restaurants and menus, then call a restaurant directly from the screen. Each restaurant gets a dashboard to take calls and manage its menu.'),
@@ -385,7 +386,7 @@ export const UI = {
   mockNote: t('رسم توضيحي للفكرة. الكود والبيانات الحقيقية خاصة.', 'Illustration of the concept. Real code and data are private.'),
   simple: t('الفكرة ببساطة', 'The idea, simply'), who: t('لمن؟', 'Who it\'s for'), features: t('ماذا يفعل', 'What it does'), stack: t('التقنيات', 'Built with'),
   more: t('التفاصيل', 'Details'), close: t('إغلاق', 'Close'),
-  link: { site: t('زيارة الموقع', 'Visit site'), code: t('الكود', 'Source code'), play: t('Google Play', 'Google Play'), ios: t('App Store', 'App Store'), repo: t('GitHub', 'GitHub') },
+  link: { site: t('زيارة الموقع', 'Visit site'), map: t('مكانه على الخريطة', 'See it on the map'), code: t('الكود', 'Source code'), play: t('Google Play', 'Google Play'), ios: t('App Store', 'App Store'), repo: t('GitHub', 'GitHub') },
   top: t('للأعلى', 'Back to top'),
   rights: t('جميع الحقوق محفوظة.', 'All rights reserved.'),
   langLabel: t('English', 'العربية'),
