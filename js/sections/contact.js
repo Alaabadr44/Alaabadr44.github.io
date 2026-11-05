@@ -46,7 +46,7 @@ const field = (id, label, control) => `<div class="cf-field">
 
 const formHTML = () => `<form class="ct-form reveal" novalidate>
   <div class="cf-row">
-    ${field('name', TEXT.name, '<input id="cf-name" name="name" dir="auto" autocomplete="name" maxlength="120" required aria-describedby="cf-name-err">')}
+    ${field('name', TEXT.name, '<input id="cf-name" name="name" dir="auto" placeholder=" " autocomplete="name" maxlength="120" required aria-describedby="cf-name-err">')}
     ${field('reach', TEXT.reach, `<input id="cf-reach" name="reach" dir="auto" autocomplete="email" inputmode="email" maxlength="160" placeholder="${T(TEXT.reachHint)}" required aria-describedby="cf-reach-err">`)}
   </div>
   ${field('need', TEXT.need, `<textarea id="cf-need" name="need" dir="auto" rows="5" maxlength="4000" placeholder="${T(TEXT.needHint)}" required aria-describedby="cf-need-err"></textarea>`)}
