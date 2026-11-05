@@ -5,6 +5,8 @@ const store = {
   play: (id) => ({ kind: 'play', url: `https://play.google.com/store/apps/details?id=${id}` }),
   ios: (url) => ({ kind: 'ios', url }),
 };
+/* Explainer images exist per language: {lang} is filled in when they are shown. */
+const deck = (slug, n) => Array.from({ length: n }, (_, i) => `assets/deck/${slug}-{lang}-${i + 1}.webp`);
 const shots = (slug, n) => Array.from({ length: n }, (_, i) => `assets/apps/${slug}-s${i + 1}.webp`);
 
 export const PROFILE = {
@@ -59,7 +61,7 @@ export const SYSTEMS = [
       t('تعديل محتوى الموقع من لوحة التحكم', 'Site content editable from the admin panel'),
     ],
     stack: ['React', 'TanStack', 'NestJS', 'Docker'],
-    images: Array.from({ length: 12 }, (_, i) => `assets/shots/eaten-${i + 1}.webp`),
+    images: deck('eaten', 6),
     links: [{ kind: 'site', url: 'https://eateneg.com' }],
   },
   {
@@ -121,7 +123,7 @@ export const SYSTEMS = [
       t('تطبيق موبايل عربي وإنجليزي بوضعين فاتح وداكن', 'Arabic/English mobile app with light and dark themes'),
     ],
     stack: ['Flutter', 'BLoC', 'Clean Architecture', 'React', 'TanStack', 'Firebase'],
-    images: Array.from({ length: 7 }, (_, i) => `assets/shots/hr-attends-${i + 1}.webp`),
+    images: deck('hr-attends', 6),
     redacted: true,
     links: [{ kind: 'login', url: 'https://hr.waterway.group/' }],
   },
@@ -143,7 +145,7 @@ export const SYSTEMS = [
       t('تتبع GPS ومحادثات ومزامنة فورية عبر Firebase', 'GPS tracking, chat and real-time Firebase sync'),
     ],
     stack: ['Flutter', 'Firebase'],
-    images: Array.from({ length: 11 }, (_, i) => `assets/shots/fleet-run-${i + 1}.webp`),
+    images: deck('fleet-run', 11),
     video: t('assets/video/fleetrun-ar', 'assets/video/fleetrun-en'),
     redacted: true,
   },
@@ -165,7 +167,7 @@ export const SYSTEMS = [
       t('لوحة محتوى كاملة لفريق الموارد البشرية', 'A full content panel for the HR team'),
     ],
     stack: ['React', 'TanStack', 'TypeScript', 'Tailwind CSS'],
-    images: Array.from({ length: 8 }, (_, i) => `assets/shots/hub-community-${i + 1}.webp`),
+    images: deck('hub-community', 6),
     links: [{ kind: 'login', url: 'https://hub.waterway.group/' }],
   },
   {
@@ -186,7 +188,7 @@ export const SYSTEMS = [
       t('بحث متقدم وقواعد إشعارات قابلة للضبط', 'Advanced search and configurable notification rules'),
     ],
     stack: ['Flutter Web', 'BLoC', 'Clean Architecture', 'Firebase'],
-    images: [...Array.from({ length: 16 }, (_, i) => `assets/shots/call-qa-${i + 1}.webp`), 'assets/shots/call-qa-login.webp'],
+    images: deck('call-qa', 9),
     redacted: true,
     links: [{ kind: 'login', url: 'https://callcenter.waterway.group/#/login' }],
   },
@@ -207,7 +209,7 @@ export const SYSTEMS = [
       t('دخول بحساب Microsoft وتصدير CSV', 'Microsoft sign-in and CSV export'),
     ],
     stack: ['React', 'Vite', 'Express', 'TypeORM', 'PostgreSQL', 'Socket.IO'],
-    images: Array.from({ length: 8 }, (_, i) => `assets/shots/it-support-${i + 1}.webp`),
+    images: deck('it-support', 6),
     links: [{ kind: 'login', url: 'https://helpdesk.waterway.group/login' }],
     redacted: true,
   },
@@ -228,7 +230,7 @@ export const SYSTEMS = [
       t('تقارير تحليلية بالبريد', 'Analytics reports by email'),
     ],
     stack: ['React', 'TypeScript', 'Node.js', 'Socket.IO', 'Docker'],
-    images: Array.from({ length: 15 }, (_, i) => `assets/shots/drive2-${i + 1}.webp`),
+    images: deck('drive2', 7),
     redacted: true,
   },
 ];

@@ -1,5 +1,5 @@
 import { SYSTEMS, APPS, OTHERS, UI } from '../data.js';
-import { L, T, esc, arrow, ext, pad, statusChip } from '../shared.js';
+import { L, T, esc, arrow, ext, pad, pics, statusChip } from '../shared.js';
 import { mockHTML } from './mock.js';
 
 const dialog = document.getElementById('detail');
@@ -50,7 +50,7 @@ function galleryHTML(p, isPhone) {
   if (p.images && p.images.length) {
     const many = p.images.length > 1;
     return `<div class="d-media d-in" style="--i:3">
-      <div class="gallery ${isPhone ? 'phones' : ''}" tabindex="0">${p.images.map((src, i) => `<a href="${src}" ${ext}><img src="${src}" alt="${T(p.name)} ${i + 1}" ${isPhone ? '' : 'loading="lazy"'}>${EXPAND}</a>`).join('')}</div>
+      <div class="gallery ${isPhone ? 'phones' : ''}" tabindex="0">${pics(p).map((src, i) => `<a href="${src}" ${ext}><img src="${src}" alt="${T(p.name)} ${i + 1}" ${isPhone ? '' : 'loading="lazy"'}>${EXPAND}</a>`).join('')}</div>
       ${many ? `<div class="d-bar" hidden>
         <span class="d-count" dir="ltr">${pad(1)} / ${pad(p.images.length)}</span>
         <span class="d-track" aria-hidden="true"><i></i></span>

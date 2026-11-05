@@ -1,6 +1,6 @@
 import { SYSTEMS, UI } from '../data.js';
 import { plant } from '../deco.js';
-import { T, esc, pad, arrow, arrowOwner, statusChip, sectionHead } from '../shared.js';
+import { T, esc, pad, pics, arrow, arrowOwner, statusChip, sectionHead } from '../shared.js';
 import { mockHTML } from './mock.js';
 
 /* Must match the @media blocks of the same purpose in css/sections/systems.css. */
@@ -22,14 +22,14 @@ const words = (field) => {
    Every screen of the system is stacked here; later ones are only fetched as the reader nears them. */
 const frame = (p) => `<div class="frame" data-open="${p.id}" aria-hidden="true">
     <span class="mat"><span class="screen">${p.images
-      ? p.images.map((src, k) => `<img class="shot" ${k === 0 ? `src="${src}"` : `data-src="${src}"`} alt="" loading="lazy" decoding="async" width="1200" height="750">`).join('')
+      ? pics(p).map((src, k) => `<img class="shot" ${k === 0 ? `src="${src}"` : `data-src="${src}"`} alt="" loading="lazy" decoding="async" width="1200" height="750">`).join('')
       : mockHTML(p.mock)}<span class="sheen"></span></span></span>
   </div>`;
 
 const opener = (p) => `<h3 class="title"><button class="open" type="button" data-open="${p.id}" aria-haspopup="dialog">${words(p.name)}</button></h3>`;
 const stack = (p, n) => `<p class="stack" lang="en" dir="ltr">${p.stack.slice(0, n).map(esc).join(' · ')}</p>`;
 const DOWN = '<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M8 3v10M3.500 8.500 8 13l4.500-4.500" fill="none" stroke="currentColor" stroke-width="1.300"/></svg>';
-const go = `<span class="go" aria-hidden="true">${T(UI.more)} ${arrow}</span>`;
+const go = () => `<span class="go" aria-hidden="true">${T(UI.more)} ${arrow}</span>`;
 
 const chapter = (p, i, first, total, last) => {
   const count = p.images?.length || 1;
@@ -47,7 +47,7 @@ const chapter = (p, i, first, total, last) => {
       <p class="desc li" style="--s:3">${T(p.simple)}</p>
       <div class="li" style="--s:4">${stack(p, 7)}</div>
       ${p.mock ? `<p class="mock-note li" style="--s:5">${T(UI.mockNote)}</p>` : ''}
-      <div class="li ch-foot" style="--s:6">${go}${last ? '' : `<button type="button" class="ch-skip" data-next="${i + 1}">${T(UI.workNext)} ${DOWN}</button>`}</div>
+      <div class="li ch-foot" style="--s:6">${go()}${last ? '' : `<button type="button" class="ch-skip" data-next="${i + 1}">${T(UI.workNext)} ${DOWN}</button>`}</div>
     </div></div>
     <span class="ch-space" aria-hidden="true"></span>
   </div>`;
@@ -57,7 +57,7 @@ const chapter = (p, i, first, total, last) => {
 const panel = (p, i, before) => `
   <article class="fx${i === 0 ? ' on' : ''} reveal" style="--i:${i}">
     <div class="fx-media" data-open="${p.id}" aria-hidden="true">${p.images
-      ? `<img class="fx-shot" src="${p.images[0]}" alt="" loading="lazy" decoding="async" width="1200" height="750">`
+      ? `<img class="fx-shot" src="${pics(p)[0]}" alt="" loading="lazy" decoding="async" width="1200" height="750">`
       : mockHTML(p.mock)}</div>
     <span class="fx-shade" aria-hidden="true"></span>
     <div class="fx-rest" aria-hidden="true"><span class="num">${pad(i + before + 1)}</span><span class="fx-name">${T(p.name)}</span></div>
@@ -66,7 +66,7 @@ const panel = (p, i, before) => `
       ${opener(p)}
       <p class="tag li" style="--s:2">${T(p.tag)}</p>
       <p class="desc li" style="--s:3">${T(p.simple)}</p>
-      <div class="li fx-foot" style="--s:4">${stack(p, 5)}${go}</div>
+      <div class="li fx-foot" style="--s:4">${stack(p, 5)}${go()}</div>
       ${p.mock ? `<p class="mock-note li" style="--s:5">${T(UI.mockNote)}</p>` : ''}
     </div>
   </article>`;

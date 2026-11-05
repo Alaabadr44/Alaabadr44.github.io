@@ -8,6 +8,7 @@ if (state.lang !== 'ar' && state.lang !== 'en') state.lang = 'ar';
 export const L = (field) => field[state.lang];
 export const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 export const T = (field) => esc(L(field));
+export const pics = (p) => (p.images || []).map((src) => src.replace('{lang}', state.lang));
 export const pad = (n) => String(n).padStart(2, '0');
 export const ext = 'target="_blank" rel="noopener"';
 export const arrow = '<svg class="arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 13 13 3M6 3h7v7" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>';

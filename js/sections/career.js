@@ -1,6 +1,6 @@
 import { CAREER, SYSTEMS, APPS, OTHERS, WORK, UI } from '../data.js';
 import { stylus } from '../deco.js';
-import { T, esc, sectionHead } from '../shared.js';
+import { T, esc, sectionHead, pics } from '../shared.js';
 
 /* Signature: one pen stroke. A stylus writes the career as the reader scrolls, from the
    degree to today, stepping forward in the reading direction. Each role arrives on the
@@ -19,7 +19,7 @@ const workList = (key) => {
   const items = (WORK[key] || []).map((id) => ALL.find((p) => p.id === id)).filter(Boolean);
   if (!items.length) return '';
   return `<ul class="cr-works">${items.map((p, i) => {
-    const thumb = p.icon || p.images?.[0];
+    const thumb = p.icon || pics(p)[0];
     return `<li style="--w:${i}"><button type="button" class="cr-work" data-open="${p.id}" aria-haspopup="dialog">
       <span class="cr-thumb" aria-hidden="true">${thumb ? `<img src="${thumb}" alt="" loading="lazy" decoding="async" width="56" height="40">` : `<b>${esc(T(p.name).charAt(0))}</b>`}</span>
       <span class="cr-wname">${T(p.name)}</span>
