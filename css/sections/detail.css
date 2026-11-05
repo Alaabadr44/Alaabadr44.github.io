@@ -148,3 +148,5 @@ html[dir='rtl'] #detail .d-names b { text-align: right; }
   html[dir='rtl'] #detail .d-names i { transform: rotate(-90deg); }
 }
 
+#detail .d-video { margin: 0 var(--dp) clamp(1.2rem, 2.4vw, 1.8rem); border-radius: 14px; overflow: hidden; border: 1px solid var(--line); background: #000; }
+#detail .d-video video { display: block; width: 100%; aspect-ratio: 16 / 9; }

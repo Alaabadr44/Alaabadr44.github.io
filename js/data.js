@@ -144,6 +144,7 @@ export const SYSTEMS = [
     ],
     stack: ['Flutter', 'Firebase'],
     images: Array.from({ length: 11 }, (_, i) => `assets/shots/fleet-run-${i + 1}.webp`),
+    video: t('assets/video/fleetrun-ar', 'assets/video/fleetrun-en'),
     redacted: true,
   },
   {

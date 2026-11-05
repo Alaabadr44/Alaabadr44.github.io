@@ -1,5 +1,5 @@
 import { SYSTEMS, APPS, OTHERS, UI } from '../data.js';
-import { T, esc, arrow, ext, pad, statusChip } from '../shared.js';
+import { L, T, esc, arrow, ext, pad, statusChip } from '../shared.js';
 import { mockHTML } from './mock.js';
 
 const dialog = document.getElementById('detail');
@@ -118,6 +118,9 @@ function setOrigin(from) {
   dialog.style.setProperty('--oy', `${clamp(a.top + a.height / 2 - d.top, d.height)}px`);
 }
 
+/* A video must not keep playing behind a closed dialog. */
+dialog.addEventListener('close', () => dialog.querySelector('video')?.pause());
+
 export function openDetail(id, push = true, at = 0) {
   const p = ALL.find((x) => x.id === id);
   if (!p) return;
@@ -143,6 +146,7 @@ export function openDetail(id, push = true, at = 0) {
       ${p.links ? `<div class="d-links d-in" style="--i:1">${linksHTML(p)}</div>` : ''}
     </header>
     <div class="d-rule" aria-hidden="true"></div>
+    ${p.video ? `<div class="d-video d-in" style="--i:2"><video controls playsinline preload="none" poster="${L(p.video)}.webp" src="${L(p.video)}.mp4" aria-label="${T(p.name)}"></video></div>` : ''}
     ${proofHTML(p)}
     ${galleryHTML(p, isPhone)}
     <div class="d-cols ${body ? '' : 'solo'}">
