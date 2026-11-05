@@ -23,7 +23,9 @@ const TEXT = {
   noNeed: { ar: 'اكتب استفسارك', en: 'Please write your question' },
 };
 /* The site is static, so this relay turns the question into an email to the owner. */
-const ENDPOINT = `https://formsubmit.co/ajax/${PROFILE.email}`;
+const ENDPOINT = 'https://api.web3forms.com/submit';
+/* Public by design: it can only send to the owner's inbox. */
+const ACCESS_KEY = 'f0404a3f-1cd1-4791-9efc-c36a9a803832';
 const PIN = '<span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M12 21s-6.5-6.1-6.5-11a6.5 6.5 0 0 1 13 0c0 4.9-6.5 11-6.5 11z" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="10" r="2.2" fill="currentColor"/></svg></span>';
 const NOTE = '<span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M6 4h9l3 3v13H6zM9 11h6M9 15h6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></span>';
 const UP = '<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 13V3M3.5 7.5 8 3l4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>';
@@ -168,11 +170,11 @@ function initForm(section, signal) {
     if (el._honey.value) { done(); return; } /* A bot filled the hidden field: look fine, send nothing. */
 
     const payload = {
-      _subject: `Portfolio inquiry from ${name}`,
-      _template: 'table',
-      _captcha: 'false',
+      access_key: ACCESS_KEY,
+      subject: `Portfolio inquiry from ${name}`,
+      from_name: 'Portfolio website',
       Name: name,
-      ...(isEmail(reach) ? { email: reach, _replyto: reach } : { WhatsApp: reach, ...(waLink(reach) && { 'WhatsApp link': waLink(reach) }) }),
+      ...(isEmail(reach) ? { Email: reach, replyto: reach } : { WhatsApp: reach, ...(waLink(reach) && { 'WhatsApp link': waLink(reach) }) }),
       Question: need,
       Language: state.lang,
     };
@@ -188,7 +190,7 @@ function initForm(section, signal) {
         signal: AbortSignal.any ? AbortSignal.any([signal, AbortSignal.timeout(20000)]) : signal,
       });
       const data = await res.json().catch(() => ({}));
-      if (!res.ok || String(data.success) !== 'true') throw new Error(data.message || `HTTP ${res.status}`);
+      if (!res.ok || data.success !== true) throw new Error(data.message || `HTTP ${res.status}`);
       done();
     } catch {
       if (signal.aborted) return;
