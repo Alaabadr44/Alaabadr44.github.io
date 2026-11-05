@@ -131,7 +131,7 @@ export const SYSTEMS = [
     id: 'fleet-run',
     name: t('FleetRun', 'FleetRun'),
     tag: t('منصة توصيل للمطاعم والمخابز', 'A delivery platform for restaurants and bakeries'),
-    status: 'private', code: t('تطبيقان وبوابتا ويب · غير منشور على المتاجر', 'Two apps & two web portals · Not on the stores'),
+    status: 'live', code: t('تطبيقان وبوابتا ويب · غير منشور على المتاجر', 'Two apps & two web portals · Not on the stores'),
     simple: t(
       'يُنشأ الطلب من تطبيق POS أو بوابة POS في الفرع، ويستلمه السائق على تطبيقه ويتابعه على الخريطة حتى التسليم، بينما يتابع فريق التشغيل كل الطلبات والسائقين والعملاء من بوابة الإدارة.',
       'An order starts in the branch, from the POS app or POS portal. A driver takes it on the driver app and follows it on the map through to delivery, while the operations team follows every order, driver and client from the admin portal.'),
