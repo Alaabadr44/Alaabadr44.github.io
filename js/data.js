@@ -20,6 +20,7 @@ export const PROFILE = {
   whatsappLabel: '+20 103 231 0223',
   linkedin: 'https://www.linkedin.com/in/alaa-badr-255a8a130/',
   github: 'https://github.com/Alaabadr44',
+  cv: 'https://docs.google.com/document/d/1zR7s9memvyskmpwFsByzbTlmo2rMM76x/export?format=pdf',
 };
 
 export const SYSTEMS = [
@@ -125,7 +126,6 @@ export const SYSTEMS = [
     stack: ['Flutter', 'BLoC', 'Clean Architecture', 'React', 'TanStack', 'Firebase'],
     images: deck('hr-attends', 6),
     redacted: true,
-    links: [{ kind: 'login', url: 'https://hr.waterway.group/' }],
   },
   {
     id: 'fleet-run',
@@ -168,11 +168,10 @@ export const SYSTEMS = [
     ],
     stack: ['React', 'TanStack', 'TypeScript', 'Tailwind CSS'],
     images: deck('hub-community', 6),
-    links: [{ kind: 'login', url: 'https://hub.waterway.group/' }],
   },
   {
     id: 'call-qa',
-    name: t('مشرف جودة المكالمات الصوتية لخدمة العملاء عن طريق الذكاء الاصطناعي', 'AI Voice Call Quality Supervisor for Customer Service'),
+    name: t('مشرف جودة المكالمات بالذكاء الاصطناعي', 'AI Voice QA'),
     tag: t('تحليل المكالمات وتطوير الفريق', 'Call analysis and team coaching'),
     status: 'live', code: t('Flutter Web', 'Flutter Web'),
     simple: t(
@@ -190,7 +189,6 @@ export const SYSTEMS = [
     stack: ['Flutter Web', 'BLoC', 'Clean Architecture', 'Firebase'],
     images: deck('call-qa', 9),
     redacted: true,
-    links: [{ kind: 'login', url: 'https://callcenter.waterway.group/#/login' }],
   },
   {
     id: 'it-support',
@@ -210,7 +208,6 @@ export const SYSTEMS = [
     ],
     stack: ['React', 'Vite', 'Express', 'TypeORM', 'PostgreSQL', 'Socket.IO'],
     images: deck('it-support', 6),
-    links: [{ kind: 'login', url: 'https://helpdesk.waterway.group/login' }],
     redacted: true,
   },
   {
@@ -280,6 +277,10 @@ export const APPS = [
     simple: t('يقبل به التاجر الدفع من موبايله بلمسة بطاقة أو هاتف عبر NFC، ويتابع إشعارات الدفع وتقارير معاملاته.', 'Merchants take payments on their own phone with a tap of a card or phone over NFC, and follow payment notifications and transaction reports.'),
     icon: 'assets/apps/amwal-softpos-icon.webp', images: shots('amwal-softpos', 10),
     links: [store.play('com.amwalpay.vpos'), store.ios('https://apps.apple.com/om/app/amwal-alraqamia-softpos/id6508165324')] },
+  { id: 'hayah-karima', name: t('HKSS · حياة كريمة', 'HKSS · Hayah Karima'), tag: t('مبادرة حياة كريمة · مصر', 'Hayah Karima initiative · Egypt'),
+    simple: t('تطبيق HKSS هو منصة ذكية مخصصة لمبادرة حياة كريمة، يتيح لمندوبي المبادرة القيام بعمليات الرصد الميداني، جمع الاستبيانات، وتسجيل الشكاوى المتعلقة بالوحدات التابعة لوزارة التضامن الاجتماعي. يهدف التطبيق إلى تسهيل متابعة الأداء، رصد التحديات، ورفع تقارير دقيقة للإدارة المركزية لدعم اتخاذ القرار وتحسين جودة الخدمات.', 'HKSS is a smart platform dedicated to the Hayah Karima initiative. It lets the initiative\'s representatives carry out field monitoring, collect surveys and log complaints related to units of the Ministry of Social Solidarity. The app aims to make performance follow-up easier, track challenges and send accurate reports to central management, to support decisions and improve service quality.'),
+    icon: 'assets/apps/hayah-karima-icon.webp', images: shots('hayah-karima', 7),
+    links: [store.play('com.app.hayah_kareema'), store.ios('https://apps.apple.com/eg/app/hkss/id6751874095')] },
   { id: 'foodcode', name: t('FoodCode', 'FoodCode'), tag: t('مجتمع طهي', 'Cooking community'),
     simple: t('شبكة اجتماعية للطبخ: وصفات ومنشورات وفيديوهات قصيرة وتعليقات، للمستخدمين والشيفات.', 'A social network for cooking: recipes, posts, short videos and comments, for home cooks and chefs.'),
     icon: 'assets/apps/foodcode-icon.webp', images: shots('foodcode', 4),
@@ -295,8 +296,6 @@ export const APPS = [
 ];
 
 export const OTHERS = [
-  { id: 'hayah-karima', name: t('حياة كريمة', 'Hayah Karima'), tag: t('مبادرة حكومية · مصر', 'Government initiative · Egypt'),
-    simple: t('تطبيق لمبادرة «حياة كريمة» يعرض للمستخدم معلومات وخدمات معرفية حسب القرية التي يبحث عنها.', 'An app for Egypt\'s "Decent Life" initiative, showing information and services based on the village a user looks up.') },
   { id: 'cashier-system', name: t('Cashier System', 'Cashier System'), tag: t('نقاط بيع', 'Point of sale'),
     simple: t('تطبيق ضمن مجموعة تطبيقات يقرأ رمز QR ويُتم عملية الشراء والدفع.', 'Part of a family of apps: it reads a QR code and completes the purchase and payment.') },
 ];
@@ -337,33 +336,33 @@ export const UI = {
   eyebrow: t('القاهرة · منذ 2021', 'Cairo · Since 2021'),
   headline: t('أبني برامج<br><em>يعتمد عليها</em> الناس كل يوم.', 'I build software<br>people <em>rely on</em> every day.'),
   intro: t(
-    'أنا مطوّر Flutter و Full-Stack. أحوّل فكرة العمل إلى منتج كامل: تطبيق موبايل، ولوحة تحكم، وخادم يربط بينهما. من تطبيقات منشورة على المتاجر إلى أنظمة تدير فنادق وشركات.',
-    'I\'m a Flutter and full-stack developer. I turn a business idea into a complete product: mobile app, dashboard, and the server between them. From apps on the stores to systems that run hotels and companies.'),
-  cta: t('شاهد الأعمال', 'See the work'), ctaContact: t('تواصل معي', 'Get in touch'),
-  stats: { apps: t('تطبيقات على المتاجر', 'Apps on the stores'), systems: t('أنظمة كاملة', 'Complete systems'), live: t('مواقع شغالة الآن', 'Sites live now'), since: t('بداية العمل الاحترافي', 'Professional since') },
+    'أنا مطوّر Flutter و Full-Stack. أحوّل فكرة العمل إلى منتج كامل: تطبيق موبايل، ولوحة تحكم، وخادم يربط بينهما. من تطبيقات مثل وزارة التربية في الكويت وFawry على المتاجر، إلى أنظمة تدير فنادق وشركات.',
+    'I\'m a Flutter and full-stack developer. I turn a business idea into a complete product: mobile app, dashboard, and the server between them. From store apps like Kuwait\'s Ministry of Education and Fawry, to systems that run hotels and companies.'),
+  cta: t('شاهد الأعمال', 'See the work'), cv: t('السيرة الذاتية (PDF)', 'Download CV'), ctaContact: t('تواصل معي', 'Get in touch'),
+  stats: { downloads: t('تحميل على المتاجر', 'Store downloads'), apps: t('تطبيقات على المتاجر', 'Apps on the stores'), systems: t('أنظمة منفذة', 'Systems delivered'), since: t('بداية العمل الاحترافي', 'Professional since') },
   workKicker: t('أعمال مختارة', 'Selected work'), workTitle: t('أنظمة كاملة، من الفكرة إلى التشغيل', 'Complete systems, from idea to operation'),
-  workNote: t('اضغط على أي مشروع لقراءة الشرح كاملًا.', 'Open any project for the full story.'),
+  workNote: t('اضغط على أي مشروع لقراءة التفاصيل.', 'Open any project for details.'),
   appsKicker: t('على المتاجر', 'On the stores'), appsTitle: t('تطبيقات يمكنك تحميلها الآن', 'Apps you can download today'),
   othersKicker: t('من المسيرة أيضًا', 'Also along the way'), othersTitle: t('مشاريع أخرى', 'More projects'),
-  skillsKicker: t('الإمكانيات', 'Capabilities'), skillsTitle: t('ماذا أقدر أبني لك', 'What I can build for you'),
+  skillsKicker: t('الإمكانيات', 'Capabilities'), skillsTitle: t('ماذا يمكنني أن أبني لك', 'What I can build for you'),
   workNext: t('المشروع التالي', 'Next project'),
   workKeys: t('تنقل بين المشاريع بالأسهم، وافتحها بزر Enter', 'Move between projects with the arrow keys, open with Enter'),
   voicesKicker: t('آراء', 'Testimonials'), voicesTitle: t('قالوا عني', 'In their own words'),
-  voicesNote: t('تعليقات كما كتبها أصحابها على لينكد إن.', 'Comments as their authors wrote them on LinkedIn, in Arabic.'),
+  voicesNote: t('تعليقات كما كتبها أصحابها على لينكد إن.', 'Comments as written on LinkedIn in Arabic, with an English translation.'),
   voicesPause: t('إيقاف الحركة', 'Pause motion'), voicesPlay: t('تشغيل الحركة', 'Play motion'),
-  personalNote: t('ملاحظة شخصية', 'A personal note'),
+  personalNote: t('ملاحظة شفافية شخصية', 'Personal transparency note'),
   personalWork: t('مشاريع شخصية', 'Personal projects'), freelanceWork: t('فريلانس', 'Freelance'),
   careerKicker: t('المسيرة', 'Career'), careerTitle: t('الخبرة العملية', 'Experience'),
   edu: t('بكالوريوس الحاسبات والمعلومات، الأكاديمية المصرية للحاسبات وتكنولوجيا المعلومات، طنطا، 2019', 'BSc in Computers and Information, The Egyptian Academy of Computers and IT Management, Tanta, 2019'),
-  contactKicker: t('لنتحدث', 'Let\'s talk'), contactTitle: t('عندك استفسار؟', 'Have a question?'),
+  contactKicker: t('لنتحدث', 'Let\'s talk'), contactTitle: t('هل لديك استفسار؟', 'Have a question?'),
   contactBody: t('اكتب استفسارك هنا، وسأرد عليك في أقرب وقت.', 'Write your question here, and I\'ll get back to you soon.'),
-  status: { live: t('شغال الآن', 'Live'), dev: t('قيد التطوير', 'In development'), private: t('كود خاص', 'Private code') },
+  status: { live: t('يعمل الآن', 'Live'), dev: t('قيد التطوير', 'In development'), private: t('مشروع خاص', 'Private project') },
   redactNote: t('صور حقيقية من النظام، مع إخفاء البيانات الحساسة.', 'Real screens from the system, with sensitive data hidden.'),
   mockNote: t('رسم توضيحي للفكرة. الكود والبيانات الحقيقية خاصة.', 'Illustration of the concept. Real code and data are private.'),
   simple: t('الفكرة ببساطة', 'The idea, simply'), who: t('لمن؟', 'Who it\'s for'), features: t('ماذا يفعل', 'What it does'), stack: t('التقنيات', 'Built with'),
   more: t('التفاصيل', 'Details'), close: t('إغلاق', 'Close'),
-  link: { site: t('زيارة الموقع', 'Visit site'), login: t('صفحة الدخول', 'Login page'), code: t('الكود', 'Source code'), play: t('Google Play', 'Google Play'), ios: t('App Store', 'App Store'), repo: t('GitHub', 'GitHub') },
+  link: { site: t('زيارة الموقع', 'Visit site'), code: t('الكود', 'Source code'), play: t('Google Play', 'Google Play'), ios: t('App Store', 'App Store'), repo: t('GitHub', 'GitHub') },
   top: t('للأعلى', 'Back to top'),
-  rights: t('صُمم وبُني بعناية.', 'Designed and built with care.'),
+  rights: t('جميع الحقوق محفوظة.', 'All rights reserved.'),
   langLabel: t('English', 'العربية'),
 };

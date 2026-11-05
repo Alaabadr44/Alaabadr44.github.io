@@ -1,6 +1,5 @@
 @property --apps-open { syntax: '<number>'; inherits: true; initial-value: 0; }
 
-#apps .o-s2 { width: clamp(7rem, 12vw, 11rem); top: -4rem; inset-inline-start: -2rem; transform: rotate(150deg); }
 #apps { --dx: 1; }
 html[dir='rtl'] #apps { --dx: -1; }
 
@@ -208,7 +207,7 @@ html[dir='rtl'] #apps .key::after { left: auto; right: 50%; }
   align-items: start;
 }
 #apps .others .head { position: sticky; top: 6rem; margin: 0; }
-#apps .others h2 { font-size: clamp(1.7rem, 2.6vw, 2.4rem); }
+#apps .others h2 { font-size: clamp(1.3rem, 2.6vw, 2.4rem); }
 
 #apps .index li {
   position: relative;

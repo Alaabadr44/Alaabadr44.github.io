@@ -1,4 +1,4 @@
-/* Testimonials: stage + rail. Comment text is always Arabic, so it keeps Tajawal in both languages. */
+/* Testimonials: stage + rail. The verbatim comment is always Arabic, so it keeps Tajawal in both languages. */
 #voices blockquote { font-family: 'Tajawal', system-ui, sans-serif; white-space: pre-line; text-align: start; }
 
 #voices .vo-stage { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1.5rem clamp(2rem, 5vw, 5rem); align-items: center; padding: clamp(1.6rem, 4vw, 3.4rem); border: 1px solid var(--line); border-radius: calc(var(--r) * 1.5); background: linear-gradient(135deg, rgba(255, 255, 255, .045), rgba(0, 0, 0, .22)); box-shadow: 0 30px 70px rgba(0, 0, 0, .35), inset 0 1px rgba(255, 255, 255, .06); outline: 1px dashed rgba(255, 255, 255, .13); outline-offset: -.6rem; }
@@ -8,6 +8,15 @@
 #voices .vo-panel { grid-area: 1 / 1; display: flex; flex-direction: column; justify-content: center; gap: 1.5rem; visibility: hidden; opacity: 0; transform: translateY(14px); transition: opacity .6s var(--ease), transform .7s var(--ease), visibility 0s .6s; }
 #voices .vo-panel.on { visibility: visible; opacity: 1; transform: none; transition: opacity .7s var(--ease) .12s, transform .8s var(--ease) .12s, visibility 0s; }
 #voices .vo-panel blockquote { font-size: clamp(1.15rem, 1.9vw, 1.7rem); line-height: 1.75; font-weight: 500; color: var(--text); }
+
+/* English page: translation first, verbatim Arabic beneath at a smaller size. */
+#voices .vo-en { font: 500 clamp(1.05rem, 1.6vw, 1.45rem)/1.65 'Montserrat', sans-serif; color: var(--text); }
+#voices .vo-card .vo-en { font-size: .96rem; line-height: 1.6; }
+#voices .vo-tag { display: block; margin-block-end: .35rem; font: 600 .68rem/1 'Montserrat', sans-serif; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); }
+#voices .vo-panel blockquote.vo-src, #voices .vo-card blockquote.vo-src { font-size: .95rem; line-height: 1.7; font-weight: 400; color: var(--dim); padding-block-start: .8rem; border-block-start: 1px solid var(--line); }
+#voices .vo-card blockquote.vo-src { font-size: .88rem; }
+/* The translation and its original stay together; only the author sits at the card's foot. */
+html[lang='en'] #voices .vo-card figcaption { margin-block-start: auto; }
 
 #voices .vo-by { display: flex; align-items: center; gap: .85rem; min-width: 0; }
 #voices .vo-by img { flex: none; width: 3.5rem; height: 3.5rem; border-radius: 50%; object-fit: cover; border: 1px solid rgba(255, 255, 255, .25); }
@@ -49,6 +58,9 @@
   #voices .vo-picks { flex-direction: row; justify-content: flex-start; flex-wrap: wrap; gap: .35rem; }
   #voices .vo-pick { width: 3.2rem; height: 3.2rem; }
   #voices .vo-panel .vo-by img { width: 3.75rem; height: 3.75rem; }
+  /* Translation plus original makes the longest panel far taller than the shortest: start every one at the top, under the portraits. */
+  html[lang='en'] #voices .vo-panel { justify-content: flex-start; }
+  html[lang='en'] #voices .vo-picks { order: -1; }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -2,8 +2,11 @@ import { PROFILE, UI } from './data.js';
 import { icon } from './deco.js';
 
 /* Shared state and helpers used by every section module. */
-export const state = { lang: new URLSearchParams(location.search).get('lang') || localStorage.getItem('lang') || 'ar' };
-if (state.lang !== 'ar' && state.lang !== 'en') state.lang = 'ar';
+/* ?lang wins, then the saved choice, then the browser's languages (any ar* gives Arabic), else English. */
+const pick = (v) => (v === 'ar' || v === 'en' ? v : null);
+const saved = () => { try { return localStorage.getItem('lang'); } catch { return null; } };
+const preferred = (navigator.languages?.length ? navigator.languages : [navigator.language || '']).some((l) => /^ar(\b|-|_)/i.test(l)) ? 'ar' : 'en';
+export const state = { lang: pick(new URLSearchParams(location.search).get('lang')) || pick(saved()) || preferred };
 
 export const L = (field) => field[state.lang];
 export const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));

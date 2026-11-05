@@ -40,7 +40,7 @@ html[dir='ltr'] #home .o-phones svg { transform: scaleX(-1); }
 #home .pen { position: absolute; display: block; left: 24%; width: 68%; top: calc(100% - .02em); transform-origin: 97.14% 46.15%; transform: rotate(-4deg); pointer-events: none; }
 #home .pen svg { display: block; width: 100%; height: auto; overflow: visible; filter: drop-shadow(0 .05em .05em rgba(0, 0, 0, .6)); }
 
-#home .pill { font-size: .92rem; }
+#home .pill { font-size: .92rem; border-radius: 1.3rem; text-wrap: balance; }
 html[lang='en'] #home .pill { font-size: .8rem; }
 #home h1 { font: 500 clamp(2rem, min(3.7vw, 7vh), 4.5rem)/1.2 var(--display); margin-block-start: 1.15rem; letter-spacing: -.01em; text-wrap: balance; }
 html[lang='ar'] #home h1 { font-weight: 700; line-height: 1.32; letter-spacing: 0; }
@@ -66,6 +66,7 @@ html[dir='rtl'] #home .contact-row { justify-content: flex-end; }
 #home .stat dt { font-size: .82rem; line-height: 1.4; color: var(--dim); }
 #home .stat dd { margin: 0; font: 600 clamp(1.7rem, 2.6vw, 2.4rem)/1.2 'Montserrat', sans-serif; color: #fff; }
 #home .wheels { display: inline-flex; font-variant-numeric: tabular-nums; }
+#home .suf { display: block; height: 1.2em; line-height: 1.2; }
 #home .wh { display: block; height: 1.2em; overflow: hidden; }
 #home .strip { display: block; transform: translateY(calc(var(--n) * -1.2em)); }
 #home .strip span { display: block; height: 1.2em; line-height: 1.2; }
@@ -99,6 +100,7 @@ html[dir='rtl'] #home .contact-row { justify-content: flex-end; }
 #home.play .cta > * { animation: rise .8s var(--ease) both; }
 #home.play .cta > :nth-child(1) { animation-delay: 1.25s; }
 #home.play .cta > :nth-child(2) { animation-delay: 1.33s; }
+#home.play .cta > :nth-child(3) { animation-delay: 1.41s; }
 #home.play .contact-row > li { animation: rise .75s var(--ease) both; }
 #home.play .contact-row > :nth-child(1) { animation-delay: 1.42s; }
 #home.play .contact-row > :nth-child(2) { animation-delay: 1.48s; }
@@ -144,7 +146,7 @@ html[dir='rtl'] #home.play .stats::before { animation-name: hero-stitch-rtl; }
   #home .hero-photo img { --fx: linear-gradient(to right, transparent 3%, #000 24%, #000 76%, transparent 97%); --fy: linear-gradient(to bottom, transparent 0, #000 8%, #000 56%, transparent 90%); }
   #home .hero-text { margin-block-start: -5.5rem; padding-block-end: 2.2rem; }
   #home .sig { font-size: min(21vw, 6rem); margin-block-end: .42em; }
-  #home h1 { font-size: clamp(1.38rem, 7vw, 2.9rem); }
+  #home h1 { font-size: clamp(1.75rem, 7.4vw, 2.9rem); }
   #home .cta .btn { flex: 1 1 auto; justify-content: center; min-height: 3.1rem; }
   #home .contact-row { font-size: .86rem; }
   #home .o-keyboard { width: 21rem; inset-block-start: -.8rem; inset-inline-end: -8.5rem; }

@@ -1,6 +1,6 @@
 /* Career: one pen stroke. */
 #career { padding-block-end: clamp(3rem, 6vw, 4.5rem); --stepw: clamp(.7rem, 10vw, 12rem); --node: 1rem; --indent: clamp(1.9rem, 4vw, 3.4rem); }
-#career .cr-track { position: relative; padding-block-end: 9rem; }
+#career .cr-track { position: relative; padding-block-end: clamp(2rem, 4vw, 3rem); }
 #career .cr-svg { position: absolute; inset-block-start: 0; left: 0; overflow: visible; pointer-events: none; }
 #career .cr-svg path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
 #career .cr-guide { stroke: rgba(255, 255, 255, .14); stroke-width: 1; }
@@ -8,7 +8,7 @@
 
 #career .cr-step { position: relative; margin-inline-start: calc(var(--step) * var(--stepw)); padding-inline-start: var(--indent); padding-block-end: calc(var(--gap) * 1rem); }
 #career ol.career { position: relative; }
-#career .cr-now { padding-block-end: 0; }
+#career .cr-last { padding-block-end: 0; }
 #career .cr-node { position: absolute; inset-inline-start: 0; inset-block-start: var(--ny, .55em); width: var(--node); height: var(--node); margin-block-start: calc(var(--node) / -2); margin-inline-start: calc(var(--node) / -2); border-radius: 50%; background: #1b1b1c; border: 2px solid rgba(255, 255, 255, .28); z-index: 1; transition: background .4s var(--ease), border-color .4s var(--ease), box-shadow .6s var(--ease); }
 #career .cr-step.on .cr-node { background: var(--gold); border-color: var(--gold); box-shadow: 0 0 0 5px var(--gold-soft); }
 
@@ -61,9 +61,8 @@
 
 @media (max-width: 700px) {
   #career { --indent: 1.6rem; --node: .85rem; --stepw: 8vw; }
-  #career .cr-track { padding-block-end: 7rem; }
   #career .cr-step { padding-block-end: calc(var(--gap) * .8rem); }
-  #career .cr-now { padding-block-end: 0; }
+  #career .cr-last { padding-block-end: 0; }
   #career .cr-pen { --w: 92px; }
   #career .cr-own { grid-template-columns: minmax(0, 1fr); }
   #career .cr-work { font-size: .86rem; }

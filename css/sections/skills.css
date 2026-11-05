@@ -41,7 +41,6 @@ html[lang='ar'] #skills .sk-row h3 { font-weight: 700; line-height: 1.35; }
 #skills .sk-row li { display: inline-flex; align-items: center; gap: .55rem; font: 500 .86rem/1.5 'Montserrat', sans-serif; letter-spacing: .01em; color: var(--text); }
 #skills .sk-row li::before { content: ''; width: 1px; height: .85em; background: rgba(255, 255, 255, .34); transition: background .4s var(--ease); }
 #skills .sk-row.on li::before { background: var(--gold); }
-#skills .sk-leaf { width: clamp(6rem, 11vw, 10rem); bottom: 1rem; inset-inline-end: -2.5rem; }
 
 @media (prefers-reduced-motion: no-preference) {
   #skills .sk-sticky.reveal { transform: none; }
@@ -57,7 +56,7 @@ html[lang='ar'] #skills .sk-row h3 { font-weight: 700; line-height: 1.35; }
    each capability is a piece of the same dial face, with the date window as its number and the gold index on the active one. */
 @media (max-width: 720px) {
   #skills .sk-stage { grid-template-columns: minmax(0, 1fr); grid-template-areas: 'head' 'rows'; }
-  #skills .sk-dial, #skills .sk-leaf { display: none; }
+  #skills .sk-dial { display: none; }
   #skills .skills { display: grid; gap: .85rem; }
   #skills .sk-row {
     position: relative; overflow: hidden; min-height: 0;

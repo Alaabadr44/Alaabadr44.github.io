@@ -1,0 +1,8 @@
+/* Persistent WhatsApp button for phones and tablets. */
+.fab { display: none; }
+@media (max-width: 1023.98px) {
+  .fab { position: fixed; inset-inline-end: max(1rem, env(safe-area-inset-right, 0px)); inset-block-end: max(1rem, env(safe-area-inset-bottom, 0px)); z-index: 40; display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: #25d366; color: #fff; box-shadow: 0 8px 24px rgba(0, 0, 0, .45); transition: opacity .25s, transform .25s var(--ease), visibility .25s; }
+  .fab svg { width: 32px; height: 32px; }
+  .fab.away { opacity: 0; transform: scale(.85); visibility: hidden; pointer-events: none; }
+  html.lock .fab, html.nav-open .fab { display: none; }
+}

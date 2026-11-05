@@ -101,6 +101,7 @@ export function render() {
         <ul class="ct-rows">
           <li><a href="${PROFILE.github}" ${ext}>${icon('github')}<span dir="ltr">github.com/Alaabadr44</span>${arrow}</a></li>
           <li><a href="${PROFILE.linkedin}" ${ext}>${icon('linkedin')}<span dir="ltr">LinkedIn</span>${arrow}</a></li>
+          <li><a href="${PROFILE.cv}" ${ext}>${NOTE}<span>${T(UI.cv)}</span>${arrow}</a></li>
           <li><a href="${PROFILE.personalNote}" ${ext}>${NOTE}<span>${T(UI.personalNote)}</span>${arrow}</a></li>
           <li>${PIN}<span>${T(PROFILE.city)}</span></li>
         </ul>

@@ -1,5 +1,4 @@
 import { APPS, OTHERS, UI } from '../data.js';
-import { monstera } from '../deco.js';
 import { T, arrow, arrowOwner, ext, pad, sectionHead } from '../shared.js';
 
 /* The vitrine: a lit case with one fixed spotlight. Apps slide along a ledge, and the one under
@@ -40,7 +39,7 @@ const dockKey = (a, i) => `<li><button class="key" type="button" data-go="${i}" 
 </button></li>`;
 
 export function render() {
-  return `<section class="band alt" id="apps"><div class="o o-s2" aria-hidden="true">${monstera()}</div>
+  return `<section class="band alt" id="apps">
     ${sectionHead(UI.appsKicker, UI.appsTitle)}
     <div class="vitrine">
       <span class="beam" aria-hidden="true"></span>

@@ -1,4 +1,4 @@
-import { SYSTEMS, APPS, OTHERS, UI } from '../data.js';
+import { PROFILE, SYSTEMS, APPS, OTHERS, UI } from '../data.js';
 import { L, T, esc, arrow, ext, pad, pics, statusChip } from '../shared.js';
 import { mockHTML } from './mock.js';
 
@@ -11,13 +11,31 @@ const TEXT = {
 const X = '<svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M3 3l10 10M13 3 3 13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>';
 const CHEV = '<svg class="d-chev" viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const EXPAND = '<span class="d-zoom" aria-hidden="true"><svg viewBox="0 0 16 16" width="13" height="13"><path d="M9.5 2.5h4v4M6.5 13.5h-4v-4M13.5 2.5 9 7M2.5 13.5 7 9" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>';
+const ASK = {
+  title: { ar: 'هل لديك استفسار عن مشروع مشابه؟', en: 'Have a question about something similar?' },
+  wa: { ar: 'راسلني على واتساب', en: 'Message me on WhatsApp' },
+  msg: { ar: 'مرحبًا علاء، لدي استفسار عن مشروع مشابه لـ', en: 'Hi Alaa, I have a question about something similar to' },
+};
 const EXIT_MS = 190;
 
 let exitTimer = 0;
 let wiring = null;
 
+/* Built per open, never at module level: the language can change between opens. */
+function askHTML(p) {
+  const next = ALL[(ALL.indexOf(p) + 1) % ALL.length];
+  const text = encodeURIComponent(`${L(ASK.msg)} ${L(p.name)}`);
+  return `<div class="d-ask d-in" style="--i:6">
+      <h3>${T(ASK.title)}</h3>
+      <div class="d-ask-act">
+        <a class="btn d-wa" href="${PROFILE.whatsapp}?text=${text}" ${ext}>${T(ASK.wa)}</a>
+        <button class="btn ghost d-next" type="button" data-open="${next.id}">${T(UI.workNext)} ${arrow}</button>
+      </div>
+    </div>`;
+}
+
 function linksHTML(p) {
-  return (p.links || []).map((l) => `<a class="btn ${['site', 'login'].includes(l.kind) ? '' : 'ghost'}" href="${l.url}" ${ext}>${T(UI.link[l.kind])} ${arrow}</a>`).join('');
+  return (p.links || []).map((l) => `<a class="btn ${l.kind === 'site' ? '' : 'ghost'}" href="${l.url}" ${ext}>${T(UI.link[l.kind])} ${arrow}</a>`).join('');
 }
 
 /* A verified fact worth more than a feature list: a big number, plus either the story of the app's name or a note on the work. */
@@ -160,6 +178,7 @@ export function openDetail(id, push = true, at = 0) {
         ${p.stack ? `<h3>${T(UI.stack)}</h3><ul class="d-stack" lang="en" dir="ltr">${p.stack.map((s) => `<li>${esc(s)}</li>`).join('')}</ul>` : ''}
       </aside>` : ''}
     </div>
+    ${askHTML(p)}
   </div>`;
   if (!dialog.open) dialog.showModal();
   dialog.scrollTop = 0;

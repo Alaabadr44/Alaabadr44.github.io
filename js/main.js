@@ -10,10 +10,12 @@ import * as skills from './sections/skills.js';
 import * as career from './sections/career.js';
 import * as voices from './sections/voices.js';
 import * as contact from './sections/contact.js';
+import * as fab from './sections/fab.js';
+import { applySeo } from './seo.js';
 
 /* Page order. Each module exports render() -> HTML and may export init() -> optional cleanup. */
-const CONTENT = [hero, systems, apps, skills, career, voices, contact];
-const SECTIONS = [header, ...CONTENT];
+const CONTENT = [hero, apps, systems, skills, career, voices, contact];
+const SECTIONS = [header, ...CONTENT, fab];
 const app = document.getElementById('app');
 const dialog = document.getElementById('detail');
 let cleanups = [];
@@ -37,8 +39,9 @@ function render(spot) {
   html.lang = state.lang;
   html.dir = state.lang === 'ar' ? 'rtl' : 'ltr';
   document.title = `${L(PROFILE.name)} | ${L(PROFILE.role)}`;
+  applySeo();
   cleanups.forEach((fn) => fn());
-  app.innerHTML = `${header.render()}<main>${CONTENT.map((s) => s.render()).join('')}</main>`;
+  app.innerHTML = `${header.render()}<main>${CONTENT.map((s) => s.render()).join('')}</main>${fab.render()}`;
   restoreSpot(spot);
   observe();
   cleanups = SECTIONS.map((s) => s.init?.()).filter((fn) => typeof fn === 'function');
@@ -60,10 +63,13 @@ document.addEventListener('click', (e) => {
   const opener = e.target.closest('[data-open]');
   if (opener) return openDetail(opener.dataset.open, true, Number(opener.dataset.at) || 0);
   if (e.target.closest('#d-close') || e.target === dialog) return closeDetail();
-  if (e.target.closest('#lang')) {
+  const langLink = e.target.closest('#lang');
+  if (langLink) {
+    if (e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return; // let modified clicks open the link normally
+    e.preventDefault();
     const spot = readingSpot();
     state.lang = state.lang === 'ar' ? 'en' : 'ar';
-    localStorage.setItem('lang', state.lang);
+    try { localStorage.setItem('lang', state.lang); } catch { /* private mode */ }
     /* An explicit ?lang= wins on load, so keep it in step or a reload undoes the choice. */
     const url = new URL(location.href);
     if (url.searchParams.has('lang')) { url.searchParams.set('lang', state.lang); history.replaceState(history.state, '', url); }

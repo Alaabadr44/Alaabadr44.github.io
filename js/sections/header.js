@@ -6,7 +6,7 @@ const MENU_LABEL = { ar: 'القائمة', en: 'Menu' };
 
 export function render() {
   const n = UI.nav;
-  const links = [['work', n.work], ['apps', n.apps], ['skills', n.skills], ['career', n.career], ['voices', n.voices]];
+  const links = [['apps', n.apps], ['work', n.work], ['skills', n.skills], ['career', n.career], ['voices', n.voices]];
   const sheetLinks = [...links, ['contact', n.contact]];
   return `<header class="top" id="top-bar">
     <a class="mark" href="#home" aria-label="${T(PROFILE.name)}" lang="en" dir="ltr">Alaa badr</a>
@@ -15,7 +15,7 @@ export function render() {
       <span class="spy-ind" aria-hidden="true"></span>
     </nav>
     <div class="top-end">
-      <button class="lang" id="lang" type="button" lang="${state.lang === 'ar' ? 'en' : 'ar'}">${T(UI.langLabel)}</button>
+      <a class="lang" id="lang" href="?lang=${state.lang === 'ar' ? 'en' : 'ar'}" lang="${state.lang === 'ar' ? 'en' : 'ar'}">${T(UI.langLabel)}</a>
       <a class="btn-mini" href="#contact" data-spy="contact">${T(n.contact)}</a>
       <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav-sheet" aria-label="${T(MENU_LABEL)}" data-open-label="${T(MENU_LABEL)}" data-close-label="${T(UI.close)}"><span class="bars" aria-hidden="true"><i></i><i></i></span></button>
     </div>
@@ -68,7 +68,7 @@ export function init() {
     });
     place();
   };
-  const ids = ['home', 'work', 'apps', 'skills', 'career', 'voices', 'contact'];
+  const ids = ['home', 'apps', 'work', 'skills', 'career', 'voices', 'contact'];
   const spyIo = new IntersectionObserver((entries) => {
     entries.forEach((e) => { if (e.isIntersecting) setCurrent(e.target.id === 'home' ? null : e.target.id); });
   }, { rootMargin: '-45% 0px -54% 0px' });

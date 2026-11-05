@@ -1,5 +1,4 @@
 import { SKILLS, UI } from '../data.js';
-import { plant } from '../deco.js';
 import { T, esc, pad, sectionHead, state } from '../shared.js';
 
 /* Signature: a watch bezel engraved with every real tool name. It clicks round as the
@@ -73,7 +72,6 @@ export function render() {
         <ul>${s.items.map((x, n) => `<li lang="en" dir="ltr" style="--n:${n}">${esc(x)}</li>`).join('')}</ul>
       </article>`).join('')}</div>
     </div>
-    <div class="o sk-leaf" aria-hidden="true">${plant(11)}</div>
   </section>`;
 }
 

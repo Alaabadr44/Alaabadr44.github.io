@@ -3,7 +3,7 @@ import { stylus } from '../deco.js';
 import { T, esc, sectionHead, pics } from '../shared.js';
 
 /* Signature: one pen stroke. A stylus writes the career as the reader scrolls, from the
-   degree to today, stepping forward in the reading direction. Each role arrives on the
+   newest role down to the degree, stepping forward in the reading direction. Each role arrives on the
    line, and the gaps between roles follow the real time spent in each one. */
 const HEAD_AT = 0.62; // where in the viewport the pen tip sits
 const when = (en) => (en === 'Present' ? Date.now() : Date.parse(`1 ${en}`));
@@ -12,6 +12,8 @@ const gapRem = (c) => {
   return Number.isFinite(months) ? Math.min(9, Math.max(4, months * 0.28)).toFixed(2) : 5;
 };
 
+/* Display names where the data key differs from how the company writes its name. */
+const COMPANY = { 'secret-technology': 'Secret Technology' };
 const ALL = [...SYSTEMS, ...APPS, ...OTHERS];
 
 /* The work done at each place: every project opens its details. */
@@ -28,21 +30,21 @@ const workList = (key) => {
 };
 
 export function render() {
-  const roles = CAREER.slice().reverse(); // oldest first, so the line travels toward today
+  const roles = CAREER; // newest first; the line travels down to the degree
   return `<section class="band alt" id="career">
     ${sectionHead(UI.careerKicker, UI.careerTitle)}
     <div class="cr-track">
       <svg class="cr-svg" aria-hidden="true" focusable="false"><path class="cr-guide"/><path class="cr-ink"/></svg>
-      <p class="edu cr-step" style="--step:0;--gap:5"><span class="cr-node" aria-hidden="true"></span><span class="cr-edu">${T(UI.edu)}</span></p>
-      <ol class="career">${roles.map((c, i) => `<li class="cr-step${i === roles.length - 1 ? ' cr-now' : ''}" style="--step:${i + 1};--gap:${gapRem(c)}">
+      <ol class="career">${roles.map((c, i) => `<li class="cr-step${i === 0 ? ' cr-now' : ''}" style="--step:${i};--gap:${gapRem(c)}">
         <span class="cr-node" aria-hidden="true"></span>
         <div class="cr-body">
-          <h3><bdi lang="en" dir="ltr">${esc(c.co)}</bdi></h3>
+          <h3><bdi lang="en" dir="ltr">${esc(COMPANY[c.key] || c.co)}</bdi></h3>
           <p class="when"><bdi>${T(c.from)}</bdi> – <bdi>${T(c.to)}</bdi></p>
           <p class="role">${T(c.role)}</p>
           ${workList(c.key)}
         </div>
       </li>`).join('')}</ol>
+      <p class="edu cr-step cr-last" style="--step:${roles.length};--gap:0"><span class="cr-node" aria-hidden="true"></span><span class="cr-edu">${T(UI.edu)}</span></p>
       <div class="cr-pen" aria-hidden="true">${stylus()}</div>
     </div>
     <div class="cr-own">
@@ -86,12 +88,7 @@ export function init() {
       const mid = (from + next.y) / 2;
       d += `L${p.x} ${from}C${p.x} ${mid} ${next.x} ${mid} ${next.x} ${next.y}`;
     });
-    /* The last stretch keeps going forward: the career is still being written. */
-    const last = pts[pts.length - 1];
-    const endY = box.height - 2;
-    const endX = rtl ? Math.max(last.x - box.width * 0.34, 8) : Math.min(last.x + box.width * 0.34, box.width - 8);
-    const bend = Math.max(last.bottom + 6, last.y + 1);
-    d += `L${last.x} ${bend}C${last.x} ${endY} ${last.x} ${endY} ${endX} ${endY}`;
+    /* The line ends on the degree: that is where the career began. */
     guide.setAttribute('d', d);
     ink.setAttribute('d', d);
 

@@ -2,8 +2,6 @@
    Signature idea: a stitched leather tray that stays still while the story scrolls past it.
    Each new project passes over the last along a thin green blade, scrubbed by the reader's scroll. */
 
-#work .o-s1 { width: clamp(7rem, 13vw, 12rem); top: -3rem; inset-inline-end: -3rem; }
-
 /* Head */
 #work .head { max-width: 110rem; margin-inline: auto; display: grid; grid-template-columns: minmax(0, 1fr); justify-items: start; }
 #work .head h2 { max-width: 20em; }
@@ -42,6 +40,7 @@ html[lang='ar'] #work .title { font-weight: 700; line-height: 1.35; }
 #work .fx { min-width: 0; }
 #work .fx-media { position: relative; aspect-ratio: 16 / 10; overflow: hidden; border-radius: 16px; border: 1px solid var(--line); background: #151516; cursor: pointer; }
 #work .fx-shot { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; }
+#work .fx-shot[src$='it-support-2.webp'] { object-position: 30% 0; } /* an open panel crops the sides: keep the page title whole */
 #work .fx-shade, #work .fx-rest { display: none; }
 #work .fx-text { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: .45rem; padding-block-start: 1.2rem; }
 #work .fx-text .desc { max-width: 42em; }
@@ -84,7 +83,7 @@ html[lang='ar'] #work .title { font-weight: 700; line-height: 1.35; }
 
 /* Tier two: the stage */
 #work .stage { position: relative; max-width: 110rem; margin-inline: auto; display: grid; gap: clamp(3.5rem, 11vw, 6rem); }
-#work .rail, #work .stage-leaf, #work .blade, #work .shade { display: none; }
+#work .rail, #work .blade, #work .shade { display: none; }
 #work .ch { display: grid; gap: clamp(1.4rem, 4vw, 2rem); }
 #work .ch-text { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: .7rem; }
 #work .ch-n { font: 300 clamp(2.6rem, 6vw, 5.6rem)/1 'Montserrat', sans-serif; color: rgba(255, 255, 255, .24); display: flex; align-items: baseline; gap: .6rem; }
@@ -124,33 +123,44 @@ html[lang='ar'] #work .ch .title { line-height: 1.3; }
 @media (prefers-reduced-motion: no-preference) {
   /* A flex column with a spacer: a grid item sticks only inside its row, and nothing sticks into padding. */
   #work .ch { display: flex; flex-direction: column; }
-  #work .ch-space { display: block; order: 2; height: calc((var(--count) - 1) * var(--step) + 18svh); }
+  #work .ch-space { display: block; order: 2; height: calc((var(--count) - 1) * clamp(72px, 10svh, 100px) + 12svh); } /* flowStep() in systems.js must match */
   #work .ch-text { order: -1; }
   #work .ch-visual { position: sticky; top: 5rem; width: 100%; max-width: calc((100svh - 6.5rem) * 1.5); z-index: 1; }
-  /* On phones and tablets the description stays under the tray while its screens change. */
-  @media (max-width: 1023.98px) {
-    #work .ch-text { order: 1; position: sticky; top: calc(5.8rem + min(100vw - 2 * var(--pad), (100svh - 6.5rem) * 1.5) / 1.6 + 1.6rem); }
-  }
   #work .ch .ch-visual .shot:not(:first-child) { opacity: 0; visibility: hidden; transform: scale(1.015); transition: opacity .28s ease-out, transform .45s var(--ease), visibility 0s linear .28s; }
   #work .ch .ch-visual .shot.on:not(:first-child) { opacity: 1; visibility: visible; transform: none; transition: opacity .28s ease-out, transform .45s var(--ease), visibility 0s; }
   /* Opening the details is always one tap away, whatever the scroll is doing. */
   #work .ch-open {
     display: inline-flex; align-items: center; gap: .45em; position: absolute; z-index: 3;
-    inset-block-end: clamp(.8rem, 1.6vw, 1.5rem); inset-inline-start: clamp(.8rem, 1.6vw, 1.5rem);
+    inset-block-end: .6rem; inset-inline-start: clamp(.8rem, 1.6vw, 1.5rem); /* low enough to clear the captions along the foot of a slide */
     min-height: 2.5rem; padding: 0 .95rem; border: 1px solid rgba(255, 255, 255, .22); border-radius: 99px;
     color: #fff; font-size: .84rem; background: rgba(10, 10, 11, .78); backdrop-filter: blur(6px);
     transition: background .2s, border-color .2s, color .2s;
   }
   #work .ch-open:hover { background: var(--gold); border-color: var(--gold); color: #101011; }
-  #work .ch-pill { display: block; position: absolute; z-index: 3; inset-block-start: clamp(.9rem, 1.8vw, 1.7rem); inset-inline-end: clamp(.9rem, 1.8vw, 1.7rem); padding: .15rem .6rem; font: 500 .74rem/1.5 'Montserrat', sans-serif; font-variant-numeric: tabular-nums; color: #fff; background: rgba(10, 10, 11, .78); border: 1px solid var(--line); border-radius: 99px; pointer-events: none; }
+  #work .ch-pill { display: block; position: absolute; z-index: 3; inset-block-end: 1.15rem; right: clamp(.8rem, 1.6vw, 1.5rem); padding: .15rem .6rem; font: 500 .74rem/1.5 'Montserrat', sans-serif; font-variant-numeric: tabular-nums; color: #fff; background: rgba(10, 10, 11, .78); border: 1px solid var(--line); border-radius: 99px; pointer-events: none; }
+  [dir='rtl'] #work .ch-pill { right: auto; left: clamp(.8rem, 1.6vw, 1.5rem); }
   #work .ch-pill b { font-weight: 600; color: var(--gold); }
   #work .ch-bar { display: block; position: absolute; z-index: 3; inset-inline: clamp(.5rem, 1.2vw, 1.1rem); inset-block-end: clamp(.14rem, .3vw, .28rem); height: 2px; background: rgba(255, 255, 255, .12); border-radius: 2px; overflow: hidden; pointer-events: none; }
   #work .ch-bar i { display: block; height: 100%; background: var(--gold); transform: scaleX(0); transform-origin: 0 50%; }
   [dir='rtl'] #work .ch-bar i { transform-origin: 100% 50%; }
+  /* Under 1024px the text comes first and scrolls away; the tray stays put while its screens change.
+     A row below the picture holds the Details button and the counter, so nothing covers the screen. */
+  @media (max-width: 1023.98px) {
+    #work .ch-visual { padding-block-end: 3.5rem; }
+    #work .ch-open { inset-block-end: .45rem; inset-inline-start: 0; }
+    #work .ch-pill { inset-block-end: 1.2rem; inset-inline-end: auto; inset-block-start: auto; right: 0; left: auto; }
+    [dir='rtl'] #work .ch-pill { right: auto; left: 0; }
+    #work .ch-bar { inset-inline: 0; inset-block-end: .1rem; }
+  }
+  @media (max-width: 767.98px) {
+    #work .ch .screen { aspect-ratio: 4 / 5; }
+    #work .ch-visual { max-width: calc((100svh - 8rem) * .8); margin-inline: auto; }
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   #work .ch .screen { aspect-ratio: auto; display: grid; gap: .6rem; background: none; }
   #work .ch .shot { position: static; height: auto; aspect-ratio: 16 / 10; }
+  @media (max-width: 767.98px) { #work .ch .shot { aspect-ratio: 4 / 5; } }
 }
 
 /* ---- Entrances ---- */
@@ -205,11 +215,6 @@ html[lang='ar'] #work .ch .title { line-height: 1.3; }
   #work .rail-fill { background: var(--gold); transform: scaleY(var(--progress, 0)); transform-origin: 50% 0; box-shadow: 0 0 10px rgba(143, 209, 173, .55); }
   #work .rail-n { position: relative; font: 500 .72rem/1 'Montserrat', sans-serif; color: var(--dim); background: #232324; padding: .5rem .1rem; transition: color .4s var(--ease); }
   #work .rail-n.on { color: var(--gold); }
-
-  /* A leaf behind the tray that turns with the story */
-  #work .stage-leaf { display: block; grid-column: 3; grid-row: 1 / -1; position: sticky; top: calc(var(--stick) - 4rem); align-self: start; justify-self: end; width: clamp(9rem, 15vw, 15rem); margin-inline-end: -5.2rem; z-index: -1; pointer-events: none; transform: rotate(calc(var(--progress, 0) * 26deg)); }
-  #work .stage-leaf svg { display: block; width: 100%; height: auto; overflow: visible; filter: drop-shadow(0 14px 18px rgba(0, 0, 0, .55)); }
-  [dir='rtl'] #work .stage-leaf { transform: rotate(calc(var(--progress, 0) * -26deg)); }
 }
 
 /* ---- Illustrations: global on purpose, the detail dialog shows them too ----

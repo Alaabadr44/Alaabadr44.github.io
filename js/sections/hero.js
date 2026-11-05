@@ -1,6 +1,6 @@
 import { PROFILE, SYSTEMS, APPS, UI } from '../data.js';
 import { keyboard, stylus, headphones, monstera, plant } from '../deco.js';
-import { L, T, arrow, contactRow } from '../shared.js';
+import { L, T, arrow, contactRow, ext } from '../shared.js';
 
 /* Pen-strokes traced over Mr Dafoe at font-size 100, baseline y=0. They are drawn into an
    SVG mask, so the real font glyphs appear as if written. */
@@ -36,11 +36,12 @@ const wheel = (value) => [...String(value)].map((d, k) => `<span class="wh" styl
 export function render() {
   intro = !played && !reducedMotion();
   played = true;
-  const live = SYSTEMS.filter((s) => s.status === 'live').length;
+  const delivered = SYSTEMS.filter((s) => s.status !== 'dev').length;
+  /* 170K+ is the sum of the published store minimums: 100K+ 50K+ 10K+ 10K+. The wheels take digits only, so the suffix sits after them. */
   const stats = [
+    [170, UI.stats.downloads, 'K+'],
     [APPS.length, UI.stats.apps],
-    [SYSTEMS.length, UI.stats.systems],
-    [live, UI.stats.live],
+    [delivered, UI.stats.systems],
     [2021, UI.stats.since],
   ];
   const mask = intro ? `<defs><mask id="sig-ink" maskUnits="userSpaceOnUse" x="${VB.x - 10}" y="${VB.y - 30}" width="${VB.w + 20}" height="${VB.h + 60}">${STROKES.map((d) => `<path d="${d}" fill="none" stroke="#fff" stroke-width="28" stroke-linecap="round" stroke-linejoin="round" style="visibility:hidden"/>`).join('')}</mask></defs>` : '';
@@ -61,17 +62,18 @@ export function render() {
       <div class="hero-photo"><img src="assets/alaa.webp" alt="${T(PROFILE.fullName)}" width="640" height="641"></div>
       <div class="hero-text">
         <p class="sig" lang="en" dir="ltr"><span class="vh">Alaa badr</span><svg class="sig-svg" viewBox="${VB.x} ${VB.y} ${VB.w} ${VB.h}" aria-hidden="true">${mask}<text x="0" y="0" font-size="100"${intro ? ' mask="url(#sig-ink)"' : ''}>Alaa badr</text></svg><span class="pen" aria-hidden="true">${stylus()}</span></p>
-        <p class="pill">${T(PROFILE.role)}</p>
+        <p class="pill">${T(PROFILE.name)} · ${T(PROFILE.role)}</p>
         <h1>${splitWords(L(UI.headline))}</h1>
         <p class="intro">${T(UI.intro)}</p>
         <div class="cta">
-          <a class="btn" href="#work"><span>${T(UI.cta)}</span>${arrow}</a>
+          <a class="btn" href="#apps"><span>${T(UI.cta)}</span>${arrow}</a>
           <a class="btn ghost" href="#contact">${T(UI.ctaContact)}</a>
+          <a class="btn ghost" href="${PROFILE.cv}" ${ext}>${T(UI.cv)}</a>
         </div>
         ${contactRow()}
       </div>
     </div>
-    <dl class="stats">${stats.map(([v, l], c) => `<div class="stat" style="--c:${c}"><dt>${T(l)}</dt><dd><span class="vh">${v}</span><span class="wheels" dir="ltr" aria-hidden="true">${wheel(v)}</span></dd></div>`).join('')}</dl>
+    <dl class="stats">${stats.map(([v, l, suf = ''], c) => `<div class="stat" style="--c:${c}"><dt>${T(l)}</dt><dd><span class="vh">${v}${suf}</span><span class="wheels" dir="ltr" aria-hidden="true">${wheel(v)}${suf ? `<span class="suf">${suf}</span>` : ''}</span></dd></div>`).join('')}</dl>
   </section>`;
 }
 

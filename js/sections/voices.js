@@ -1,17 +1,24 @@
 import { UI } from '../data.js';
 import { VOICES } from '../voices.js';
-import { T, esc } from '../shared.js';
+import { T, esc, state } from '../shared.js';
 
 /* Signature: a quiet stage. One colleague speaks at a time while a thin ring runs around
    their portrait and hands over to the next. Below it, more voices drift by on a slow rail.
-   Comment text is verbatim and always Arabic, in both page languages. */
+   The Arabic comment is verbatim. On the English page a plain translation comes first,
+   labelled, with the original Arabic beneath it at a smaller size. */
+const en = () => state.lang === 'en';
+const quote = (v) => (en()
+  ? `<p class="vo-en" lang="en" dir="ltr"><span class="vo-tag">Translated</span>${esc(v.en)}</p>
+    <blockquote class="vo-src" lang="ar" dir="rtl">${esc(v.text)}</blockquote>`
+  : `<blockquote lang="ar" dir="rtl">${esc(v.text)}</blockquote>`);
+
 const author = (v, tag = 'p') => `<${tag} class="vo-by">
     <img src="${v.photo}" alt="" width="72" height="72" loading="lazy">
     <span><bdi class="vo-name" lang="en" dir="ltr">${esc(v.name)}</bdi><small lang="en" dir="ltr">${esc(v.title)}</small></span>
   </${tag}>`;
 
-const card = (v) => `<figure class="vo-card" dir="rtl">
-    <blockquote lang="ar" dir="rtl">${esc(v.text)}</blockquote>
+const card = (v) => `<figure class="vo-card" dir="${en() ? 'ltr' : 'rtl'}">
+    ${quote(v)}
     <figcaption>${author(v, 'span')}</figcaption>
   </figure>`;
 
@@ -22,8 +29,8 @@ export function render() {
     <div class="vo-stage reveal">
       <span class="vo-mark" aria-hidden="true">”</span>
       <div class="vo-panels">
-        ${featured.map((v, i) => `<figure class="vo-panel${i === 0 ? ' on' : ''}" data-i="${i}" dir="rtl">
-          <blockquote lang="ar" dir="rtl">${esc(v.text)}</blockquote>
+        ${featured.map((v, i) => `<figure class="vo-panel${i === 0 ? ' on' : ''}" data-i="${i}" dir="${en() ? 'ltr' : 'rtl'}">
+          ${quote(v)}
           <figcaption>${author(v, 'span')}</figcaption>
         </figure>`).join('')}
       </div>

@@ -1,5 +1,4 @@
 import { SYSTEMS, UI } from '../data.js';
-import { plant } from '../deco.js';
 import { T, esc, pad, pics, arrow, arrowOwner, statusChip, sectionHead } from '../shared.js';
 import { mockHTML } from './mock.js';
 
@@ -8,8 +7,16 @@ const STAGE_MQ = '(min-width: 1024px) and (min-height: 620px) and (prefers-reduc
 const FLOW_MQ = '(prefers-reduced-motion: no-preference)';
 const TILT_MQ = '(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)';
 
+/* The pinned stage shows these systems, in this order; every other system goes to the showcase panels. */
+const STAGE = ['eaten', 'fleet-run', 'hub-community', 'hr-attends', 'call-qa'];
+/* A stage system shows at most this many screens. The detail dialog still has all of them. */
+const STAGE_MAX = 6;
+const PHONE_MQ = '(max-width: 767px)';
+
 /* Scroll distance for one screen, in % of the viewport. A long system gets a tighter step, so no system takes more than about two screens of scrolling. */
 const stepFor = (n) => (n > 1 ? Math.min(13, 160 / (n - 1)) : 0);
+/* Without the pinned stage (phones, tablets): px of scroll per screen. Same clamp as .ch-space in css/sections/systems.css. */
+const flowStep = (vh) => Math.min(100, Math.max(72, vh * 0.1));
 
 /* Word-level only, so Arabic letters stay joined. A Latin name keeps its word order on the RTL page. */
 const words = (field) => {
@@ -20,9 +27,19 @@ const words = (field) => {
 
 /* The picture is a pointer convenience and not focusable: the keyboard and screen-reader opener is the heading's button.
    Every screen of the system is stacked here; later ones are only fetched as the reader nears them. */
-const frame = (p) => `<div class="frame" data-open="${p.id}" aria-hidden="true">
+/* Desktop screens come in two widths (name-800.webp beside name.webp); phones get a portrait slide from assets/deck/m/. */
+const wideSet = (src) => `${src.replace(/\.webp$/, '-800.webp')} 800w, ${src} 1600w`;
+const SIZES = '(min-width: 1024px) 62vw, 100vw';
+const stagePics = (p) => pics(p).slice(0, STAGE_MAX);
+const shot = (src, k, phone) => {
+  const now = phone ? src.replace('assets/deck/', 'assets/deck/m/') : src;
+  const set = phone ? '' : wideSet(src);
+  const lazy = k > 0;
+  return `<img class="shot" data-d="${src}" ${lazy ? `data-src="${now}"${set ? ` data-srcset="${set}"` : ''}` : `src="${now}"${set ? ` srcset="${set}"` : ''}`}${set ? ` sizes="${SIZES}"` : ''} alt="" loading="lazy" decoding="async" ${phone ? 'width="800" height="1000"' : 'width="1200" height="750"'}>`;
+};
+const frame = (p, phone) => `<div class="frame" data-open="${p.id}" aria-hidden="true">
     <span class="mat"><span class="screen">${p.images
-      ? pics(p).map((src, k) => `<img class="shot" ${k === 0 ? `src="${src}"` : `data-src="${src}"`} alt="" loading="lazy" decoding="async" width="1200" height="750">`).join('')
+      ? stagePics(p).map((src, k) => shot(src, k, phone)).join('')
       : mockHTML(p.mock)}<span class="sheen"></span></span></span>
   </div>`;
 
@@ -31,11 +48,11 @@ const stack = (p, n) => `<p class="stack" lang="en" dir="ltr">${p.stack.slice(0,
 const DOWN = '<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M8 3v10M3.500 8.500 8 13l4.500-4.500" fill="none" stroke="currentColor" stroke-width="1.300"/></svg>';
 const go = () => `<span class="go" aria-hidden="true">${T(UI.more)} ${arrow}</span>`;
 
-const chapter = (p, i, first, total, last) => {
-  const count = p.images?.length || 1;
+const chapter = (p, i, first, total, last, phone) => {
+  const count = p.images ? stagePics(p).length : 1;
   return `
   <div class="ch${i === 0 ? ' ch-first' : ''}" style="--r:${i + 1};--count:${count};--step:${stepFor(count).toFixed(2)}svh">
-    <div class="ch-visual reveal"><span class="blade" aria-hidden="true"></span>${frame(p)}<span class="shade" aria-hidden="true"></span>
+    <div class="ch-visual reveal"><span class="blade" aria-hidden="true"></span>${frame(p, phone)}<span class="shade" aria-hidden="true"></span>
       ${count > 1 ? `<span class="ch-pill" dir="ltr" aria-hidden="true"><b>1</b> / ${count}</span><span class="ch-bar" aria-hidden="true"><i></i></span>` : ''}
       <button class="ch-open" type="button" data-open="${p.id}" tabindex="-1" aria-hidden="true">${T(UI.more)} ${arrow}</button>
     </div>
@@ -54,10 +71,12 @@ const chapter = (p, i, first, total, last) => {
 };
 
 /* The showcase: panels side by side. The one you point at, tap or tab to opens wide. */
+/* Explainer slides have headings baked in, which a panel would clip and lay its own text over. These panels show a plain screen instead; the dialog keeps the slides. */
+const PANEL_SHOT = { 'it-support': 'assets/shots/it-support-2.webp', drive2: 'assets/shots/drive2-11.webp' };
 const panel = (p, i, before) => `
   <article class="fx${i === 0 ? ' on' : ''} reveal" style="--i:${i}">
     <div class="fx-media" data-open="${p.id}" aria-hidden="true">${p.images
-      ? `<img class="fx-shot" src="${pics(p)[0]}" alt="" loading="lazy" decoding="async" width="1200" height="750">`
+      ? `<img class="fx-shot" src="${PANEL_SHOT[p.id] || pics(p)[0]}" alt="" loading="lazy" decoding="async" width="1200" height="750">`
       : mockHTML(p.mock)}</div>
     <span class="fx-shade" aria-hidden="true"></span>
     <div class="fx-rest" aria-hidden="true"><span class="num">${pad(i + before + 1)}</span><span class="fx-name">${T(p.name)}</span></div>
@@ -71,21 +90,18 @@ const panel = (p, i, before) => `
     </div>
   </article>`;
 
-/* Systems with real screens come first, the strongest ones leading. Illustrated ones close the section. */
-const SHOW_FIRST = ['call-qa', 'hr-attends', 'fleet-run', 'drive2', 'hub-community', 'it-support', 'eaten'];
-
 export function render() {
-  const rank = (p) => { const r = SHOW_FIRST.indexOf(p.id); return r < 0 ? SHOW_FIRST.length : r; };
-  const withScreens = SYSTEMS.filter((p) => p.images?.length).sort((a, b) => rank(a) - rank(b));
-  const illustrated = SYSTEMS.filter((p) => !p.images?.length);
-  return `<section class="band" id="work"><div class="o o-s1" aria-hidden="true">${plant()}</div>
+  const phone = matchMedia(PHONE_MQ).matches;
+  const staged = STAGE.map((id) => SYSTEMS.find((p) => p.id === id)).filter((p) => p?.images?.length);
+  const rest = SYSTEMS.filter((p) => !staged.includes(p));
+  const others = [...rest.filter((p) => p.images?.length), ...rest.filter((p) => !p.images?.length)];
+  return `<section class="band" id="work">
     ${sectionHead(UI.workKicker, UI.workTitle, UI.workNote)}
-    <div class="stage" style="--n:${withScreens.length}">
-      <div class="rail" aria-hidden="true"><span class="rail-fill"></span>${withScreens.map((_, i) => `<span class="rail-n" data-next="${i}">${pad(i + 1)}</span>`).join('')}</div>
-      <div class="stage-leaf" aria-hidden="true">${plant(11)}</div>
-      ${withScreens.map((p, i) => chapter(p, i, 1, SYSTEMS.length, i === withScreens.length - 1)).join('')}
+    <div class="stage" style="--n:${staged.length}">
+      <div class="rail" aria-hidden="true"><span class="rail-fill"></span>${staged.map((_, i) => `<span class="rail-n" data-next="${i}">${pad(i + 1)}</span>`).join('')}</div>
+      ${staged.map((p, i) => chapter(p, i, 1, SYSTEMS.length, i === staged.length - 1, phone)).join('')}
     </div>
-    <div class="fx-list" style="--n:${illustrated.length}">${illustrated.map((p, i) => panel(p, i, withScreens.length)).join('')}</div>
+    <div class="fx-list" style="--n:${others.length}">${others.map((p, i) => panel(p, i, staged.length)).join('')}</div>
     <p class="fx-hint" aria-hidden="true"><kbd>←</kbd><kbd>→</kbd><span>${T(UI.workKeys)}</span></p>
   </section>`;
 }
@@ -159,9 +175,9 @@ export function init() {
     chapters.forEach((c) => {
       const box = c.el.getBoundingClientRect();
       const tray = c.visual.getBoundingClientRect();
-      c.stepPx = (vh * stepFor(c.imgs.length)) / 100;
+      c.stepPx = flowStep(vh);
       const run = (c.imgs.length - 1) * c.stepPx;
-      c.sTar = Math.max(0, Math.min(run, run - (box.bottom - tray.bottom - vh * 0.18))); // the last screen holds for a moment
+      c.sTar = Math.max(0, Math.min(run, run - (box.bottom - tray.bottom - vh * 0.12))); // the last screen holds for a moment
       c.near = box.top < vh * 2 && box.bottom > -vh;
     });
   }
@@ -170,8 +186,10 @@ export function init() {
   function fetchShot(im) {
     if (!im.dataset.src) return;
     im.loading = 'eager';
+    if (im.dataset.srcset) im.srcset = im.dataset.srcset;
     im.src = im.dataset.src;
     delete im.dataset.src;
+    delete im.dataset.srcset;
     im.decode().then(() => { im.dataset.ready = '1'; schedule(); }, () => {});
   }
 
@@ -302,9 +320,39 @@ export function init() {
   /* Reduced motion shows every screen as a plain stacked list. */
   const loadAll = () => {
     if (flowMq.matches) return;
-    root.querySelectorAll('.shot[data-src]').forEach((im) => { im.src = im.dataset.src; delete im.dataset.src; });
+    root.querySelectorAll('.shot[data-src]').forEach((im) => {
+      if (im.dataset.srcset) im.srcset = im.dataset.srcset;
+      im.src = im.dataset.src;
+      delete im.dataset.src;
+      delete im.dataset.srcset;
+    });
   };
   loadAll();
+
+  /* Phones get portrait slides, other widths the landscape ones. Crossing the breakpoint swaps them in place. */
+  const phoneMq = matchMedia(PHONE_MQ);
+  const onPhone = () => {
+    const phone = phoneMq.matches;
+    root.querySelectorAll('.stage .shot').forEach((im) => {
+      const d = im.dataset.d;
+      const src = phone ? d.replace('assets/deck/', 'assets/deck/m/') : d;
+      const set = phone ? '' : wideSet(d);
+      im.width = phone ? 800 : 1200;
+      im.height = phone ? 1000 : 750;
+      if (set) im.sizes = SIZES; else im.removeAttribute('sizes');
+      if ('src' in im.dataset) {
+        im.dataset.src = src;
+        if (set) im.dataset.srcset = set; else delete im.dataset.srcset;
+      } else {
+        if (set) im.srcset = set; else im.removeAttribute('srcset');
+        im.src = src;
+        delete im.dataset.ready;
+        im.decode().then(() => { im.dataset.ready = '1'; schedule(); }, () => {});
+      }
+    });
+    schedule();
+  };
+  phoneMq.addEventListener('change', onPhone);
 
   const onStageChange = () => {
     clearStage();
@@ -408,6 +456,7 @@ export function init() {
     window.removeEventListener('scroll', schedule);
     window.removeEventListener('resize', schedule);
     stageMq.removeEventListener('change', onStageChange);
+    phoneMq.removeEventListener('change', onPhone);
     root.removeEventListener('click', onFrameClick);
     if (useTilt) {
       root.removeEventListener('pointermove', onPointerMove);

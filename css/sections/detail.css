@@ -150,3 +150,16 @@ html[dir='rtl'] #detail .d-names b { text-align: right; }
 
 #detail .d-video { margin: 0 var(--dp) clamp(1.2rem, 2.4vw, 1.8rem); border-radius: 14px; overflow: hidden; border: 1px solid var(--line); background: #000; }
 #detail .d-video video { display: block; width: 100%; aspect-ratio: 16 / 9; }
+
+/* ---- Closing action: a question, WhatsApp, and the next project ---- */
+#detail .d-ask { margin: clamp(1.6rem, 3vw, 2.4rem) var(--dp) 0; padding: clamp(1.1rem, 2.4vw, 1.6rem); border: 1px solid var(--line); border-radius: 1.1rem; background: #111112; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .9rem 1.4rem; }
+#detail .d-ask h3 { margin: 0; flex: 1 1 14rem; font-size: clamp(1.05rem, 1.8vw, 1.25rem); line-height: 1.4; }
+#detail .d-ask-act { display: flex; flex-wrap: wrap; gap: .6rem; }
+#detail .d-ask .btn { min-height: 3rem; justify-content: center; text-align: center; }
+#detail .d-ask .d-wa { background: #fff; color: #111; border-color: #fff; }
+#detail .d-ask .d-wa:hover { background: var(--gold); border-color: var(--gold); }
+#detail .d-ask .d-next:hover { border-color: var(--gold); color: var(--gold); }
+@media (max-width: 640px) {
+  #detail .d-ask-act { flex: 1 1 100%; }
+  #detail .d-ask .btn { flex: 1 1 100%; }
+}
