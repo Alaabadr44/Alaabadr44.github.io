@@ -145,6 +145,7 @@ export const SYSTEMS = [
       t('تتبع GPS ومحادثات ومزامنة فورية عبر Firebase', 'GPS tracking, chat and real-time Firebase sync'),
     ],
     stack: ['Flutter', 'Firebase'],
+    links: [{ kind: 'site', url: 'https://fleetrundelivery.com/' }],
     images: deck('fleet-run', 11),
     video: t('assets/video/fleetrun-ar', 'assets/video/fleetrun-en'),
     redacted: true,
@@ -230,6 +231,30 @@ export const SYSTEMS = [
     images: deck('drive2', 7),
     redacted: true,
   },
+  {
+    id: 'cashier-system',
+    name: t('Alkashier', 'Alkashier'),
+    tag: t('نظام كاشير ونقاط بيع سحابي', 'Cloud POS and cashier system'),
+    status: 'live', code: t('Flutter Web · فريلانس', 'Flutter Web · Freelance'),
+    simple: t(
+      'نظام كاشير سحابي للمحلات: مبيعات وفواتير ومخزون وتقارير. شاركت في بناء النظام نفسه بـFlutter Web كفريلانس. وحسب موقع المنتج: 75 نشاطًا مسجلًا، و+400 مستخدم يوميًا، و50 ألف فاتورة.',
+      'A cloud cashier system for shops: sales, invoices, stock and reports. I helped build the system itself with Flutter Web as a freelancer. Per the product\'s site: 75 registered businesses, 400+ daily users and 50K invoices.'),
+    who: t('المحلات والصيدليات ومحلات الصيانة وتجارة التجزئة والجملة.', 'Shops, pharmacies, repair shops, retail and wholesale.'),
+    features: [
+      t('إدارة المخزون لعدة فروع ومخازن', 'Stock management across branches and warehouses'),
+      t('صلاحيات وأدوار للمستخدمين', 'User roles and permissions'),
+      t('تواريخ الصلاحية وأرقام التشغيل', 'Expiry dates and lot numbers'),
+      t('إدارة الخدمات والصيانة وتحويلها إلى فواتير', 'Service and repair management, converted to invoices'),
+      t('الموارد البشرية: حضور وورديات وإجازات ورواتب', 'HR: attendance, shifts, leave and payroll'),
+      t('متابعة العملاء المحتملين والحملات', 'Lead follow-up and campaigns'),
+      t('تقارير الإيرادات والمخزون والمدفوعات', 'Revenue, stock and payment reports'),
+    ],
+    stack: ['Flutter Web'],
+    links: [{ kind: 'site', url: 'https://alkashier.com/' }],
+    mock: { kind: 'dash', title: t('نقطة البيع', 'Point of sale'),
+      nav: [t('المبيعات', 'Sales'), t('الفواتير', 'Invoices'), t('المخزون', 'Stock'), t('الفروع', 'Branches'), t('التقارير', 'Reports')],
+      tiles: [t('عملية بيع', 'New sale'), t('فاتورة', 'Invoice'), t('تحصيل', 'Payment')] },
+  },
 ];
 
 export const APPS = [
@@ -296,8 +321,6 @@ export const APPS = [
 ];
 
 export const OTHERS = [
-  { id: 'cashier-system', name: t('Cashier System', 'Cashier System'), tag: t('نقاط بيع', 'Point of sale'),
-    simple: t('تطبيق ضمن مجموعة تطبيقات يقرأ رمز QR ويُتم عملية الشراء والدفع.', 'Part of a family of apps: it reads a QR code and completes the purchase and payment.') },
 ];
 
 export const CAREER = [

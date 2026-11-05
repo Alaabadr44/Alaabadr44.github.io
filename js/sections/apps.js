@@ -50,7 +50,7 @@ export function render() {
       <div class="plaques">${SHELF.map(plaque).join('')}</div>
       <ul class="dock" aria-label="${T(UI.nav.apps)}">${SHELF.map(dockKey).join('')}</ul>
     </div>
-    <div class="others">
+    ${OTHERS.length ? `<div class="others">
       ${sectionHead(UI.othersKicker, UI.othersTitle)}
       <ol class="index">${OTHERS.map((o, i) => `<li class="reveal" style="--d:${i * 90}ms">
         <span class="idx" aria-hidden="true">${pad(i + 1)}</span>
@@ -61,7 +61,7 @@ export function render() {
         <p class="entry-text">${T(o.simple)}</p>
         ${o.url ? `<a class="entry-link" href="${o.url}" ${ext}>${T(UI.link.repo)} ${arrow}</a>` : ''}
       </li>`).join('')}</ol>
-    </div>
+    </div>` : ''}
   </section>`;
 }
 
