@@ -47,7 +47,7 @@ html[lang='en'] #voices .vo-card figcaption { margin-block-start: auto; }
 @keyframes vo-drift { to { transform: translateX(-50%); } }
 @keyframes vo-drift-rtl { to { transform: translateX(50%); } }
 
-#voices .vo-tools { display: flex; justify-content: flex-end; margin-block-start: 1rem; }
+#voices .vo-tools { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: .75rem 1.25rem; margin-block-start: 1rem; }
 #voices .vo-toggle { min-height: 44px; padding-inline: 1rem; font-size: .84rem; color: var(--dim); border: 1px solid transparent; border-radius: 99px; transition: color .2s, border-color .2s; }
 #voices .vo-toggle:hover { color: var(--text); border-color: var(--line); }
 
@@ -65,6 +65,10 @@ html[lang='en'] #voices .vo-card figcaption { margin-block-start: auto; }
 
 @media (prefers-reduced-motion: reduce) {
   #voices .vo-rail { overflow-x: auto; -webkit-mask-image: none; mask-image: none; padding-inline: var(--pad); }
-  #voices .vo-copy, #voices .vo-tools { display: none; }
+  #voices .vo-copy, #voices .vo-toggle { display: none; }
   #voices .vo-pick.on circle { stroke-dashoffset: 0; }
 }
+
+/* The source of the quotes, so a reader can check them. */
+#voices .vo-source { display: inline-flex; align-items: center; gap: .55em; min-height: 2.75rem; padding: .3rem 1.4rem; border-radius: 99px; background: #fff; color: #111; font-weight: 500; font-size: .95rem; transition: background .2s; }
+@media (hover: hover) and (pointer: fine) { #voices .vo-source:hover { background: var(--gold); } }

@@ -372,6 +372,7 @@ export const UI = {
   workKeys: t('تنقل بين المشاريع بالأسهم، وافتحها بزر Enter', 'Move between projects with the arrow keys, open with Enter'),
   voicesKicker: t('آراء', 'Testimonials'), voicesTitle: t('قالوا عني', 'In their own words'),
   voicesNote: t('تعليقات كما كتبها أصحابها على لينكد إن.', 'Comments as written on LinkedIn in Arabic, with an English translation.'),
+  voicesSource: t('شاهد كل التعليقات على LinkedIn', 'See all comments on LinkedIn'),
   voicesPause: t('إيقاف الحركة', 'Pause motion'), voicesPlay: t('تشغيل الحركة', 'Play motion'),
   personalNote: t('ملاحظة شفافية شخصية', 'Personal transparency note'),
   personalWork: t('مشاريع شخصية', 'Personal projects'), freelanceWork: t('فريلانس', 'Freelance'),

@@ -1,6 +1,6 @@
-import { UI } from '../data.js';
+import { PROFILE, UI } from '../data.js';
 import { VOICES } from '../voices.js';
-import { T, esc, state } from '../shared.js';
+import { T, esc, state, ext, arrow } from '../shared.js';
 
 /* Signature: a quiet stage. One colleague speaks at a time while a thin ring runs around
    their portrait and hands over to the next. Below it, more voices drift by on a slow rail.
@@ -47,7 +47,7 @@ export function render() {
         <div class="vo-set vo-copy" aria-hidden="true">${more.map(card).join('')}</div>
       </div>
     </div>
-    <div class="vo-tools reveal"><button type="button" class="vo-toggle" aria-pressed="false">${T(UI.voicesPause)}</button></div>
+    <div class="vo-tools reveal"><a class="vo-source" href="${PROFILE.personalNote}" ${ext}>${T(UI.voicesSource)} ${arrow}</a><button type="button" class="vo-toggle" aria-pressed="false">${T(UI.voicesPause)}</button></div>
   </section>`;
 }
 
