@@ -58,7 +58,7 @@ function observe() {
 
 document.addEventListener('click', (e) => {
   const opener = e.target.closest('[data-open]');
-  if (opener) return openDetail(opener.dataset.open);
+  if (opener) return openDetail(opener.dataset.open, true, Number(opener.dataset.at) || 0);
   if (e.target.closest('#d-close') || e.target === dialog) return closeDetail();
   if (e.target.closest('#lang')) {
     const spot = readingSpot();

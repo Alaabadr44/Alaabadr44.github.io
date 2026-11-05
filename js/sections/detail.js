@@ -118,7 +118,7 @@ function setOrigin(from) {
   dialog.style.setProperty('--oy', `${clamp(a.top + a.height / 2 - d.top, d.height)}px`);
 }
 
-export function openDetail(id, push = true) {
+export function openDetail(id, push = true, at = 0) {
   const p = ALL.find((x) => x.id === id);
   if (!p) return;
   clearTimeout(exitTimer);
@@ -159,6 +159,15 @@ export function openDetail(id, push = true) {
   </div>`;
   if (!dialog.open) dialog.showModal();
   dialog.scrollTop = 0;
+  /* Opened from a screen in the scroll: the gallery starts on that same screen. */
+  const startAt = dialog.querySelectorAll('.gallery a')[at];
+  if (at && startAt) {
+    const gallery = startAt.parentElement;
+    const inset = parseFloat(getComputedStyle(gallery).scrollPaddingInlineStart) || 0;
+    const g = gallery.getBoundingClientRect();
+    const r = startAt.getBoundingClientRect();
+    gallery.scrollBy({ left: document.documentElement.dir === 'rtl' ? r.right - (g.right - inset) : r.left - (g.left + inset), behavior: 'instant' });
+  }
   setOrigin(opener);
   wireGallery(wiring.signal);
   const top = dialog.querySelector('.d-top');

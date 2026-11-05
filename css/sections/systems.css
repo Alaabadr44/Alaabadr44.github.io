@@ -113,7 +113,7 @@ html[lang='ar'] #work .ch .title { line-height: 1.3; }
 #work .ch .ch-long .title, html[lang='ar'] #work .ch .ch-long .title { font-size: clamp(1.3rem, 2.1vw, 2rem); line-height: 1.35; }
 /* Every screen of a system, one over the other, as the reader scrolls */
 #work .ch-run { display: contents; }
-#work .ch-space, #work .ch-pill, #work .ch-bar { display: none; }
+#work .ch-space, #work .ch-pill, #work .ch-bar, #work .ch-open { display: none; }
 #work .ch-foot { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1.6rem; }
 #work .ch-skip { position: relative; z-index: 2; display: inline-flex; align-items: center; gap: .45em; min-height: 44px; font-size: .86rem; color: var(--dim); transition: color .2s; }
 #work .ch-skip:hover { color: var(--text); }
@@ -123,15 +123,25 @@ html[lang='ar'] #work .ch .title { line-height: 1.3; }
 @media (max-width: 1023.98px) { #work .fx .open:focus-visible { outline: 2px solid var(--gold); } }
 @media (prefers-reduced-motion: no-preference) {
   /* A flex column with a spacer: a grid item sticks only inside its row, and nothing sticks into padding. */
-  #work .ch { --step: 34svh; display: flex; flex-direction: column; }
-  #work .ch-space { display: block; order: 2; height: calc((var(--count) - 1) * var(--step) + 30svh); }
+  #work .ch { display: flex; flex-direction: column; }
+  #work .ch-space { display: block; order: 2; height: calc((var(--count) - 1) * var(--step) + 18svh); }
   #work .ch-text { order: -1; }
   #work .ch-visual { position: sticky; top: 5rem; width: 100%; max-width: calc((100svh - 6.5rem) * 1.5); z-index: 1; }
   /* On phones and tablets the description stays under the tray while its screens change. */
   @media (max-width: 1023.98px) {
     #work .ch-text { order: 1; position: sticky; top: calc(5.8rem + min(100vw - 2 * var(--pad), (100svh - 6.5rem) * 1.5) / 1.6 + 1.6rem); }
   }
-  #work .ch .shot:not(:first-child) { clip-path: inset(100% 0 0 0); }
+  #work .ch .ch-visual .shot:not(:first-child) { opacity: 0; visibility: hidden; transform: scale(1.015); transition: opacity .28s ease-out, transform .45s var(--ease), visibility 0s linear .28s; }
+  #work .ch .ch-visual .shot.on:not(:first-child) { opacity: 1; visibility: visible; transform: none; transition: opacity .28s ease-out, transform .45s var(--ease), visibility 0s; }
+  /* Opening the details is always one tap away, whatever the scroll is doing. */
+  #work .ch-open {
+    display: inline-flex; align-items: center; gap: .45em; position: absolute; z-index: 3;
+    inset-block-end: clamp(.8rem, 1.6vw, 1.5rem); inset-inline-start: clamp(.8rem, 1.6vw, 1.5rem);
+    min-height: 2.5rem; padding: 0 .95rem; border: 1px solid rgba(255, 255, 255, .22); border-radius: 99px;
+    color: #fff; font-size: .84rem; background: rgba(10, 10, 11, .78); backdrop-filter: blur(6px);
+    transition: background .2s, border-color .2s, color .2s;
+  }
+  #work .ch-open:hover { background: var(--gold); border-color: var(--gold); color: #101011; }
   #work .ch-pill { display: block; position: absolute; z-index: 3; inset-block-start: clamp(.9rem, 1.8vw, 1.7rem); inset-inline-end: clamp(.9rem, 1.8vw, 1.7rem); padding: .15rem .6rem; font: 500 .74rem/1.5 'Montserrat', sans-serif; font-variant-numeric: tabular-nums; color: #fff; background: rgba(10, 10, 11, .78); border: 1px solid var(--line); border-radius: 99px; pointer-events: none; }
   #work .ch-pill b { font-weight: 600; color: var(--gold); }
   #work .ch-bar { display: block; position: absolute; z-index: 3; inset-inline: clamp(.5rem, 1.2vw, 1.1rem); inset-block-end: clamp(.14rem, .3vw, .28rem); height: 2px; background: rgba(255, 255, 255, .12); border-radius: 2px; overflow: hidden; pointer-events: none; }
@@ -171,7 +181,6 @@ html[lang='ar'] #work .ch .title { line-height: 1.3; }
     row-gap: 0;
   }
   #work .ch { display: contents; }
-  #work .ch { --step: 40svh; }
   #work .ch-visual { max-width: none; }
   #work .ch-space { display: none; }
   #work .ch-run { display: block; grid-column: 1; grid-row: var(--r); height: calc(76svh + (var(--count) - 1) * var(--step)); }

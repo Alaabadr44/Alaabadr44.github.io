@@ -8,6 +8,9 @@ const STAGE_MQ = '(min-width: 1024px) and (min-height: 620px) and (prefers-reduc
 const FLOW_MQ = '(prefers-reduced-motion: no-preference)';
 const TILT_MQ = '(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)';
 
+/* Scroll distance for one screen, in % of the viewport. A long system gets a tighter step, so no system takes more than about two screens of scrolling. */
+const stepFor = (n) => (n > 1 ? Math.min(13, 160 / (n - 1)) : 0);
+
 /* Word-level only, so Arabic letters stay joined. A Latin name keeps its word order on the RTL page. */
 const words = (field) => {
   const text = T(field);
@@ -31,9 +34,10 @@ const go = `<span class="go" aria-hidden="true">${T(UI.more)} ${arrow}</span>`;
 const chapter = (p, i, first, total, last) => {
   const count = p.images?.length || 1;
   return `
-  <div class="ch${i === 0 ? ' ch-first' : ''}" style="--r:${i + 1};--count:${count}">
+  <div class="ch${i === 0 ? ' ch-first' : ''}" style="--r:${i + 1};--count:${count};--step:${stepFor(count).toFixed(2)}svh">
     <div class="ch-visual reveal"><span class="blade" aria-hidden="true"></span>${frame(p)}<span class="shade" aria-hidden="true"></span>
       ${count > 1 ? `<span class="ch-pill" dir="ltr" aria-hidden="true"><b>1</b> / ${count}</span><span class="ch-bar" aria-hidden="true"><i></i></span>` : ''}
+      <button class="ch-open" type="button" data-open="${p.id}" tabindex="-1" aria-hidden="true">${T(UI.more)} ${arrow}</button>
     </div>
     <div class="ch-run"><div class="ch-text reveal${T(p.name).length > 34 ? ' ch-long' : ''}">
       <p class="ch-n" aria-hidden="true">${pad(i + first)}<small>/ ${pad(total)}</small></p>
@@ -98,6 +102,7 @@ export function init() {
     el,
     run: el.querySelector('.ch-run'),
     imgs: [...el.querySelectorAll('.shot')],
+    openers: [...el.querySelectorAll('.frame, .ch-open')],
     pill: el.querySelector('.ch-pill b'),
     bar: el.querySelector('.ch-bar i'),
     s: -1,
@@ -105,7 +110,6 @@ export function init() {
     stepPx: 1,
     idx: 0,
     near: false,
-    rs: [],
     text: el.querySelector('.ch-text'),
     visual: el.querySelector('.ch-visual'),
     blade: el.querySelector('.blade'),
@@ -132,8 +136,6 @@ export function init() {
       c.cur = -1;
       c.s = -1;
       c.sTar = 0;
-      c.rs = [];
-      c.imgs.forEach((im, k) => { if (k) im.style.clipPath = ''; });
     });
     notches.forEach((n) => n.classList.remove('on'));
     active = -1;
@@ -145,7 +147,7 @@ export function init() {
     chapters.forEach((c, i) => {
       const r = c.run.getBoundingClientRect();
       c.tar = i === 0 ? 1 : clamp01((vh * 0.84 - r.top) / (vh * 0.4));
-      c.stepPx = vh * 0.4;
+      c.stepPx = (vh * stepFor(c.imgs.length)) / 100;
       c.sTar = Math.max(0, Math.min((c.imgs.length - 1) * c.stepPx, vh * 0.44 - r.top));
       c.near = r.top < vh * 2 && r.bottom > -vh;
     });
@@ -157,43 +159,46 @@ export function init() {
     chapters.forEach((c) => {
       const box = c.el.getBoundingClientRect();
       const tray = c.visual.getBoundingClientRect();
-      c.stepPx = vh * 0.34;
+      c.stepPx = (vh * stepFor(c.imgs.length)) / 100;
       const run = (c.imgs.length - 1) * c.stepPx;
-      c.sTar = Math.max(0, Math.min(run, run - (box.bottom - tray.bottom - vh * 0.3))); // the last screen holds for a moment
+      c.sTar = Math.max(0, Math.min(run, run - (box.bottom - tray.bottom - vh * 0.18))); // the last screen holds for a moment
       c.near = box.top < vh * 2 && box.bottom > -vh;
     });
   }
 
-  /* Each next screen rises over the last. Only the screens around the current one are fetched. */
+  /* A screen is fetched and decoded ahead of the reader, so a fast scroll never lands on a blank one. */
+  function fetchShot(im) {
+    if (!im.dataset.src) return;
+    im.loading = 'eager';
+    im.src = im.dataset.src;
+    delete im.dataset.src;
+    im.decode().then(() => { im.dataset.ready = '1'; schedule(); }, () => {});
+  }
+
+  /* The scroll picks the screen; the change itself is a short fade, so it stays smooth at any speed. */
   function paintShots() {
-    let moving = false;
     chapters.forEach((c) => {
       const last = c.imgs.length - 1;
-      if (last < 1) return;
-      const prev = c.s;
-      c.s = prev < 0 ? c.sTar : prev + (c.sTar - prev) * 0.2;
-      if (Math.abs(c.sTar - c.s) < 0.5) c.s = c.sTar; else moving = true;
-      if (c.s !== prev) {
-        let idx = 0;
-        for (let k = 1; k <= last; k += 1) {
-          const r = clamp01((c.s - (k - 1) * c.stepPx - c.stepPx * 0.2) / (c.stepPx * 0.6));
-          if (r >= 0.5) idx = k;
-          if (r !== c.rs[k]) {
-            c.rs[k] = r;
-            c.imgs[k].style.clipPath = r === 1 ? 'none' : `inset(${((1 - r) * 100).toFixed(2)}% 0 0 0)`;
-          }
-        }
-        if (idx !== c.idx) { c.idx = idx; c.pill.textContent = idx + 1; }
+      if (last < 1 || !c.near) return;
+      const target = Math.min(last, Math.round(c.sTar / c.stepPx));
+      for (let k = Math.max(1, target - 1); k <= Math.min(last, target + 6); k += 1) fetchShot(c.imgs[k]);
+      let shown = 0;
+      for (let k = 1; k <= last; k += 1) {
+        const on = k <= target && c.imgs[k].dataset.ready === '1';
+        c.imgs[k].classList.toggle('on', on);
+        if (on) shown = k;
+      }
+      if (shown !== c.idx) {
+        c.idx = shown;
+        c.pill.textContent = shown + 1;
+        c.openers.forEach((el) => { el.dataset.at = shown; });
+      }
+      if (c.sTar !== c.s) {
+        c.s = c.sTar;
         c.bar.style.transform = `scaleX(${(c.s / (last * c.stepPx)).toFixed(4)})`;
       }
-      if (c.near) {
-        for (let k = Math.max(1, c.idx - 1); k <= Math.min(last, c.idx + 2); k += 1) {
-          const im = c.imgs[k];
-          if (im.dataset.src) { im.loading = 'eager'; im.src = im.dataset.src; delete im.dataset.src; }
-        }
-      }
     });
-    return moving;
+    return false;
   }
 
   function jump(i) {
@@ -336,7 +341,7 @@ export function init() {
       jump(to);
       return;
     }
-    e.target.closest('.frame, .fx-media')?.closest('.ch, .fx')?.querySelector('.open').focus({ preventScroll: true });
+    e.target.closest('.frame, .fx-media, .ch-open')?.closest('.ch, .fx')?.querySelector('.open').focus({ preventScroll: true });
   }
 
   /* Showcase: hover or keyboard focus opens a panel at once. A tap on a closed panel opens it
