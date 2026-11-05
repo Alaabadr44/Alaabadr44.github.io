@@ -212,7 +212,7 @@ export const SYSTEMS = [
 ];
 
 export const APPS = [
-  /* Sorted by downloads, most first: the first one stands in the middle of the case. Brain Health is on the App Store only, which shows no count. */
+  /* Sorted by downloads, most first: the first one stands in the middle of the case. */
   { id: 'kuwait-education', name: t('وزارة التربية - الكويت', 'Kuwait Ministry of Education'), tag: t('تطبيق حكومي · الكويت', 'Government app · Kuwait'),
     simple: t('التطبيق الرسمي لوزارة التربية بدولة الكويت: الطالب يتابع بياناته ورقم جلوسه وغيابه، وولي الأمر يتابع أبناءه، والموظف ملفه وحضوره، مع الفعاليات وفرص العمل والخدمات العامة.', 'The official app of Kuwait\'s Ministry of Education: students follow their details, seat number and absences, parents follow their children, and staff their files and attendance, alongside events, job openings and public services.'),
     icon: 'assets/apps/kuwait-education-icon.webp', images: shots('kuwait-education', 7),
@@ -262,8 +262,8 @@ export const APPS = [
     links: [store.play('com.abg.mixatak')] },
   { id: 'brain-health', name: t('Brain Health USA', 'Brain Health USA'), tag: t('صحة نفسية · أمريكا', 'Mental health · USA'),
     simple: t('العميل يتابع خطة علاجه ويحجز مواعيده ويتواصل مع المختصين من مكان واحد.', 'Clients follow their treatment plans, book appointments and talk to professionals in one place.'),
-    icon: 'assets/apps/brain-health-icon.webp', images: shots('brain-health', 6),
-    links: [store.ios('https://apps.apple.com/eg/app/brain-health-usa/id1667963400')] },
+    icon: 'assets/apps/brain-health-icon.webp', images: shots('brain-health', 13),
+    links: [store.play('com.newhealthy.app'), store.ios('https://apps.apple.com/eg/app/brain-health-usa/id1667963400')] },
 ];
 
 export const OTHERS = [
