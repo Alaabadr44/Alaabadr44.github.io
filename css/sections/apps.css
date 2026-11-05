@@ -271,5 +271,5 @@ html[dir='rtl'] #apps .index li::before, html[dir='rtl'] #apps .index li::after 
   #apps .key .medal { width: 2.5rem; height: 2.5rem; }
 }
 @media (max-width: 400px) {
-  #apps .key .medal { width: 2.2rem; height: 2.2rem; }
+  #apps .key .medal { width: 1.9rem; height: 1.9rem; }
 }

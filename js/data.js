@@ -252,6 +252,10 @@ export const APPS = [
     simple: t('تطبيق للتجار في سلطنة عُمان يستقبلون به المدفوعات بالبطاقة والمحفظة وQR وروابط الدفع، ويتابعون تقارير معاملاتهم.', 'A merchant app in Oman for accepting payments by card, wallet, QR and payment links, with transaction reports.'),
     icon: 'assets/apps/amwal-icon.webp', images: shots('amwal', 9),
     links: [store.play('com.amwalpay.merchantapp'), store.ios('https://apps.apple.com/om/app/amwal-pay-marchant/id6474137043?l=ar')] },
+  { id: 'amwal-softpos', name: t('Amwal Pay SoftPOS', 'Amwal Pay SoftPOS'), tag: t('نقطة بيع على الموبايل · عُمان', 'Mobile point of sale · Oman'),
+    simple: t('يقبل به التاجر الدفع من موبايله بلمسة بطاقة أو هاتف عبر NFC، ويتابع إشعارات الدفع وتقارير معاملاته.', 'Merchants take payments on their own phone with a tap of a card or phone over NFC, and follow payment notifications and transaction reports.'),
+    icon: 'assets/apps/amwal-softpos-icon.webp', images: shots('amwal-softpos', 10),
+    links: [store.play('com.amwalpay.vpos'), store.ios('https://apps.apple.com/om/app/amwal-alraqamia-softpos/id6508165324')] },
   { id: 'foodcode', name: t('FoodCode', 'FoodCode'), tag: t('مجتمع طهي', 'Cooking community'),
     simple: t('شبكة اجتماعية للطبخ: وصفات ومنشورات وفيديوهات قصيرة وتعليقات، للمستخدمين والشيفات.', 'A social network for cooking: recipes, posts, short videos and comments, for home cooks and chefs.'),
     icon: 'assets/apps/foodcode-icon.webp', images: shots('foodcode', 4),
@@ -288,7 +292,7 @@ export const WORK = {
   fleetrun: ['fleet-run'],
   abg: ['foodcode', 'mixatak', 'brain-health'],
   personal: ['social-brand-manager', 'delivery', 'dyafa'],
-  freelance: ['fawry-payday', 'amwal', 'dadsters', 'book-club', 'hayah-karima', 'kuwait-education', 'cashier-system'],
+  freelance: ['fawry-payday', 'amwal', 'amwal-softpos', 'dadsters', 'book-club', 'hayah-karima', 'kuwait-education', 'cashier-system'],
 };
 
 export const SKILLS = [
