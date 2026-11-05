@@ -172,7 +172,7 @@ html[dir='rtl'] #apps { --dx: -1; }
 #apps .plaque-acts .btn { min-height: 2.75rem; }
 
 #apps .dock {
-  display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: .3rem;
+  display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: .3rem;
   padding: .45rem; border: 1px solid var(--line); border-radius: 1.5rem;
   background: rgba(0, 0, 0, .3);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .07);
