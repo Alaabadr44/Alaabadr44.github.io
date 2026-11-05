@@ -5,8 +5,7 @@ import { L, T, esc, ext, arrow, state } from '../shared.js';
 /* The closing moment: an inquiry form that lands in the owner's inbox, beside the direct channels
    and a leather card that the white stylus signs when it scrolls in. */
 const TEXT = {
-  copy: { ar: 'نسخ البريد', en: 'Copy email' },
-  copied: { ar: 'تم النسخ', en: 'Copied' },
+  mailSubject: { ar: 'استفسار من موقعك', en: 'Question from your website' },
   direct: { ar: 'أو تواصل معي مباشرة', en: 'Or reach me directly' },
   name: { ar: 'اسمك', en: 'Your name' },
   reach: { ar: 'إيميلك أو رقم واتساب', en: 'Your email or WhatsApp' },
@@ -69,7 +68,7 @@ const formHTML = () => `<form class="ct-form reveal" novalidate>
   <span class="ct-sent-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26"><path d="m5 12.5 4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
   <h3>${T(TEXT.sentTitle)}</h3>
   <p>${T(TEXT.sentBody)}</p>
-  <button type="button" class="ct-copy cf-again">${T(TEXT.again)}</button>
+  <button type="button" class="cf-again">${T(TEXT.again)}</button>
 </div>`;
 
 export function render() {
@@ -87,8 +86,7 @@ export function render() {
       <div class="ct-side">
         <p class="ct-direct reveal">${T(TEXT.direct)}</p>
         <div class="ct-act reveal">
-          <a class="ct-mail" href="mailto:${PROFILE.email}"><span dir="ltr">${PROFILE.email}</span><span class="ct-go">${arrow}</span></a>
-          ${navigator.clipboard ? `<button type="button" class="ct-copy" data-email="${PROFILE.email}"><span aria-live="polite">${T(TEXT.copy)}</span></button>` : ''}
+          <a class="ct-mail" href="mailto:${PROFILE.email}?subject=${encodeURIComponent(L(TEXT.mailSubject))}"><span dir="ltr">${PROFILE.email}</span><span class="ct-go">${arrow}</span></a>
           <a class="ct-wa" href="${PROFILE.whatsapp}" ${ext} aria-label="WhatsApp ${PROFILE.whatsappLabel}">${icon('whatsapp')}<span class="ct-wa-name" lang="en">WhatsApp</span><span class="ct-wa-num" dir="ltr">${PROFILE.whatsappLabel}</span></a>
         </div>
       <div class="ct-card reveal">
@@ -213,19 +211,6 @@ export function init() {
   const card = section?.querySelector('.ct-card');
   if (!section) return undefined;
   const ac = new AbortController();
-  let timer = 0;
-
-  section.querySelector('.ct-act .ct-copy')?.addEventListener('click', async (e) => {
-    const label = e.currentTarget.firstElementChild;
-    try { await navigator.clipboard.writeText(e.currentTarget.dataset.email); } catch { return; }
-    label.textContent = L(TEXT.copied);
-    label.parentElement.classList.add('done');
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      label.textContent = L(TEXT.copy);
-      label.parentElement.classList.remove('done');
-    }, 1800);
-  }, { signal: ac.signal });
 
   initForm(section, ac.signal);
 
@@ -238,5 +223,5 @@ export function init() {
     }, { passive: true, signal: ac.signal });
   }
 
-  return () => { ac.abort(); clearTimeout(timer); };
+  return () => ac.abort();
 }

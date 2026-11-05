@@ -46,8 +46,7 @@ html[lang='ar'] #contact h2 { line-height: 1.3; }
 #contact .ct-wa .ic { width: 2.25rem; height: 2.25rem; background: #161617; color: #fff; }
 #contact .ct-wa-name { font-weight: 500; }
 #contact .ct-wa-num { white-space: nowrap; font-variant-numeric: tabular-nums; }
-#contact .ct-copy { min-height: 2.75rem; padding: .2rem 1.1rem; border: 1px solid rgba(255, 255, 255, .28); border-radius: 99px; color: var(--text); font-size: .9rem; transition: border-color .2s, color .2s; }
-#contact .ct-copy.done { color: var(--gold); border-color: var(--gold); }
+#contact .cf-again { margin-top: .6rem; min-height: 2.75rem; padding: .2rem 1.1rem; border: 1px solid rgba(255, 255, 255, .28); border-radius: 99px; color: var(--text); font-size: .9rem; transition: border-color .2s, color .2s; }
 #contact a:focus-visible, #contact button:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
 @media (hover: hover) and (pointer: fine) {
   #contact .ct-mail:hover { translate: 0 -2px; box-shadow: 0 24px 60px rgba(0, 0, 0, .5); }
@@ -55,7 +54,7 @@ html[lang='ar'] #contact h2 { line-height: 1.3; }
   #contact .ct-mail:hover .ct-go { rotate: 45deg; }
   [dir='rtl'] #contact .ct-mail:hover .ct-go { rotate: -45deg; }
   #contact .ct-wa:hover { background: #fff; translate: 0 -2px; }
-  #contact .ct-copy:hover { border-color: var(--gold); color: var(--gold); }
+  #contact .cf-again:hover { border-color: var(--gold); color: var(--gold); }
 }
 
 /* The inquiry form: the same stitched leather as the card, and the page's main action. */
@@ -87,7 +86,6 @@ html[lang='ar'] #contact h2 { line-height: 1.3; }
 #contact .ct-sent-ic { display: grid; place-items: center; width: 3.5rem; height: 3.5rem; border-radius: 50%; background: var(--gold); color: #111; }
 #contact .ct-sent h3 { margin-top: .4rem; font-size: clamp(1.4rem, 2.5vw, 1.9rem); line-height: 1.3; }
 #contact .ct-sent p { color: var(--dim); }
-#contact .cf-again { margin-top: .6rem; }
 @media (hover: hover) and (pointer: fine) {
   #contact .cf-send:hover:not(:disabled) { background: var(--gold); translate: 0 -2px; }
 }
