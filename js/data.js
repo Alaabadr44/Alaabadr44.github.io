@@ -387,6 +387,10 @@ export const UI = {
   simple: t('الفكرة ببساطة', 'The idea, simply'), who: t('لمن؟', 'Who it\'s for'), features: t('ماذا يفعل', 'What it does'), stack: t('التقنيات', 'Built with'),
   more: t('التفاصيل', 'Details'), close: t('إغلاق', 'Close'),
   link: { site: t('زيارة الموقع', 'Visit site'), map: t('مكانه على الخريطة', 'See it on the map'), code: t('الكود', 'Source code'), play: t('Google Play', 'Google Play'), ios: t('App Store', 'App Store'), repo: t('GitHub', 'GitHub') },
+  reveal: {
+    mail: t('إظهار البريد الإلكتروني', 'Show email address'), wa: t('إظهار رقم واتساب', 'Show WhatsApp number'),
+    mailGo: t('إرسال رسالة', 'Send an email'), waGo: t('فتح واتساب', 'Open WhatsApp'),
+  },
   top: t('للأعلى', 'Back to top'),
   rights: t('جميع الحقوق محفوظة.', 'All rights reserved.'),
   langLabel: t('English', 'العربية'),

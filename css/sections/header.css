@@ -58,9 +58,9 @@ html.nav-open { overflow: hidden; }
   .sheet-link[aria-current] { color: var(--gold); }
   .sheet-n { flex: none; width: 1.9rem; font: 600 .78rem/1 'Montserrat', sans-serif; color: var(--gold); }
   .sheet-foot { opacity: 0; transform: translateY(14px); transition: opacity .3s, transform .3s; }
-  .sheet-foot .contact-row { flex-direction: column; align-items: flex-start; gap: .1rem; }
-  html[dir='rtl'] .sheet-foot .contact-row { align-items: flex-end; }
-  .sheet-foot .contact-row a { min-height: 44px; }
+  .sheet-foot .contact-row { justify-content: flex-start; gap: .1rem .7rem; }
+  html[dir='rtl'] .sheet-foot .contact-row { justify-content: flex-end; }
+  .sheet-foot .contact-row a { min-height: 44px; min-width: 44px; justify-content: center; }
   .top.menu-open .sheet-link, .top.menu-open .sheet-foot { opacity: 1; transform: none; transition: opacity .6s var(--ease), transform .6s var(--ease); transition-delay: calc(.12s + var(--i) * .055s); }
 }
 @media (prefers-reduced-motion: reduce) {

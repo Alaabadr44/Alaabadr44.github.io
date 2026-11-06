@@ -52,9 +52,9 @@ html[dir='rtl'] #home h1 em::after { transform-origin: 100% 50%; }
 #home .intro { color: var(--dim); max-width: 37rem; margin-block-start: 1rem; font-size: clamp(.98rem, 1.15vw, 1.08rem); }
 #home .cta { display: flex; flex-wrap: wrap; gap: .75rem; margin-block-start: 1.5rem; }
 #home .cta .btn { position: relative; min-height: 3rem; padding-inline: 1.9rem; overflow: hidden; }
-#home .contact-row { justify-content: flex-start; margin-block-start: 1.2rem; gap: .2rem 1.5rem; font-size: .88rem; }
+#home .contact-row { justify-content: flex-start; margin-block-start: 1.2rem; gap: .2rem .6rem; font-size: .88rem; }
 html[dir='rtl'] #home .contact-row { justify-content: flex-end; }
-#home .contact-row a { min-height: 44px; }
+#home .contact-row a { min-height: 44px; min-width: 44px; justify-content: center; }
 #home .contact-row .ic { transition: background-color .2s, transform .25s var(--ease); }
 #home .btn .arrow { transition: transform .25s var(--ease); }
 
@@ -133,7 +133,7 @@ html[dir='rtl'] #home.play .stats::before { animation-name: hero-stitch-rtl; }
   #home .cta .btn:hover::after { transform: translateX(calc(var(--m) * -160%)) skewX(-16deg); }
   #home .btn:hover .arrow { transform: translate(2px, -2px); }
   html[dir='rtl'] #home .btn:hover .arrow { transform: translate(-2px, -2px) scaleX(-1); }
-  #home .contact-row a:hover .ic { background: var(--gold); transform: translateY(-1px); }
+  #home .contact-row :is(a, .rv-btn):hover .ic { background: var(--gold); transform: translateY(-1px); }
 }
 #home .cta .btn:active { transform: scale(.98); }
 
@@ -166,3 +166,5 @@ html[dir='rtl'] #home.play .stats::before { animation-name: hero-stitch-rtl; }
   #home .stat:nth-child(n) { border-block-start: 0; border-inline-start: 1px solid var(--line); padding-inline-start: 1rem; }
   #home .stat:first-child { border-inline-start: 0; padding-inline-start: 0; }
 }
+/* In the hero the numbers strip sits right below, so the details open upward. */
+#home .rv-pop { inset-block-start: auto; inset-block-end: calc(100% + .45rem); }

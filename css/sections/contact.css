@@ -45,7 +45,14 @@ html[lang='ar'] #contact h2 { line-height: 1.3; }
 #contact .ct-wa { position: relative; flex: 0 0 auto; display: inline-flex; align-items: center; gap: .7rem; max-width: 100%; min-height: 3.1rem; padding: .35rem 1.5rem; padding-inline-start: .45rem; border-radius: 99px; background: var(--gold); color: #111; font: 600 clamp(.95rem, 2.9cqi, 1.15rem)/1.2 'Montserrat', sans-serif; transition: background .2s, translate .3s var(--ease); }
 #contact .ct-wa .ic { width: 2.25rem; height: 2.25rem; background: #161617; color: #fff; }
 #contact .ct-wa-name { font-weight: 500; }
-#contact .ct-wa-num { white-space: nowrap; font-variant-numeric: tabular-nums; }
+#contact .rv-m { flex: 1 1 100%; display: flex; min-width: 0; }
+#contact .rv-m .ct-mail { flex: 1; }
+#contact .rv-w { flex: 0 0 auto; }
+#contact button.ct-mail, #contact button.ct-wa { border: 0; cursor: pointer; text-align: start; font-family: 'Montserrat', 'Tajawal', sans-serif; }
+/* Here the details open in place and push the next button down instead of covering it. */
+#contact .ct-act .rv { flex-direction: column; align-items: stretch; }
+#contact .ct-act .rv-pop { position: static; margin-top: .55rem; width: fit-content; max-width: 100%; white-space: normal; overflow-wrap: anywhere; }
+#contact .ct-act .rv-val { font-size: 1.1rem; }
 #contact .cf-again { margin-top: .6rem; min-height: 2.75rem; padding: .2rem 1.1rem; border: 1px solid rgba(255, 255, 255, .28); border-radius: 99px; color: var(--text); font-size: .9rem; transition: border-color .2s, color .2s; }
 #contact a:focus-visible, #contact button:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
 @media (hover: hover) and (pointer: fine) {
@@ -177,7 +184,8 @@ html[lang='ar'] #contact .pill { padding-block: .32rem .12rem; }
   #contact .cf-row { grid-template-columns: minmax(0, 1fr); }
   #contact .cf-send { width: 100%; }
   #contact .ct-mail { display: flex; width: 100%; }
-  #contact .ct-wa { flex: 1 1 100%; justify-content: flex-start; }
+  #contact .rv-w { flex: 1 1 100%; }
+  #contact .rv-w .ct-wa { width: 100%; justify-content: flex-start; }
 }
 @media (max-width: 380px) {
   #contact .ct-wa { gap: .45rem; padding-inline-end: .8rem; font-size: .84rem; }

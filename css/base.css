@@ -86,3 +86,20 @@ html[lang='ar'] h2 { font-weight: 700; line-height: 1.3; }
   .reveal { opacity: 1; transform: none; }
 }
 
+
+/* Reveal-on-tap contact details (email, WhatsApp). */
+.rv { position: relative; display: inline-flex; }
+.rv-btn { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; padding: 0; border: 0; background: none; color: inherit; font: inherit; cursor: pointer; }
+.rv-btn:focus-visible, .contact-row a:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 99px; }
+.rv-pop { position: absolute; z-index: 40; inset-block-start: calc(100% + .45rem); inset-inline-start: 0; padding: .7rem 1rem .75rem; border-radius: 14px; background: #111112; box-shadow: 0 0 0 1px rgba(255, 255, 255, .16), 0 18px 44px rgba(0, 0, 0, .6); white-space: nowrap; text-align: start; animation: rv-in .2s var(--ease, ease) both; }
+.rv-pop[hidden] { display: none; }
+.rv-pop.rv-flip-y { inset-block-start: auto; inset-block-end: calc(100% + .45rem); }
+.rv-pop a { display: grid; gap: .2rem; color: var(--text); }
+.rv-val { font: 600 1rem/1.3 'Montserrat', sans-serif; letter-spacing: .01em; font-variant-numeric: tabular-nums; }
+.rv-pop small { display: inline-flex; align-items: center; gap: .35rem; color: var(--gold); font-size: .82rem; }
+.rv-pop a:hover .rv-val { color: var(--gold); }
+@keyframes rv-in { from { opacity: 0; transform: translateY(-4px); } }
+@media (prefers-reduced-motion: reduce) { .rv-pop { animation: none; } }
+.contact-row .ic { width: 2.3rem; height: 2.3rem; }
+.contact-row .ic svg { width: 18px; height: 18px; }
+.contact-row .rv-btn[aria-expanded='true'] .ic { background: var(--gold); }

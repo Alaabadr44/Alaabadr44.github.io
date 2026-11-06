@@ -1,12 +1,13 @@
 import { PROFILE, UI } from '../data.js';
 import { monstera, plant, icon, stylus } from '../deco.js';
-import { L, T, esc, ext, arrow, state } from '../shared.js';
+import { L, T, esc, ext, arrow, state, reveal } from '../shared.js';
 
 /* The closing moment: an inquiry form that lands in the owner's inbox, beside the direct channels
    and a leather card that the white stylus signs when it scrolls in. */
 const TEXT = {
   mailSubject: { ar: 'استفسار من موقعك', en: 'Question from your website' },
   direct: { ar: 'أو تواصل معي مباشرة', en: 'Or reach me directly' },
+  mailMe: { ar: 'راسلني على البريد الإلكتروني', en: 'Email me' },
   name: { ar: 'اسمك', en: 'Your name' },
   reach: { ar: 'إيميلك أو رقم واتساب', en: 'Your email or WhatsApp' },
   reachHint: { ar: 'لأرد عليك من خلاله', en: 'So I can reply to you' },
@@ -78,8 +79,8 @@ export function render() {
       <div class="ct-side">
         <p class="ct-direct reveal">${T(TEXT.direct)}</p>
         <div class="ct-act reveal">
-          <a class="ct-mail" href="mailto:${PROFILE.email}?subject=${encodeURIComponent(L(TEXT.mailSubject))}"><span dir="ltr">${PROFILE.email}</span><span class="ct-go">${arrow}</span></a>
-          <a class="ct-wa" href="${PROFILE.whatsapp}" ${ext} aria-label="WhatsApp ${PROFILE.whatsappLabel}">${icon('whatsapp')}<span class="ct-wa-name" lang="en">WhatsApp</span><span class="ct-wa-num" dir="ltr">${PROFILE.whatsappLabel}</span></a>
+          ${reveal('mail', { href: `mailto:${PROFILE.email}?subject=${encodeURIComponent(L(TEXT.mailSubject))}`, btnClass: 'ct-mail', wrapClass: 'rv-m', face: `<span>${T(TEXT.mailMe)}</span><span class="ct-go">${arrow}</span>` })}
+          ${reveal('wa', { btnClass: 'ct-wa', wrapClass: 'rv-w', face: `${icon('whatsapp')}<span class="ct-wa-name" lang="en">WhatsApp</span>` })}
         </div>
       <div class="ct-card reveal">
         <div class="ct-sign" dir="ltr" lang="en">

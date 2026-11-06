@@ -5,7 +5,7 @@ import { esc, ext } from '../shared.js';
 /* Persistent WhatsApp button for phones and tablets (CSS shows it under 1024px only).
    Hidden while the hero or the contact section is on screen, which already carry the same channels. */
 export function render() {
-  return `<a class="fab away" id="fab" href="${PROFILE.whatsapp}" ${ext} aria-label="WhatsApp ${esc(PROFILE.whatsappLabel)}"><svg viewBox="0 0 24 24" aria-hidden="true">${icon('whatsapp').replace(/^.*?<svg[^>]*>|<\/svg>.*$/g, '')}</svg></a>`;
+  return `<a class="fab away" id="fab" href="${PROFILE.whatsapp}" ${ext} aria-label="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true">${icon('whatsapp').replace(/^.*?<svg[^>]*>|<\/svg>.*$/g, '')}</svg></a>`;
 }
 
 export function init() {
