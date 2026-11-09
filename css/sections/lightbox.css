@@ -6,7 +6,7 @@
 .lb a:focus-visible, .lb button:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
 .lb-top { display: flex; align-items: center; gap: 1rem; padding: .7rem clamp(1rem, 3vw, 2rem); border-bottom: 1px solid rgba(255, 255, 255, .08); }
 .lb-title { flex: 1; min-width: 0; padding-inline-start: 1rem; border-inline-start: 1px solid rgba(255, 255, 255, .18); line-height: 1.5; font-size: .92rem; color: var(--dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.lb-count { flex: none; color: var(--gold); font: 500 .82rem/1.4 'Montserrat', sans-serif; font-variant-numeric: tabular-nums; }
+.lb-count { flex: none; color: var(--gold); font: 500 .82rem/1.4 var(--latin); font-variant-numeric: tabular-nums; }
 .lb-x { flex: none; width: 2.75rem; height: 2.75rem; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--line); background: rgba(255, 255, 255, .06); transition: background .2s, color .2s, border-color .2s; }
 .lb-stage { position: relative; min-height: 0; overflow: hidden; touch-action: pan-y; }
 .lb-img { position: absolute; inset: 0; margin: auto; max-width: calc(100% - 2 * clamp(.5rem, 5.5vw, 5.5rem)); max-height: calc(100% - 1.6rem); width: auto; height: auto; border-radius: 10px; box-shadow: 0 0 0 1px rgba(255, 255, 255, .08), 0 30px 80px rgba(0, 0, 0, .7); user-select: none; -webkit-user-drag: none; animation: lb-open .36s var(--ease) both; }

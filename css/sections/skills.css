@@ -16,7 +16,7 @@
     #19191a;
   box-shadow: 0 30px 90px rgba(0, 0, 0, .6), inset 0 0 0 1px rgba(255, 255, 255, .05); }
 #skills .sk-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-#skills .sk-svg text { font-family: 'Montserrat', sans-serif; direction: ltr; unicode-bidi: isolate; }
+#skills .sk-svg text { font-family: var(--latin); direction: ltr; unicode-bidi: isolate; }
 #skills .sk-hair { fill: none; stroke: rgba(255, 255, 255, .12); stroke-width: 1; }
 #skills .sk-ring { transform-box: view-box; transform-origin: 50% 50%; transform: rotate(var(--rot)); transition: transform 1.1s var(--ease); }
 #skills .sk-ticks { fill: none; stroke: rgba(255, 255, 255, .3); stroke-width: 1; }
@@ -38,7 +38,7 @@ html[lang='ar'] #skills .sk-row h3 { font-weight: 700; line-height: 1.35; }
 #skills .sk-row p { color: var(--dim); font-size: clamp(1rem, 1.25vw, 1.15rem); max-width: 34rem; transition: color .45s var(--ease); }
 #skills .sk-row.on h3, #skills .sk-row.on p { color: var(--text); }
 #skills .sk-row ul { display: flex; flex-wrap: wrap; gap: .45rem 1.3rem; margin-block-start: 1.4rem; max-width: 36rem; }
-#skills .sk-row li { display: inline-flex; align-items: center; gap: .55rem; font: 500 .86rem/1.5 'Montserrat', sans-serif; letter-spacing: .01em; color: var(--text); }
+#skills .sk-row li { display: inline-flex; align-items: center; gap: .55rem; font: 500 .86rem/1.5 var(--latin); letter-spacing: .01em; color: var(--text); }
 #skills .sk-row li::before { content: ''; width: 1px; height: .85em; background: rgba(255, 255, 255, .34); transition: background .4s var(--ease); }
 #skills .sk-row.on li::before { background: var(--gold); }
 
@@ -74,7 +74,7 @@ html[lang='ar'] #skills .sk-row h3 { font-weight: 700; line-height: 1.35; }
   #skills .sk-row .num {
     align-self: flex-start; padding: .22rem .72rem; border-radius: 99px;
     background: #fff; color: #161617;
-    font: 600 .8rem/1.2 'Montserrat', sans-serif; font-feature-settings: 'tnum';
+    font: 600 .8rem/1.2 var(--latin); font-feature-settings: 'tnum';
   }
   #skills .sk-row h3, html[lang='ar'] #skills .sk-row h3 { margin-block: .85rem .45rem; font-size: clamp(1.4rem, 6.2vw, 1.85rem); color: var(--text); }
   #skills .sk-row p { color: var(--text); font-size: 1rem; line-height: 1.7; }

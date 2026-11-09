@@ -16,7 +16,7 @@
 #career .cr-edu { display: block; max-width: 34rem; }
 
 #career li { --ny: calc(clamp(1.8rem, 3.3vw, 3.1rem) * .6); }
-#career h3 { font: 600 clamp(1.8rem, 3.3vw, 3.1rem)/1.2 'Montserrat', sans-serif; letter-spacing: -.01em; color: #fff; overflow-wrap: anywhere; }
+#career h3 { font: 600 clamp(1.8rem, 3.3vw, 3.1rem)/1.2 var(--latin); letter-spacing: -.01em; color: #fff; overflow-wrap: anywhere; }
 #career .when { color: var(--gold); font-size: clamp(.98rem, 1.2vw, 1.1rem); font-weight: 500; margin-block-start: .55rem; }
 #career .role { color: var(--text); font-size: clamp(1rem, 1.25vw, 1.15rem); }
 

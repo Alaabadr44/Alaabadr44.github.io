@@ -21,9 +21,9 @@ html[lang='ar'] #work .title { font-weight: 700; line-height: 1.35; }
 #work .w > span { display: inline-block; }
 #work .tag { color: var(--gold); font-size: 1rem; }
 #work .desc { color: var(--dim); }
-#work .stack { display: inline-block; font: 400 .78rem/1.6 'Montserrat', sans-serif; color: var(--dim); }
+#work .stack { display: inline-block; font: 400 .78rem/1.6 var(--latin); color: var(--dim); }
 #work .mock-note { color: var(--dim); font-size: .8rem; line-height: 1.5; padding-inline-start: .7rem; border-inline-start: 1px solid var(--line); }
-#work .num { font: 600 .82rem/1 'Montserrat', sans-serif; color: var(--gold); }
+#work .num { font: 600 .82rem/1 var(--latin); color: var(--gold); }
 #work .go { display: inline-flex; align-items: center; gap: .5em; font-size: .88rem; padding-block-end: .2rem; background: linear-gradient(currentColor, currentColor) 0 100% / 100% 1px no-repeat; transition: color .25s var(--ease), gap .25s var(--ease); }
 #work .ch-text:hover .go, #work .ch-text:has(.open:focus-visible) .go { color: var(--gold); gap: .85em; }
 
@@ -73,7 +73,7 @@ html[lang='ar'] #work .title { font-weight: 700; line-height: 1.35; }
 #work .fx-hint { display: none; }
 @media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
   #work .fx-hint { display: flex; align-items: center; gap: .35rem; max-width: 110rem; margin: .9rem auto 0; color: var(--dim); font-size: .84rem; }
-  #work .fx-hint kbd { display: inline-grid; place-items: center; min-width: 1.6rem; height: 1.6rem; font: 500 .82rem/1 'Montserrat', sans-serif; color: var(--text); border: 1px solid var(--line); border-radius: 6px; background: rgba(255, 255, 255, .05); }
+  #work .fx-hint kbd { display: inline-grid; place-items: center; min-width: 1.6rem; height: 1.6rem; font: 500 .82rem/1 var(--latin); color: var(--text); border: 1px solid var(--line); border-radius: 6px; background: rgba(255, 255, 255, .05); }
   #work .fx-hint span { margin-inline-start: .4rem; }
 }
 @media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
@@ -86,7 +86,7 @@ html[lang='ar'] #work .title { font-weight: 700; line-height: 1.35; }
 #work .rail, #work .blade, #work .shade { display: none; }
 #work .ch { display: grid; gap: clamp(1.4rem, 4vw, 2rem); }
 #work .ch-text { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: .7rem; }
-#work .ch-n { font: 300 clamp(2.6rem, 6vw, 5.6rem)/1 'Montserrat', sans-serif; color: rgba(255, 255, 255, .24); display: flex; align-items: baseline; gap: .6rem; }
+#work .ch-n { font: 300 clamp(2.6rem, 6vw, 5.6rem)/1 var(--latin); color: rgba(255, 255, 255, .24); display: flex; align-items: baseline; gap: .6rem; }
 #work .ch-n small { font-size: .8rem; font-weight: 500; color: var(--dim); }
 #work .ch .title { font-size: clamp(1.9rem, 3.3vw, 3.2rem); line-height: 1.12; }
 html[lang='ar'] #work .ch .title { line-height: 1.3; }
@@ -137,7 +137,7 @@ html[lang='ar'] #work .ch .title { line-height: 1.3; }
     transition: background .2s, border-color .2s, color .2s;
   }
   #work .ch-open:hover { background: var(--gold); border-color: var(--gold); color: #101011; }
-  #work .ch-pill { display: block; position: absolute; z-index: 3; inset-block-end: 1.15rem; right: clamp(.8rem, 1.6vw, 1.5rem); padding: .15rem .6rem; font: 500 .74rem/1.5 'Montserrat', sans-serif; font-variant-numeric: tabular-nums; color: #fff; background: rgba(10, 10, 11, .78); border: 1px solid var(--line); border-radius: 99px; pointer-events: none; }
+  #work .ch-pill { display: block; position: absolute; z-index: 3; inset-block-end: 1.15rem; right: clamp(.8rem, 1.6vw, 1.5rem); padding: .15rem .6rem; font: 500 .74rem/1.5 var(--latin); font-variant-numeric: tabular-nums; color: #fff; background: rgba(10, 10, 11, .78); border: 1px solid var(--line); border-radius: 99px; pointer-events: none; }
   [dir='rtl'] #work .ch-pill { right: auto; left: clamp(.8rem, 1.6vw, 1.5rem); }
   #work .ch-pill b { font-weight: 600; color: var(--gold); }
   #work .ch-bar { display: block; position: absolute; z-index: 3; inset-inline: clamp(.5rem, 1.2vw, 1.1rem); inset-block-end: clamp(.14rem, .3vw, .28rem); height: 2px; background: rgba(255, 255, 255, .12); border-radius: 2px; overflow: hidden; pointer-events: none; }
@@ -213,7 +213,7 @@ html[lang='ar'] #work .ch .title { line-height: 1.3; }
   #work .rail { display: flex; grid-column: 2; grid-row: 1 / -1; position: sticky; top: var(--stick); align-self: start; height: var(--h); flex-direction: column; justify-content: space-between; align-items: center; padding-block: .4rem; }
   #work .rail::before, #work .rail-fill { content: ''; position: absolute; top: 0; bottom: 0; inset-inline-start: 50%; width: 1px; background: rgba(255, 255, 255, .15); }
   #work .rail-fill { background: var(--gold); transform: scaleY(var(--progress, 0)); transform-origin: 50% 0; box-shadow: 0 0 10px rgba(143, 209, 173, .55); }
-  #work .rail-n { position: relative; font: 500 .72rem/1 'Montserrat', sans-serif; color: var(--dim); background: #232324; padding: .5rem .1rem; transition: color .4s var(--ease); }
+  #work .rail-n { position: relative; font: 500 .72rem/1 var(--latin); color: var(--dim); background: #232324; padding: .5rem .1rem; transition: color .4s var(--ease); }
   #work .rail-n.on { color: var(--gold); }
 }
 

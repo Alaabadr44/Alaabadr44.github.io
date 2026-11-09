@@ -9,7 +9,7 @@ export function keyboard() {
     ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ';', "'", '↵'],
     ['Z', 'X', 'C', 'V', 'B', 'N', 'M', ',', '.', '/', '▲', '⇧'],
   ];
-  const key = (x, y, w, label, small) => `<g><rect x="${x}" y="${y}" width="${w}" height="46" rx="8" fill="url(#${id})"/><rect x="${x + .5}" y="${y + .5}" width="${w - 1}" height="45" rx="7.5" fill="none" stroke="#4a4a4d" stroke-opacity=".55"/><text x="${x + w / 2}" y="${y + (small ? 40 : 29)}" text-anchor="middle" font-size="${small ? 9.5 : 14}" fill="#d9d9d9" font-family="Montserrat,sans-serif">${label}</text></g>`;
+  const key = (x, y, w, label, small) => `<g><rect x="${x}" y="${y}" width="${w}" height="46" rx="8" fill="url(#${id})"/><rect x="${x + .5}" y="${y + .5}" width="${w - 1}" height="45" rx="7.5" fill="none" stroke="#4a4a4d" stroke-opacity=".55"/><text x="${x + w / 2}" y="${y + (small ? 40 : 29)}" text-anchor="middle" font-size="${small ? 9.5 : 14}" fill="#d9d9d9" font-family="Figtree,sans-serif">${label}</text></g>`;
   let keys = '';
   rows.forEach((row, r) => row.forEach((l, c) => { keys += key(24 + c * 52 + r * 8, 22 + r * 52, 46, l); }));
   const y = 22 + 4 * 52;
