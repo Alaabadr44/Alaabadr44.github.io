@@ -116,5 +116,5 @@ if (location.hash.length > 1 && !location.hash.startsWith('#p/')) {
     if (document.readyState === 'complete') root.style.removeProperty('scroll-behavior');
   });
 }
-if (location.hash.startsWith('#p/')) openDetail(location.hash.slice(3), false);
 trackVisit();
+if (location.hash.startsWith('#p/')) openDetail(location.hash.slice(3), false);

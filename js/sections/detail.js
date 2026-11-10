@@ -1,6 +1,7 @@
 import { PROFILE, SYSTEMS, APPS, OTHERS, UI } from '../data.js';
 import { L, T, esc, arrow, ext, pad, pics, statusChip } from '../shared.js';
 import { mockHTML } from './mock.js';
+import { trackProject } from '../visit.js';
 
 const dialog = document.getElementById('detail');
 const ALL = [...SYSTEMS, ...APPS, ...OTHERS];
@@ -142,6 +143,7 @@ dialog.addEventListener('close', () => dialog.querySelector('video')?.pause());
 export function openDetail(id, push = true, at = 0) {
   const p = ALL.find((x) => x.id === id);
   if (!p) return;
+  trackProject(id);
   clearTimeout(exitTimer);
   dialog.classList.remove('closing');
   wiring?.abort();
