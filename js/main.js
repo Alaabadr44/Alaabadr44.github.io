@@ -12,6 +12,7 @@ import * as voices from './sections/voices.js';
 import * as contact from './sections/contact.js';
 import * as fab from './sections/fab.js';
 import { applySeo } from './seo.js';
+import { trackVisit } from './visit.js';
 
 /* Page order. Each module exports render() -> HTML and may export init() -> optional cleanup. */
 const CONTENT = [hero, apps, systems, skills, career, voices, contact];
@@ -116,3 +117,4 @@ if (location.hash.length > 1 && !location.hash.startsWith('#p/')) {
   });
 }
 if (location.hash.startsWith('#p/')) openDetail(location.hash.slice(3), false);
+trackVisit();
